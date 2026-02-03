@@ -63,6 +63,20 @@
         .msg-label { color: #94a3b8; }
         .msg-value { color: #34d399; }
         
+        /* Demo Banner */
+        .demo-banner { padding: 2rem 1rem; background: linear-gradient(135deg, rgba(167,139,250,0.15), rgba(129,140,248,0.1)); border-top: 1px solid rgba(167,139,250,0.3); border-bottom: 1px solid rgba(167,139,250,0.3); }
+        .demo-banner-inner { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; align-items: center; text-align: center; }
+        @media(min-width:768px) { .demo-banner-inner { flex-direction: row; text-align: initial; justify-content: space-between; } }
+        .demo-banner-content { flex: 1; }
+        .demo-banner-label { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(167,139,250,0.2); border: 1px solid rgba(167,139,250,0.3); border-radius: 50px; padding: 0.3rem 0.8rem; color: #a78bfa; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .demo-banner h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        @media(min-width:768px) { .demo-banner h3 { font-size: 1.5rem; } }
+        .demo-banner p { color: #94a3b8; font-size: 0.9rem; }
+        .demo-banner-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(to right, #a78bfa, #818cf8); padding: 1rem 2rem; border-radius: 12px; font-size: 1rem; font-weight: 600; color: #fff; transition: all 0.3s; box-shadow: 0 4px 15px rgba(167,139,250,0.3); white-space: nowrap; }
+        .demo-banner-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(167,139,250,0.4); }
+        .demo-banner-btn .icon { animation: pulse-icon 2s infinite; }
+        @keyframes pulse-icon { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        
         /* Stats */
         .stats { padding: 3rem 1rem; border-top: 1px solid #1e293b; border-bottom: 1px solid #1e293b; }
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center; max-width: 800px; margin: 0 auto; }
@@ -263,6 +277,31 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- Interactive Demo Banner -->
+<section class="demo-banner">
+    <div class="demo-banner-inner">
+        <div class="demo-banner-content">
+            <div class="demo-banner-label">
+                <i data-lucide="sparkles" class="icon icon-sm"></i>
+                <span class="ar">جديد</span><span class="en">NEW</span>
+            </div>
+            <h3>
+                <span class="ar">جرّب الفوترة الإلكترونية بنفسك</span>
+                <span class="en">Try E-Invoicing Yourself</span>
+            </h3>
+            <p>
+                <span class="ar">شاهد كيف يعمل نظامنا الذكي - من رفع الفاتورة إلى اعتماد زاتكا وإرسالها للعميل</span>
+                <span class="en">See how our AI system works - from invoice upload to ZATCA approval and customer delivery</span>
+            </p>
+        </div>
+        <a href="demo-no-pos.html" class="demo-banner-btn">
+            <i data-lucide="play-circle" class="icon"></i>
+            <span class="ar">ابدأ العرض التفاعلي</span>
+            <span class="en">Start Interactive Demo</span>
+        </a>
     </div>
 </section>
 
