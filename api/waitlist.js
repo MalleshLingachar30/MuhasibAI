@@ -41,10 +41,13 @@ export default async function handler(req, res) {
       ALTER TABLE waitlist ADD COLUMN IF NOT EXISTS email VARCHAR(255)
     `;
 
-    // Check for duplicate phone or email
-    const existing = await sql`SELECT id FROM waitlist WHERE phone = ${phone} OR email = ${email}`;
-    if (existing.length > 0) {
-      return res.status(400).json({ error: 'already_registered', message: 'This phone or email is already on the waitlist' });
+    // Check for duplicate phone or email (allow test number to bypass)
+    const testNumbers = ['0549251252'];
+    if (!testNumbers.includes(phone)) {
+      const existing = await sql`SELECT id FROM waitlist WHERE phone = ${phone} OR email = ${email}`;
+      if (existing.length > 0) {
+        return res.status(400).json({ error: 'already_registered', message: 'This phone or email is already on the waitlist' });
+      }
     }
 
     // Insert into database
