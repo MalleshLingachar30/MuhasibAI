@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كشف الرواتب - يناير 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+        .payroll { max-width: 1000px; margin: 0 auto; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        
+        .header { background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .company-info h1 { font-size: 1.6rem; margin-bottom: 5px; }
+        .company-info p { font-size: 0.85rem; opacity: 0.9; }
+        .payroll-title { text-align: left; }
+        .payroll-title h2 { font-size: 1.5rem; margin-bottom: 5px; }
+        .payroll-title .period { background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 5px; font-size: 0.85rem; display: inline-block; }
+        
+        .meta-bar { display: flex; justify-content: space-between; padding: 15px 30px; background: #eff6ff; border-bottom: 1px solid #bfdbfe; font-size: 0.85rem; }
+        .meta-item { display: flex; align-items: center; gap: 8px; }
+        .meta-item .label { color: #64748b; }
+        .meta-item .value { color: #1e40af; font-weight: 600; }
+        
+        .content { padding: 20px; overflow-x: auto; }
+        
+        table { width: 100%; border-collapse: collapse; min-width: 900px; }
+        th { background: #1e40af; color: white; padding: 12px 8px; text-align: center; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+        th:first-child { text-align: right; border-radius: 0 8px 0 0; }
+        th:last-child { border-radius: 8px 0 0 0; }
+        
+        td { padding: 10px 8px; border-bottom: 1px solid #e2e8f0; font-size: 0.8rem; text-align: center; }
+        td:first-child { text-align: right; }
+        tr:nth-child(even) { background: #f8fafc; }
+        tr:hover { background: #eff6ff; }
+        
+        .emp-info { display: flex; flex-direction: column; gap: 2px; }
+        .emp-name { font-weight: 600; color: #1e293b; }
+        .emp-id { font-size: 0.7rem; color: #64748b; }
+        .emp-position { font-size: 0.75rem; color: #3b82f6; }
+        
+        .amount { font-family: 'Courier New', monospace; }
+        .amount.positive { color: #059669; }
+        .amount.negative { color: #dc2626; }
+        .amount.total { font-weight: 700; color: #1e40af; }
+        
+        .totals-row { background: #1e40af !important; }
+        .totals-row td { color: white; font-weight: 600; border-bottom: none; }
+        .totals-row td:first-child { text-align: center; }
+        
+        .footer { padding: 20px 30px; background: #f8fafc; border-top: 2px solid #1e40af; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; }
+        .footer-section h4 { font-size: 0.85rem; color: #1e40af; margin-bottom: 10px; }
+        .footer-section p { font-size: 0.8rem; color: #64748b; margin: 3px 0; }
+        
+        .summary-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 15px; }
+        .summary-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 0.85rem; }
+        .summary-row.total { border-top: 2px solid #1e40af; margin-top: 10px; padding-top: 10px; font-weight: 700; color: #1e40af; }
+        
+        .signatures { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-top: 30px; }
+        .signature-box { text-align: center; padding-top: 40px; border-top: 1px solid #cbd5e1; }
+        .signature-box p { font-size: 0.8rem; color: #64748b; }
+        .signature-box .name { font-weight: 600; color: #1e293b; margin-top: 5px; }
+        
+        .stamp { width: 80px; height: 80px; border: 2px solid #1e40af; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; }
+        .stamp span { color: #1e40af; font-size: 0.7rem; font-weight: bold; text-align: center; }
+        
+        .notes { background: #fef3c7; border: 1px solid #fbbf24; border-radius: 8px; padding: 12px 15px; margin-top: 20px; font-size: 0.8rem; color: #92400e; }
+        
+        @media print { 
+            body { padding: 0; background: white; } 
+            .payroll { box-shadow: none; }
+            @page { size: landscape; margin: 10mm; }
+        }
+    </style>
+</head>
+<body>
+    <div class="payroll">
+        <div class="header">
+            <div class="company-info">
+                <h1>🏢 مؤسسة الحلول المتكاملة للمقاولات</h1>
+                <p>Integrated Solutions Contracting Est.</p>
+                <p>س.ت: 1010987654 | الرياض، المملكة العربية السعودية</p>
+            </div>
+            <div class="payroll-title">
+                <h2>كشف الرواتب الشهري</h2>
+                <div class="period">يناير 2026 - January 2026</div>
+            </div>
+        </div>
+        
+        <div class="meta-bar">
+            <div class="meta-item">
+                <span class="label">تاريخ الصرف:</span>
+                <span class="value">28 يناير 2026</span>
+            </div>
+            <div class="meta-item">
+                <span class="label">عدد الموظفين:</span>
+                <span class="value">8 موظفين</span>
+            </div>
+            <div class="meta-item">
+                <span class="label">رقم الدفعة:</span>
+                <span class="value">PAY-2026-01</span>
+            </div>
+            <div class="meta-item">
+                <span class="label">الحالة:</span>
+                <span class="value" style="color:#059669;">✓ تم الصرف</span>
+            </div>
+        </div>
+        
+        <div class="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:18%">الموظف</th>
+                        <th style="width:8%">الراتب<br>الأساسي</th>
+                        <th style="width:8%">بدل<br>السكن</th>
+                        <th style="width:8%">بدل<br>المواصلات</th>
+                        <th style="width:8%">بدلات<br>أخرى</th>
+                        <th style="width:8%">إجمالي<br>المستحقات</th>
+                        <th style="width:7%">التأمينات<br>(9.75%)</th>
+                        <th style="width:7%">سلف</th>
+                        <th style="width:7%">خصومات<br>أخرى</th>
+                        <th style="width:8%">إجمالي<br>الخصومات</th>
+                        <th style="width:10%">صافي<br>الراتب</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Employee 1: Manager -->
+                    <tr>
+                        <td>
+                            <div class="emp-info">
+                                <span class="emp-name">أحمد محمد السعيد</span>
+                                <span class="emp-id">EMP-001 | هوية: 1087654321</span>
+                                <span class="emp-position">مدير المشاريع</span>
+                            </div>
+                        </td>
+                        <td class="amount">8,000</td>
+                        <td class="amount">2,000</td>
+                        <td class="amount">500</td>
+                        <td class="amount">500</td>
+                        <td class="amount positive">11,000</td>
+                        <td class="amount negative">780</td>
+                        <td class="amount">-</td>
+                        <td class="amount">-</td>
+                        <td class="amount negative">780</td>
+                        <td class="amount total">10,220</td>
+                    </tr>
+                    
+                    <!-- Employee 2: Accountant -->
+                    <tr>
+                        <td>
+                            <div class="emp-info">
+                                <span class="emp-name">فاطمة عبدالله القحطاني</span>
+                                <span class="emp-id">EMP-002 | هوية: 1098765432</span>
+                                <span class="emp-position">محاسبة</span>
+                            </div>
+                        </td>
+                        <td class="amount">6,000</td>
+                        <td class="amount">1,500</td>
+                        <td class="amount">400</td>
+                        <td class="amount">300</td>
+                        <td class="amount positive">8,200</td>
+                        <td class="amount negative">585</td>
+                        <td class="amount">-</td>
+                        <td class="amount">-</td>
+                        <td class="amount negative">585</td>
+                        <td class="amount total">7,615</td>
+                    </tr>
+                    
+                    <!-- Employee 3: Supervisor -->
+                    <tr>
+                        <td>
+                            <div class="emp-info">
+                                <span class="emp-name">خالد إبراهيم الدوسري</span>
+                                <span class="emp-id">EMP-003 | هوية: 1076543210</span>
+                                <span class="emp-position">مشرف موقع</span>
+                            </div>
+                        </td>
+                        <td class="amount">5,500</td>
+                        <td class="amount">1,375</td>
+                        <td class="amount">400</td>
+                        <td class="amount">200</td>
+                        <td class="amount positive">7,475</td>
+                        <td class="amount negative">536</td>
+                        <td class="amount negative">500</td>
+                        <td class="amount">-</td>
+                        <td class="amount negative">1,036</td>
+                        <td class="amount total">6,439</td>
+                    </tr>
+                    
+                    <!-- Employee 4: Technician 1 -->
+                    <tr>
+                        <td>
+                            <div class="emp-info">
+                                <span class="emp-name">عمر سعيد الغامدي</span>
+                                <span class="emp-id">EMP-004 | هوية: 1065432109</span>
+                                <span class="emp-position">فني كهرباء</span>
+                            </div>
+                        </td>
+                        <td class="amount">4,500</td>
+                        <td class="amount">1,125</td>
+                        <td class="amount">300</td>
+                        <td class="amount">-</td>
+                        <td class="amount positive">5,925</td>
+                        <td class="amount negative">439</td>
+                        <td class="amount">-</td>
+                        <td class="amount">-</td>
+                        <td class="amount negative">439</td>
+                        <td class="amount total">5,486</td>
+                    </tr>
+                    
+                    <!-- Employee 5: Technician 2 -->
+                    <tr>
+                        <td>
+                            <div class="emp-info">
+                                <span class="emp-name">سعد عبدالرحمن المطيري</span>
+                                <span class="emp-id">EMP-005 | هوية: 1054321098</span>
+                                <span class="emp-position">فني سباكة</span>
+                            </div>
+                        </td>
+                        <td class="amount">4,500</td>
+                        <td class="amount">1,125</td>
+                        <td class="amount">300</td>
+                        <td class="amount">-</td>
+                        <td class="amount positive">5,925</td>
+                        <td class="amount negative">439</td>
+                        <td class="amount">-</td>
+                        <td class="amount negative">200</td>
+                        <td class="amount negative">639</td>
+                        <td class="amount total">5,286</td>
+                    </tr>
+                    
+                    <!-- Employee 6: Driver -->
+                    <tr>
+                        <td>
+                            <div class="emp-info">
+                                <span class="emp-name">ماجد حسن العتيبي</span>
+                                <span class="emp-id">EMP-006 | هوية: 1043210987</span>
+                                <span class="emp-position">سائق</span>
+                            </div>
+                        </td>
+                        <td class="amount">3,500</td>
+                        <td class="amount">875</td>
+                        <td class="amount">-</td>
+                        <td class="amount">-</td>
+                        <td class="amount positive">4,375</td>
+                        <td class="amount negative">341</td>
+                        <td class="amount">-</td>
+                        <td class="amount">-</td>
+                        <td class="amount negative">341</td>
+                        <td class="amount total">4,034</td>
+                    </tr>
+                    
+                    <!-- Employee 7: Admin -->
+                    <tr>
+                        <td>
+                            <div class="emp-info">
+                                <span class="emp-name">نورة محمد الشهري</span>
+                                <span class="emp-id">EMP-007 | هوية: 1032109876</span>
+                                <span class="emp-position">سكرتيرة</span>
+                            </div>
+                        </td>
+                        <td class="amount">4,000</td>
+                        <td class="amount">1,000</td>
+                        <td class="amount">300</td>
+                        <td class="amount">-</td>
+                        <td class="amount positive">5,300</td>
+                        <td class="amount negative">390</td>
+                        <td class="amount">-</td>
+                        <td class="amount">-</td>
+                        <td class="amount negative">390</td>
+                        <td class="amount total">4,910</td>
+                    </tr>
+                    
+                    <!-- Employee 8: Worker -->
+                    <tr>
+                        <td>
+                            <div class="emp-info">
+                                <span class="emp-name">يوسف علي الحربي</span>
+                                <span class="emp-id">EMP-008 | هوية: 1021098765</span>
+                                <span class="emp-position">عامل</span>
+                            </div>
+                        </td>
+                        <td class="amount">3,000</td>
+                        <td class="amount">750</td>
+                        <td class="amount">250</td>
+                        <td class="amount">-</td>
+                        <td class="amount positive">4,000</td>
+                        <td class="amount negative">293</td>
+                        <td class="amount">-</td>
+                        <td class="amount">-</td>
+                        <td class="amount negative">293</td>
+                        <td class="amount total">3,707</td>
+                    </tr>
+                    
+                    <!-- Totals Row -->
+                    <tr class="totals-row">
+                        <td><strong>الإجمالي (8 موظفين)</strong></td>
+                        <td class="amount">39,000</td>
+                        <td class="amount">9,750</td>
+                        <td class="amount">2,450</td>
+                        <td class="amount">1,000</td>
+                        <td class="amount">52,200</td>
+                        <td class="amount">3,803</td>
+                        <td class="amount">500</td>
+                        <td class="amount">200</td>
+                        <td class="amount">4,503</td>
+                        <td class="amount"><strong>47,697</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>📊 ملخص الرواتب</h4>
+                    <div class="summary-box">
+                        <div class="summary-row">
+                            <span>إجمالي الرواتب الأساسية:</span>
+                            <span>39,000 ر.س</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>إجمالي البدلات:</span>
+                            <span>13,200 ر.س</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>إجمالي الخصومات:</span>
+                            <span>(4,503) ر.س</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>صافي المستحق:</span>
+                            <span>47,697 ر.س</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>🏦 معلومات التحويل</h4>
+                    <p><strong>البنك:</strong> البنك الأهلي السعودي</p>
+                    <p><strong>رقم الحساب:</strong> SA12 8000 0000 1234 5678 9012</p>
+                    <p><strong>طريقة الصرف:</strong> تحويل بنكي</p>
+                    <p><strong>مرجع العملية:</strong> SAL-JAN-2026-001</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>📋 حصة التأمينات الاجتماعية</h4>
+                    <p><strong>حصة الموظف (9.75%):</strong> 3,803 ر.س</p>
+                    <p><strong>حصة صاحب العمل (11.75%):</strong> 4,581 ر.س</p>
+                    <p><strong>إجمالي التأمينات:</strong> 8,384 ر.س</p>
+                    <p><strong>رقم المنشأة GOSI:</strong> 123456789</p>
+                </div>
+            </div>
+            
+            <div class="signatures">
+                <div class="signature-box">
+                    <div class="stamp"><span>ختم<br>الشركة</span></div>
+                    <p>المدير المالي</p>
+                    <p class="name">م. سلطان الدوسري</p>
+                </div>
+                <div class="signature-box">
+                    <p style="margin-top:30px;">المدير العام</p>
+                    <p class="name">أ. عبدالله الراشد</p>
+                </div>
+            </div>
+            
+            <div class="notes">
+                ⚠️ <strong>ملاحظة:</strong> الرواتب معفاة من ضريبة القيمة المضافة. يتم احتساب التأمينات الاجتماعية على الراتب الأساسي + بدل السكن فقط وفقاً لنظام GOSI.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

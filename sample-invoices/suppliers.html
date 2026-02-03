@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مستندات المصاريف التجريبية | Sample Expense Documents</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #fff; min-height: 100vh; padding: 2rem; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 3rem; }
+        .badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(251,146,60,0.15); border: 1px solid rgba(251,146,60,0.3); border-radius: 50px; padding: 0.5rem 1.25rem; color: #fb923c; font-size: 0.875rem; margin-bottom: 1rem; }
+        h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(to left, #fb923c, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { color: #94a3b8; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+        
+        .instructions { background: rgba(51,65,85,0.5); border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; border: 1px solid #334155; }
+        .instructions h3 { color: #fb923c; margin-bottom: 1rem; font-size: 1.1rem; }
+        .instructions ol { padding-right: 1.5rem; color: #cbd5e1; }
+        .instructions li { margin-bottom: 0.5rem; }
+        .instructions strong { color: #fff; }
+        
+        .invoice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        
+        .invoice-card { background: rgba(30,41,59,0.8); border-radius: 16px; border: 1px solid #334155; overflow: hidden; transition: all 0.3s; }
+        .invoice-card:hover { border-color: #fb923c; transform: translateY(-4px); box-shadow: 0 10px 30px rgba(251,146,60,0.2); }
+        
+        .card-header { padding: 1.25rem; border-bottom: 1px solid #334155; display: flex; align-items: center; gap: 1rem; }
+        .card-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .card-icon.building { background: linear-gradient(135deg, #1e3a5f, #2d5a87); }
+        .card-icon.office { background: linear-gradient(135deg, #6b21a8, #9333ea); }
+        .card-icon.tech { background: linear-gradient(135deg, #0f766e, #14b8a6); }
+        .card-icon.cleaning { background: linear-gradient(135deg, #0284c7, #38bdf8); }
+        .card-icon.food { background: linear-gradient(135deg, #b45309, #f59e0b); }
+        
+        .card-info h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .card-info p { font-size: 0.8rem; color: #64748b; }
+        
+        .card-content { padding: 1.25rem; }
+        .card-row { display: flex; justify-content: space-between; margin-bottom: 0.75rem; font-size: 0.9rem; }
+        .card-row .label { color: #94a3b8; }
+        .card-row .value { color: #fff; font-weight: 500; }
+        .card-row .value.amount { color: #fb923c; font-size: 1.1rem; }
+        
+        .card-actions { padding: 1rem 1.25rem; background: rgba(15,23,42,0.5); border-top: 1px solid #334155; }
+        .open-btn { display: block; width: 100%; padding: 0.875rem; background: linear-gradient(to right, #fb923c, #f97316); border: none; border-radius: 10px; color: #fff; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.3s; text-decoration: none; text-align: center; }
+        .open-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(251,146,60,0.4); }
+        
+        .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: #94a3b8; font-size: 0.9rem; margin-top: 2rem; text-decoration: none; transition: color 0.3s; }
+        .back-link:hover { color: #fb923c; }
+        
+        .tips { margin-top: 3rem; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); border-radius: 12px; padding: 1.5rem; }
+        .tips h4 { color: #34d399; margin-bottom: 1rem; }
+        .tips ul { padding-right: 1.5rem; color: #94a3b8; }
+        .tips li { margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="badge">📄 مستندات تجريبية</div>
+            <h1>مستندات المصاريف</h1>
+            <p class="subtitle">فواتير موردين وكشف رواتب واقعية لاختبار ميزة تتبع المصاريف والتسوية الضريبية</p>
+        </div>
+        
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <div class="badge" style="background: rgba(251,146,60,0.15); border-color: rgba(251,146,60,0.3); color: #fb923c;">🚚 فواتير الموردين (5)</div>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 كيفية الحفظ كـ PDF أو JPG:</h3>
+            <ol>
+                <li>اضغط على <strong>"فتح الفاتورة"</strong> لفتحها في صفحة جديدة</li>
+                <li><strong>للحفظ كـ PDF:</strong> اضغط Ctrl+P (أو Cmd+P على Mac) → اختر "Save as PDF"</li>
+                <li><strong>للحفظ كـ JPG:</strong> التقط صورة للشاشة (Screenshot) واحفظها</li>
+                <li>ارفع الملفات في صفحة الـ Demo لاختبار التسوية التلقائية</li>
+            </ol>
+        </div>
+        
+        <div class="invoice-grid">
+            <!-- Building Materials -->
+            <div class="invoice-card">
+                <div class="card-header">
+                    <div class="card-icon building">🏗️</div>
+                    <div class="card-info">
+                        <h3>مواد البناء الحديثة</h3>
+                        <p>Modern Building Materials</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-row">
+                        <span class="label">رقم الفاتورة:</span>
+                        <span class="value">INV-BM-2026-0847</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">المجموع:</span>
+                        <span class="value amount">12,075.00 ر.س</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الضريبة:</span>
+                        <span class="value">1,575.00 ر.س</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="supplier-1-building-materials.html" target="_blank" class="open-btn">فتح الفاتورة</a>
+                </div>
+            </div>
+            
+            <!-- Office Supplies -->
+            <div class="invoice-card">
+                <div class="card-header">
+                    <div class="card-icon office">📚</div>
+                    <div class="card-info">
+                        <h3>مكتبة الأعمال للقرطاسية</h3>
+                        <p>Business Stationery House</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-row">
+                        <span class="label">رقم الفاتورة:</span>
+                        <span class="value">INV-OS-2026-1592</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">المجموع:</span>
+                        <span class="value amount">2,236.75 ر.س</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الضريبة:</span>
+                        <span class="value">291.75 ر.س</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="supplier-2-office-supplies.html" target="_blank" class="open-btn">فتح الفاتورة</a>
+                </div>
+            </div>
+            
+            <!-- IT Equipment -->
+            <div class="invoice-card">
+                <div class="card-header">
+                    <div class="card-icon tech">💻</div>
+                    <div class="card-info">
+                        <h3>تقنية المستقبل للحاسبات</h3>
+                        <p>Future Tech Computers</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-row">
+                        <span class="label">رقم الفاتورة:</span>
+                        <span class="value">INV-IT-2026-0234</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">المجموع:</span>
+                        <span class="value amount">15,743.50 ر.س</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الضريبة:</span>
+                        <span class="value">2,053.50 ر.س</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="supplier-3-it-equipment.html" target="_blank" class="open-btn">فتح الفاتورة</a>
+                </div>
+            </div>
+            
+            <!-- Cleaning Supplies -->
+            <div class="invoice-card">
+                <div class="card-header">
+                    <div class="card-icon cleaning">🧹</div>
+                    <div class="card-info">
+                        <h3>النظافة الشاملة</h3>
+                        <p>Total Clean Supplies</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-row">
+                        <span class="label">رقم الفاتورة:</span>
+                        <span class="value">INV-CL-2026-0891</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">المجموع:</span>
+                        <span class="value amount">2,490.90 ر.س</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الضريبة:</span>
+                        <span class="value">324.90 ر.س</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="supplier-4-cleaning-supplies.html" target="_blank" class="open-btn">فتح الفاتورة</a>
+                </div>
+            </div>
+            
+            <!-- Food Wholesale -->
+            <div class="invoice-card">
+                <div class="card-header">
+                    <div class="card-icon food">🍽️</div>
+                    <div class="card-info">
+                        <h3>الجملة الغذائية</h3>
+                        <p>Food Wholesale Co.</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-row">
+                        <span class="label">رقم الفاتورة:</span>
+                        <span class="value">INV-FW-2026-2847</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">المجموع:</span>
+                        <span class="value amount">3,456.90 ر.س</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الضريبة:</span>
+                        <span class="value">450.90 ر.س</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="supplier-5-food-wholesale.html" target="_blank" class="open-btn">فتح الفاتورة</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Payroll Section -->
+        <div class="header" style="margin-top: 3rem;">
+            <div class="badge" style="background: rgba(59,130,246,0.15); border-color: rgba(59,130,246,0.3); color: #3b82f6;">👥 كشف الرواتب</div>
+            <h1 style="background: linear-gradient(to left, #3b82f6, #1e40af); -webkit-background-clip: text; font-size: 2rem;">الرواتب والأجور</h1>
+            <p class="subtitle">كشف رواتب شهري واقعي لمنشأة صغيرة</p>
+        </div>
+        
+        <div class="invoice-grid" style="grid-template-columns: 1fr;">
+            <!-- Payroll -->
+            <div class="invoice-card" style="max-width: 500px; margin: 0 auto;">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #1e40af, #3b82f6);">👥</div>
+                    <div class="card-info">
+                        <h3>كشف رواتب يناير 2026</h3>
+                        <p>مؤسسة الحلول المتكاملة للمقاولات</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-row">
+                        <span class="label">رقم الدفعة:</span>
+                        <span class="value">PAY-2026-01</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">عدد الموظفين:</span>
+                        <span class="value">8 موظفين</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">صافي الرواتب:</span>
+                        <span class="value amount">47,697.00 ر.س</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الضريبة:</span>
+                        <span class="value" style="color: #64748b;">معفاة (0%)</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="payroll-january-2026.html" target="_blank" class="open-btn" style="background: linear-gradient(to right, #3b82f6, #1e40af);">فتح كشف الرواتب</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rent Section -->
+        <div class="header" style="margin-top: 3rem;">
+            <div class="badge" style="background: rgba(194,65,12,0.15); border-color: rgba(194,65,12,0.3); color: #c2410c;">🏢 إيصال الإيجار</div>
+            <h1 style="background: linear-gradient(to left, #c2410c, #ea580c); -webkit-background-clip: text; font-size: 2rem;">الإيجار</h1>
+            <p class="subtitle">إيصال إيجار مكتب تجاري شهري</p>
+        </div>
+        
+        <div class="invoice-grid" style="grid-template-columns: 1fr;">
+            <!-- Rent Receipt -->
+            <div class="invoice-card" style="max-width: 500px; margin: 0 auto;">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #7c2d12, #c2410c);">🏢</div>
+                    <div class="card-info">
+                        <h3>إيصال إيجار يناير 2026</h3>
+                        <p>مؤسسة العقارات المتميزة</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-row">
+                        <span class="label">رقم الإيصال:</span>
+                        <span class="value">RNT-2026-01-0042</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">نوع العقار:</span>
+                        <span class="value">مكتب تجاري (120 م²)</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الإجمالي:</span>
+                        <span class="value amount">9,775.00 ر.س</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الضريبة:</span>
+                        <span class="value">1,275.00 ر.س (15%)</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="rent-receipt-january-2026.html" target="_blank" class="open-btn" style="background: linear-gradient(to right, #c2410c, #ea580c);">فتح إيصال الإيجار</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Miscellaneous Section -->
+        <div class="header" style="margin-top: 3rem;">
+            <div class="badge" style="background: rgba(100,116,139,0.15); border-color: rgba(100,116,139,0.3); color: #64748b;">📋 مصاريف متنوعة</div>
+            <h1 style="background: linear-gradient(to left, #64748b, #475569); -webkit-background-clip: text; font-size: 2rem;">مصاريف أخرى</h1>
+            <p class="subtitle">كهرباء، مياه، إنترنت، صيانة، ومشتريات متنوعة</p>
+        </div>
+        
+        <div class="invoice-grid">
+            <!-- Electricity -->
+            <div class="invoice-card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #0369a1, #0ea5e9);">⚡</div>
+                    <div class="card-info">
+                        <h3>فاتورة الكهرباء</h3>
+                        <p>الشركة السعودية للكهرباء</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-row">
+                        <span class="label">رقم الفاتورة:</span>
+                        <span class="value">SEC-2026-01-847291</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الإجمالي:</span>
+                        <span class="value amount">606.51 ر.س</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الضريبة:</span>
+                        <span class="value">79.11 ر.س</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="misc-1-electricity.html" target="_blank" class="open-btn" style="background: linear-gradient(to right, #0369a1, #0ea5e9);">فتح الفاتورة</a>
+                </div>
+            </div>
+            
+            <!-- Water -->
+            <div class="invoice-card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #0891b2, #22d3ee);">💧</div>
+                    <div class="card-info">
+                        <h3>فاتورة المياه</h3>
+                        <p>شركة المياه الوطنية</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-row">
+                        <span class="label">رقم الفاتورة:</span>
+                        <span class="value">NWC-2026-01-562839</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الإجمالي:</span>
+                        <span class="value amount">466.90 ر.س</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الضريبة:</span>
+                        <span class="value">60.90 ر.س</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="misc-2-water.html" target="_blank" class="open-btn" style="background: linear-gradient(to right, #0891b2, #22d3ee);">فتح الفاتورة</a>
+                </div>
+            </div>
+            
+            <!-- Internet -->
+            <div class="invoice-card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #7c3aed, #a78bfa);">🌐</div>
+                    <div class="card-info">
+                        <h3>فاتورة الإنترنت</h3>
+                        <p>STC - باقة الأعمال</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-row">
+                        <span class="label">رقم الفاتورة:</span>
+                        <span class="value">STC-2026-01-738291</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الإجمالي:</span>
+                        <span class="value amount">603.75 ر.س</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الضريبة:</span>
+                        <span class="value">78.75 ر.س</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="misc-3-internet.html" target="_blank" class="open-btn" style="background: linear-gradient(to right, #7c3aed, #a78bfa);">فتح الفاتورة</a>
+                </div>
+            </div>
+            
+            <!-- Maintenance -->
+            <div class="invoice-card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #dc2626, #f87171);">🔧</div>
+                    <div class="card-info">
+                        <h3>فاتورة صيانة</h3>
+                        <p>صيانة تكييف وكهرباء</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-row">
+                        <span class="label">رقم الفاتورة:</span>
+                        <span class="value">MNT-2026-01-0156</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الإجمالي:</span>
+                        <span class="value amount">1,420.25 ر.س</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الضريبة:</span>
+                        <span class="value">185.25 ر.س</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="misc-4-maintenance.html" target="_blank" class="open-btn" style="background: linear-gradient(to right, #dc2626, #f87171);">فتح الفاتورة</a>
+                </div>
+            </div>
+            
+            <!-- Office Furniture -->
+            <div class="invoice-card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #ca8a04, #facc15);">🪑</div>
+                    <div class="card-info">
+                        <h3>أثاث مكتبي</h3>
+                        <p>كراسي وخزائن ومستلزمات</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-row">
+                        <span class="label">رقم الفاتورة:</span>
+                        <span class="value">FRN-2026-01-2847</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الإجمالي:</span>
+                        <span class="value amount">3,087.75 ر.س</span>
+                    </div>
+                    <div class="card-row">
+                        <span class="label">الضريبة:</span>
+                        <span class="value">402.75 ر.س</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="misc-5-office-furniture.html" target="_blank" class="open-btn" style="background: linear-gradient(to right, #ca8a04, #facc15); color: #422006;">فتح الفاتورة</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tips">
+            <h4>💡 ملخص جميع المصاريف:</h4>
+            <ul>
+                <li><strong>فواتير الموردين (5):</strong> 36,003.05 ر.س (ضريبة: 4,696.05 ر.س)</li>
+                <li><strong>الرواتب والأجور (8 موظفين):</strong> 47,697.00 ر.س (معفاة)</li>
+                <li><strong>الإيجار:</strong> 9,775.00 ر.س (ضريبة: 1,275.00 ر.س)</li>
+                <li><strong>مصاريف متنوعة (5):</strong> 6,185.16 ر.س (ضريبة: 806.76 ر.س)</li>
+                <li style="border-top: 1px solid rgba(52,211,153,0.3); padding-top: 10px; margin-top: 10px;"><strong>إجمالي المصاريف:</strong> 99,660.21 ر.س</li>
+                <li><strong>إجمالي ضريبة المدخلات:</strong> 6,777.81 ر.س (قابلة للاسترداد)</li>
+            </ul>
+        </div>
+        
+        <a href="../demo-no-pos.html" class="back-link">
+            ← العودة للـ Demo
+        </a>
+    </div>
+</body>
+</html>

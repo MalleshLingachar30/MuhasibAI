@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فاتورة مورد - مواد البناء الحديثة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+        .invoice { max-width: 800px; margin: 0 auto; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #1e3a5f, #2d5a87); color: white; padding: 30px; display: flex; justify-content: space-between; align-items: flex-start; }
+        .company-info h1 { font-size: 1.8rem; margin-bottom: 10px; }
+        .company-info p { font-size: 0.9rem; opacity: 0.9; margin: 3px 0; }
+        .invoice-title { text-align: left; }
+        .invoice-title h2 { font-size: 2rem; margin-bottom: 10px; }
+        .invoice-title .invoice-num { background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 5px; font-size: 0.9rem; }
+        .invoice-meta { display: flex; justify-content: space-between; padding: 25px 30px; background: #f8f9fa; border-bottom: 1px solid #e0e0e0; }
+        .meta-box h4 { font-size: 0.8rem; color: #666; text-transform: uppercase; margin-bottom: 8px; }
+        .meta-box p { font-size: 0.95rem; color: #333; }
+        .content { padding: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        th { background: #1e3a5f; color: white; padding: 12px 15px; text-align: right; font-size: 0.9rem; }
+        th:last-child { text-align: left; }
+        td { padding: 12px 15px; border-bottom: 1px solid #e0e0e0; font-size: 0.9rem; }
+        td:last-child { text-align: left; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        .totals { margin-right: auto; width: 300px; }
+        .total-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e0e0e0; }
+        .total-row.grand { border-bottom: none; border-top: 2px solid #1e3a5f; margin-top: 10px; padding-top: 15px; font-size: 1.2rem; font-weight: bold; color: #1e3a5f; }
+        .footer { background: #f8f9fa; padding: 20px 30px; border-top: 1px solid #e0e0e0; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .footer h4 { font-size: 0.85rem; color: #1e3a5f; margin-bottom: 10px; }
+        .footer p { font-size: 0.85rem; color: #666; margin: 3px 0; }
+        .stamp { text-align: center; padding: 20px; }
+        .stamp-box { display: inline-block; border: 2px solid #1e3a5f; border-radius: 50%; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
+        .stamp-box span { color: #1e3a5f; font-weight: bold; font-size: 0.8rem; text-align: center; }
+        .vat-note { background: #fff3cd; border: 1px solid #ffc107; border-radius: 5px; padding: 10px 15px; margin-top: 20px; font-size: 0.85rem; color: #856404; }
+        @media print { body { padding: 0; background: white; } .invoice { box-shadow: none; } }
+    </style>
+</head>
+<body>
+    <div class="invoice">
+        <div class="header">
+            <div class="company-info">
+                <h1>🏗️ مواد البناء الحديثة</h1>
+                <p>Modern Building Materials Co.</p>
+                <p>المنطقة الصناعية، الرياض 12345</p>
+                <p>هاتف: 011-456-7890</p>
+                <p><strong>الرقم الضريبي:</strong> 300456789012345</p>
+            </div>
+            <div class="invoice-title">
+                <h2>فاتورة ضريبية</h2>
+                <div class="invoice-num">INV-BM-2026-0847</div>
+            </div>
+        </div>
+        
+        <div class="invoice-meta">
+            <div class="meta-box">
+                <h4>معلومات العميل</h4>
+                <p><strong>شركة البناء المتميز</strong></p>
+                <p>الرياض، المملكة العربية السعودية</p>
+                <p>الرقم الضريبي: 310987654321098</p>
+            </div>
+            <div class="meta-box">
+                <h4>تفاصيل الفاتورة</h4>
+                <p><strong>التاريخ:</strong> 2026-02-01</p>
+                <p><strong>تاريخ الاستحقاق:</strong> 2026-03-01</p>
+                <p><strong>طريقة الدفع:</strong> تحويل بنكي</p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:50%">الوصف</th>
+                        <th style="width:15%;text-align:center;">الكمية</th>
+                        <th style="width:15%;text-align:center;">السعر</th>
+                        <th style="width:20%">المجموع</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>أسمنت بورتلاند (50 كجم)</td>
+                        <td style="text-align:center;">50 كيس</td>
+                        <td style="text-align:center;">25.00</td>
+                        <td>1,250.00</td>
+                    </tr>
+                    <tr>
+                        <td>حديد تسليح 12 مم</td>
+                        <td style="text-align:center;">2 طن</td>
+                        <td style="text-align:center;">3,200.00</td>
+                        <td>6,400.00</td>
+                    </tr>
+                    <tr>
+                        <td>رمل ناعم للبناء</td>
+                        <td style="text-align:center;">10 م³</td>
+                        <td style="text-align:center;">80.00</td>
+                        <td>800.00</td>
+                    </tr>
+                    <tr>
+                        <td>بلوك خرساني 20×20×40</td>
+                        <td style="text-align:center;">500 قطعة</td>
+                        <td style="text-align:center;">3.50</td>
+                        <td>1,750.00</td>
+                    </tr>
+                    <tr>
+                        <td>توصيل للموقع</td>
+                        <td style="text-align:center;">1</td>
+                        <td style="text-align:center;">300.00</td>
+                        <td>300.00</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="totals">
+                <div class="total-row">
+                    <span>المجموع الفرعي:</span>
+                    <span>10,500.00 ر.س</span>
+                </div>
+                <div class="total-row">
+                    <span>ضريبة القيمة المضافة (15%):</span>
+                    <span>1,575.00 ر.س</span>
+                </div>
+                <div class="total-row grand">
+                    <span>الإجمالي:</span>
+                    <span>12,075.00 ر.س</span>
+                </div>
+            </div>
+            
+            <div class="vat-note">
+                ⚠️ هذه فاتورة ضريبية صادرة وفقاً لمتطلبات هيئة الزكاة والضريبة والجمارك (ZATCA)
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-grid">
+                <div>
+                    <h4>معلومات الدفع</h4>
+                    <p>البنك: البنك الأهلي السعودي</p>
+                    <p>رقم الحساب: SA12 3456 7890 1234 5678 9012</p>
+                    <p>اسم الحساب: مواد البناء الحديثة</p>
+                </div>
+                <div class="stamp">
+                    <div class="stamp-box">
+                        <span>ختم<br>الشركة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

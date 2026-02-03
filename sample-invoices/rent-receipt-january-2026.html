@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إيصال إيجار - يناير 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+        .receipt { max-width: 800px; margin: 0 auto; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 0 0 12px 12px; overflow: hidden; }
+        
+        .header { background: linear-gradient(135deg, #7c2d12, #c2410c); color: white; padding: 30px; position: relative; }
+        .header::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: linear-gradient(to right, #fbbf24, #f59e0b, #fbbf24); }
+        .header-content { display: flex; justify-content: space-between; align-items: flex-start; }
+        .landlord-info h1 { font-size: 1.6rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .landlord-info p { font-size: 0.85rem; opacity: 0.9; margin: 3px 0; }
+        .receipt-title { text-align: left; }
+        .receipt-title h2 { font-size: 1.8rem; margin-bottom: 8px; }
+        .receipt-title .receipt-num { background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 5px; font-size: 0.9rem; display: inline-block; }
+        
+        .property-banner { background: linear-gradient(135deg, #fef3c7, #fde68a); padding: 20px 30px; border-bottom: 1px solid #fbbf24; }
+        .property-details { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .property-item { text-align: center; }
+        .property-item .icon { font-size: 1.5rem; margin-bottom: 5px; }
+        .property-item .label { font-size: 0.75rem; color: #92400e; text-transform: uppercase; margin-bottom: 3px; }
+        .property-item .value { font-size: 0.9rem; font-weight: 600; color: #78350f; }
+        
+        .content { padding: 30px; }
+        
+        .parties-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
+        .party-box { background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 12px; padding: 20px; }
+        .party-box.landlord { border-color: #c2410c; border-top: 3px solid #c2410c; }
+        .party-box.tenant { border-color: #16a34a; border-top: 3px solid #16a34a; }
+        .party-box h3 { font-size: 0.8rem; color: #78716c; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .party-box.landlord h3 { color: #c2410c; }
+        .party-box.tenant h3 { color: #16a34a; }
+        .party-box .name { font-size: 1.1rem; font-weight: 700; color: #1c1917; margin-bottom: 8px; }
+        .party-box p { font-size: 0.85rem; color: #57534e; margin: 4px 0; }
+        .party-box .tax-id { background: #f5f5f4; padding: 6px 10px; border-radius: 5px; font-size: 0.8rem; margin-top: 10px; display: inline-block; }
+        
+        .rent-details { background: linear-gradient(135deg, #fef3c7, #fff7ed); border: 2px solid #fbbf24; border-radius: 16px; padding: 25px; margin-bottom: 30px; }
+        .rent-header { text-align: center; margin-bottom: 20px; }
+        .rent-header h3 { font-size: 1rem; color: #92400e; margin-bottom: 5px; }
+        .rent-period { background: #c2410c; color: white; padding: 8px 20px; border-radius: 50px; display: inline-block; font-size: 0.9rem; font-weight: 600; }
+        
+        .rent-breakdown { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .rent-item { background: white; border-radius: 10px; padding: 15px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .rent-item .label { font-size: 0.8rem; color: #78716c; margin-bottom: 5px; }
+        .rent-item .amount { font-size: 1.5rem; font-weight: 700; color: #1c1917; }
+        .rent-item .amount small { font-size: 0.7rem; color: #a8a29e; }
+        .rent-item.total { grid-column: span 2; background: linear-gradient(135deg, #c2410c, #ea580c); }
+        .rent-item.total .label { color: rgba(255,255,255,0.8); }
+        .rent-item.total .amount { color: white; font-size: 2rem; }
+        
+        .payment-info { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
+        .info-box { background: #f5f5f4; border-radius: 12px; padding: 20px; }
+        .info-box h4 { font-size: 0.85rem; color: #c2410c; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .info-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #d6d3d1; font-size: 0.85rem; }
+        .info-row:last-child { border-bottom: none; }
+        .info-row .label { color: #78716c; }
+        .info-row .value { color: #1c1917; font-weight: 500; }
+        
+        .contract-ref { background: #ecfdf5; border: 1px solid #86efac; border-radius: 10px; padding: 15px 20px; margin-bottom: 30px; display: flex; align-items: center; gap: 15px; }
+        .contract-ref .icon { font-size: 2rem; }
+        .contract-ref .details { flex: 1; }
+        .contract-ref .details h4 { font-size: 0.9rem; color: #166534; margin-bottom: 3px; }
+        .contract-ref .details p { font-size: 0.8rem; color: #4ade80; }
+        .contract-ref .ref-num { background: #166534; color: white; padding: 8px 15px; border-radius: 8px; font-family: monospace; font-size: 0.85rem; }
+        
+        .signatures { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; margin-top: 30px; padding-top: 30px; border-top: 2px solid #e7e5e4; }
+        .signature-box { text-align: center; }
+        .signature-line { border-bottom: 1px solid #a8a29e; height: 60px; margin-bottom: 10px; }
+        .signature-box p { font-size: 0.8rem; color: #78716c; }
+        .signature-box .role { font-weight: 600; color: #1c1917; margin-top: 5px; }
+        
+        .stamp-area { text-align: center; }
+        .stamp { width: 90px; height: 90px; border: 3px solid #c2410c; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; background: rgba(194,65,12,0.05); }
+        .stamp span { color: #c2410c; font-size: 0.75rem; font-weight: bold; text-align: center; line-height: 1.2; }
+        
+        .footer-note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 15px 20px; margin-top: 20px; font-size: 0.8rem; color: #92400e; }
+        .footer-note strong { color: #c2410c; }
+        
+        .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 4rem; color: rgba(194,65,12,0.05); font-weight: bold; pointer-events: none; white-space: nowrap; }
+        
+        @media print { 
+            body { padding: 0; background: white; } 
+            .receipt { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt">
+        <div class="header">
+            <div class="header-content">
+                <div class="landlord-info">
+                    <h1>🏢 مؤسسة العقارات المتميزة</h1>
+                    <p>Premium Real Estate Est.</p>
+                    <p>ترخيص عقاري رقم: 1200123456</p>
+                    <p>الرياض، حي العليا، شارع التحلية</p>
+                    <p>هاتف: 011-456-7890 | جوال: 055-123-4567</p>
+                    <p><strong>الرقم الضريبي:</strong> 300567891234567</p>
+                </div>
+                <div class="receipt-title">
+                    <h2>إيصال إيجار</h2>
+                    <div class="receipt-num">RNT-2026-01-0042</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="property-banner">
+            <div class="property-details">
+                <div class="property-item">
+                    <div class="icon">🏬</div>
+                    <div class="label">نوع العقار</div>
+                    <div class="value">مكتب تجاري</div>
+                </div>
+                <div class="property-item">
+                    <div class="icon">📍</div>
+                    <div class="label">الموقع</div>
+                    <div class="value">برج الأعمال، الدور 5</div>
+                </div>
+                <div class="property-item">
+                    <div class="icon">📐</div>
+                    <div class="label">المساحة</div>
+                    <div class="value">120 م²</div>
+                </div>
+                <div class="property-item">
+                    <div class="icon">🔑</div>
+                    <div class="label">رقم الوحدة</div>
+                    <div class="value">505</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="parties-grid">
+                <div class="party-box landlord">
+                    <h3>👤 المؤجر (المالك)</h3>
+                    <div class="name">مؤسسة العقارات المتميزة</div>
+                    <p>ممثلة بـ: عبدالعزيز محمد الراشد</p>
+                    <p>س.ت: 1010567890</p>
+                    <p>الرياض، المملكة العربية السعودية</p>
+                    <div class="tax-id">الرقم الضريبي: 300567891234567</div>
+                </div>
+                <div class="party-box tenant">
+                    <h3>🏢 المستأجر</h3>
+                    <div class="name">مؤسسة الحلول المتكاملة للمقاولات</div>
+                    <p>ممثلة بـ: عبدالله سعيد الدوسري</p>
+                    <p>س.ت: 1010987654</p>
+                    <p>الرياض، المملكة العربية السعودية</p>
+                    <div class="tax-id">الرقم الضريبي: 310987654321098</div>
+                </div>
+            </div>
+            
+            <div class="rent-details">
+                <div class="rent-header">
+                    <h3>تفاصيل الإيجار الشهري</h3>
+                    <div class="rent-period">يناير 2026 (01/01 - 31/01)</div>
+                </div>
+                <div class="rent-breakdown">
+                    <div class="rent-item">
+                        <div class="label">الإيجار الأساسي</div>
+                        <div class="amount">8,000 <small>ر.س</small></div>
+                    </div>
+                    <div class="rent-item">
+                        <div class="label">رسوم الخدمات</div>
+                        <div class="amount">500 <small>ر.س</small></div>
+                    </div>
+                    <div class="rent-item">
+                        <div class="label">المجموع قبل الضريبة</div>
+                        <div class="amount">8,500 <small>ر.س</small></div>
+                    </div>
+                    <div class="rent-item">
+                        <div class="label">ضريبة القيمة المضافة (15%)</div>
+                        <div class="amount">1,275 <small>ر.س</small></div>
+                    </div>
+                    <div class="rent-item total">
+                        <div class="label">الإجمالي المستحق</div>
+                        <div class="amount">9,775 <small>ر.س</small></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-info">
+                <div class="info-box">
+                    <h4>💳 معلومات الدفع</h4>
+                    <div class="info-row">
+                        <span class="label">طريقة الدفع:</span>
+                        <span class="value">تحويل بنكي</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">تاريخ الدفع:</span>
+                        <span class="value">01 يناير 2026</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">رقم العملية:</span>
+                        <span class="value">TRX-20260101-8847</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">الحالة:</span>
+                        <span class="value" style="color:#16a34a; font-weight:600;">✓ تم السداد</span>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <h4>🏦 الحساب البنكي للمؤجر</h4>
+                    <div class="info-row">
+                        <span class="label">البنك:</span>
+                        <span class="value">البنك الأهلي السعودي</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">رقم الحساب:</span>
+                        <span class="value">SA44 1000 0012 3456 7890 1234</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">اسم الحساب:</span>
+                        <span class="value">مؤسسة العقارات المتميزة</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contract-ref">
+                <div class="icon">📋</div>
+                <div class="details">
+                    <h4>مرجع عقد الإيجار</h4>
+                    <p>عقد إيجار تجاري موثق في منصة إيجار</p>
+                </div>
+                <div class="ref-num">EJAR-7654321098</div>
+            </div>
+            
+            <div class="signatures">
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <p>توقيع المؤجر</p>
+                    <p class="role">عبدالعزيز الراشد</p>
+                </div>
+                <div class="stamp-area">
+                    <div class="stamp">
+                        <span>ختم<br>المؤسسة<br>العقارية</span>
+                    </div>
+                    <p style="font-size:0.75rem;color:#78716c;">الختم الرسمي</p>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <p>توقيع المستأجر</p>
+                    <p class="role">عبدالله الدوسري</p>
+                </div>
+            </div>
+            
+            <div class="footer-note">
+                <strong>⚠️ ملاحظة هامة:</strong> هذا الإيصال يعتبر سنداً رسمياً باستلام مبلغ الإيجار المذكور أعلاه. الإيجار التجاري خاضع لضريبة القيمة المضافة بنسبة 15% وفقاً لأنظمة هيئة الزكاة والضريبة والجمارك. يرجى الاحتفاظ بهذا الإيصال لأغراض المحاسبة والضرائب.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

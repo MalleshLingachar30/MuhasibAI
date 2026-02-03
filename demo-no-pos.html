@@ -211,6 +211,202 @@
             .demo-card { min-height: auto; }
             .page-title { font-size: 1.75rem; }
         }
+        
+        /* ============================================== */
+        /* ACCOUNTING SECTION STYLES */
+        /* ============================================== */
+        
+        .accounting-section { margin-top: 3rem; animation: fadeIn 0.8s ease forwards; }
+        
+        /* Section Divider */
+        .section-divider { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2.5rem; }
+        .divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, #334155, transparent); }
+        .divider-badge { display: flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, rgba(52,211,153,0.15), rgba(34,211,209,0.1)); border: 1px solid rgba(52,211,153,0.3); border-radius: 50px; padding: 0.75rem 1.5rem; color: #34d399; font-size: 0.9rem; font-weight: 600; }
+        
+        .accounting-header { text-align: center; margin-bottom: 2rem; }
+        .gradient-text-green { background: linear-gradient(to left, #34d399, #22d3d1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        
+        /* Two Column Grid */
+        .accounting-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+        @media(max-width: 1024px) { .accounting-grid { grid-template-columns: 1fr; } }
+        
+        /* Panel Styles */
+        .accounting-panel { background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.9)); border-radius: 20px; border: 1px solid #1e293b; overflow: hidden; transition: all 0.3s; }
+        .accounting-panel:hover { border-color: rgba(52,211,153,0.3); }
+        .sales-panel:hover { border-color: rgba(52,211,153,0.5); }
+        .expenses-panel:hover { border-color: rgba(251,146,60,0.5); }
+        
+        .panel-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid #1e293b; display: flex; align-items: center; gap: 1rem; }
+        .panel-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .panel-icon.sales { background: linear-gradient(135deg, rgba(52,211,153,0.2), rgba(34,211,209,0.2)); color: #34d399; }
+        .panel-icon.expenses { background: linear-gradient(135deg, rgba(251,146,60,0.2), rgba(249,115,22,0.2)); color: #fb923c; }
+        .panel-label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+        .panel-title { font-size: 1rem; font-weight: 700; }
+        .panel-status { margin-right: auto; margin-left: 0; }
+        [dir="ltr"] .panel-status { margin-left: auto; margin-right: 0; }
+        
+        .panel-content { padding: 1.5rem; }
+        
+        /* Summary Cards */
+        .summary-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.5rem; }
+        .summary-card { background: rgba(51,65,85,0.3); border-radius: 12px; padding: 1rem; text-align: center; transition: all 0.3s; }
+        .summary-card.highlight { background: rgba(52,211,153,0.15); border: 1px solid rgba(52,211,153,0.3); }
+        .summary-icon { color: #64748b; margin-bottom: 0.5rem; }
+        .summary-card.highlight .summary-icon { color: #34d399; }
+        .summary-value { font-size: 1.25rem; font-weight: 700; color: #fff; }
+        .summary-card.highlight .summary-value { color: #34d399; }
+        .summary-label { font-size: 0.7rem; color: #64748b; margin-top: 0.25rem; }
+        
+        /* Invoice List */
+        .invoice-list { background: rgba(15,23,42,0.5); border-radius: 12px; padding: 1rem; margin-bottom: 1rem; }
+        .list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; font-size: 0.85rem; color: #94a3b8; }
+        .list-count { background: rgba(52,211,153,0.2); color: #34d399; padding: 0.15rem 0.5rem; border-radius: 50px; font-size: 0.75rem; }
+        
+        .invoice-items { max-height: 200px; overflow-y: auto; }
+        .invoice-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: rgba(51,65,85,0.2); border-radius: 10px; margin-bottom: 0.5rem; transition: all 0.3s; }
+        .invoice-item:hover { background: rgba(51,65,85,0.4); }
+        .invoice-item:last-child { margin-bottom: 0; }
+        .invoice-item-icon { width: 36px; height: 36px; background: rgba(52,211,153,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #34d399; flex-shrink: 0; }
+        .invoice-item-details { flex: 1; min-width: 0; }
+        .invoice-item-title { font-size: 0.8rem; font-weight: 600; color: #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .invoice-item-meta { font-size: 0.7rem; color: #64748b; }
+        .invoice-item-amount { text-align: left; }
+        [dir="ltr"] .invoice-item-amount { text-align: right; }
+        .invoice-item-amount .amount { font-size: 0.9rem; font-weight: 600; color: #34d399; }
+        .invoice-item-amount .amount small { font-size: 0.65rem; color: #64748b; }
+        .vat-badge { font-size: 0.65rem; color: #64748b; }
+        
+        .add-invoice-btn { width: 100%; padding: 0.75rem; background: rgba(52,211,153,0.1); border: 1px dashed rgba(52,211,153,0.3); border-radius: 10px; color: #34d399; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .add-invoice-btn:hover { background: rgba(52,211,153,0.2); border-style: solid; }
+        
+        /* Expense Categories */
+        .expense-categories { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem; }
+        .expense-category { background: rgba(15,23,42,0.5); border-radius: 12px; overflow: hidden; border: 1px solid transparent; transition: all 0.3s; }
+        .expense-category.active { border-color: rgba(251,146,60,0.3); }
+        .expense-category.has-expenses { border-color: rgba(52,211,153,0.3); }
+        
+        .category-header { display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; cursor: pointer; transition: all 0.3s; }
+        .category-header:hover { background: rgba(51,65,85,0.3); }
+        .category-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .category-icon.suppliers { background: rgba(96,165,250,0.2); color: #60a5fa; }
+        .category-icon.salaries { background: rgba(167,139,250,0.2); color: #a78bfa; }
+        .category-icon.rent { background: rgba(251,146,60,0.2); color: #fb923c; }
+        .category-icon.misc { background: rgba(148,163,184,0.2); color: #94a3b8; }
+        .category-info { flex: 1; }
+        .category-title { font-size: 0.85rem; font-weight: 600; color: #e2e8f0; }
+        .category-hint { font-size: 0.7rem; color: #64748b; }
+        .category-amount { font-size: 0.85rem; font-weight: 600; color: #64748b; transition: color 0.3s; }
+        .expense-category.has-expenses .category-amount { color: #34d399; }
+        .category-chevron { color: #64748b; transition: transform 0.3s; }
+        .expense-category.active .category-chevron { transform: rotate(180deg); }
+        
+        .category-upload { display: none; padding: 0 1rem 1rem; }
+        .expense-category.active .category-upload { display: block; }
+        
+        .mini-upload-zone { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem; background: rgba(51,65,85,0.3); border: 1px dashed #475569; border-radius: 8px; color: #94a3b8; font-size: 0.8rem; cursor: pointer; transition: all 0.3s; }
+        .mini-upload-zone:hover { border-color: #fb923c; color: #fb923c; background: rgba(251,146,60,0.1); }
+        
+        .expense-category input[type="file"] { display: none; }
+        
+        .uploaded-expenses { margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; }
+        .uploaded-expense { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); border-radius: 8px; font-size: 0.8rem; }
+        .uploaded-expense .expense-name { flex: 1; color: #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .uploaded-expense .expense-amount { color: #34d399; font-weight: 600; }
+        .uploaded-expense .expense-vat { color: #64748b; font-size: 0.7rem; }
+        .uploaded-expense .remove-expense { background: none; border: none; color: #64748b; cursor: pointer; padding: 0.25rem; }
+        .uploaded-expense .remove-expense:hover { color: #f87171; }
+        
+        /* Quick Add Section */
+        .quick-add-section { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #1e293b; }
+        .quick-add-label { font-size: 0.75rem; color: #64748b; margin-bottom: 0.75rem; text-align: center; }
+        .quick-add-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+        .quick-add-btn { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; padding: 0.75rem 0.5rem; background: rgba(51,65,85,0.3); border: 1px solid #334155; border-radius: 10px; color: #94a3b8; font-size: 0.75rem; cursor: pointer; transition: all 0.3s; }
+        .quick-add-btn:hover { background: rgba(52,211,153,0.15); border-color: rgba(52,211,153,0.3); color: #34d399; }
+        .quick-add-btn span { font-weight: 600; }
+        
+        /* AI Expense Processor */
+        .ai-expense-processor { background: linear-gradient(135deg, rgba(52,211,153,0.1), rgba(34,211,209,0.05)); border: 1px solid rgba(52,211,153,0.3); border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; }
+        .processor-content { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+        .processor-avatar { width: 50px; height: 50px; background: linear-gradient(135deg, #34d399, #22d3d1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #020617; font-size: 1.25rem; position: relative; }
+        .processor-ring { position: absolute; inset: -4px; border-radius: 16px; border: 2px solid #34d399; animation: pulse-ring 1.5s ease-out infinite; }
+        .processor-text { font-size: 1rem; color: #34d399; font-weight: 500; }
+        
+        /* Reconciliation Section */
+        .reconciliation-section { background: linear-gradient(135deg, rgba(30,41,59,0.95), rgba(15,23,42,0.95)); border-radius: 24px; border: 1px solid #1e293b; padding: 2rem; }
+        .reconciliation-header { text-align: center; margin-bottom: 1.5rem; }
+        .recon-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(167,139,250,0.15); border: 1px solid rgba(167,139,250,0.3); border-radius: 50px; padding: 0.5rem 1.25rem; color: #a78bfa; font-size: 0.85rem; font-weight: 600; }
+        
+        /* VAT Reconciliation Cards */
+        .vat-reconciliation { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .vat-card { background: rgba(51,65,85,0.3); border-radius: 16px; padding: 1.25rem 1.5rem; text-align: center; min-width: 140px; flex: 1; max-width: 200px; transition: all 0.3s; }
+        .vat-card.output { border: 1px solid rgba(52,211,153,0.3); }
+        .vat-card.input { border: 1px solid rgba(251,146,60,0.3); }
+        .vat-card.net { border: 1px solid rgba(167,139,250,0.3); background: rgba(167,139,250,0.1); }
+        .vat-card.net.refund { border-color: rgba(52,211,153,0.5); background: rgba(52,211,153,0.15); }
+        .vat-card-header { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.75rem; font-size: 0.8rem; color: #94a3b8; }
+        .vat-card.output .vat-card-header { color: #34d399; }
+        .vat-card.input .vat-card-header { color: #fb923c; }
+        .vat-card.net .vat-card-header { color: #a78bfa; }
+        .vat-card-value { font-size: 1.5rem; font-weight: 700; color: #fff; }
+        .vat-card.output .vat-card-value { color: #34d399; }
+        .vat-card.input .vat-card-value { color: #fb923c; }
+        .vat-card.net .vat-card-value { color: #a78bfa; }
+        .vat-card.net.refund .vat-card-value { color: #34d399; }
+        .vat-card-label { font-size: 0.7rem; color: #64748b; margin-top: 0.5rem; }
+        
+        .vat-operator { font-size: 1.5rem; font-weight: bold; color: #64748b; padding: 0 0.5rem; }
+        
+        /* Financial Summary */
+        .financial-summary { margin-bottom: 2rem; }
+        .summary-title { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 1rem; color: #e2e8f0; margin-bottom: 1.25rem; }
+        
+        .pnl-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+        @media(max-width: 768px) { .pnl-grid { grid-template-columns: repeat(2, 1fr); } }
+        .pnl-item { background: rgba(51,65,85,0.3); border-radius: 12px; padding: 1rem; text-align: center; }
+        .pnl-item.revenue { border-bottom: 3px solid #34d399; }
+        .pnl-item.expenses { border-bottom: 3px solid #fb923c; }
+        .pnl-item.profit { border-bottom: 3px solid #a78bfa; }
+        .pnl-item.profit.loss { border-bottom-color: #f87171; }
+        .pnl-item.margin { border-bottom: 3px solid #22d3d1; }
+        .pnl-label { font-size: 0.75rem; color: #94a3b8; margin-bottom: 0.5rem; }
+        .pnl-value { font-size: 1.25rem; font-weight: 700; }
+        .pnl-item.revenue .pnl-value { color: #34d399; }
+        .pnl-item.expenses .pnl-value { color: #fb923c; }
+        .pnl-item.profit .pnl-value { color: #a78bfa; }
+        .pnl-item.profit.loss .pnl-value { color: #f87171; }
+        .pnl-item.margin .pnl-value { color: #22d3d1; }
+        
+        /* Expense Breakdown */
+        .expense-breakdown { background: rgba(15,23,42,0.5); border-radius: 12px; padding: 1.25rem; }
+        .breakdown-title { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; margin-bottom: 1rem; font-weight: 600; }
+        .breakdown-bars { display: flex; flex-direction: column; gap: 0.75rem; }
+        .breakdown-item { display: grid; grid-template-columns: 80px 1fr 80px; align-items: center; gap: 1rem; }
+        .breakdown-label { font-size: 0.8rem; color: #94a3b8; }
+        .breakdown-bar { height: 8px; background: rgba(51,65,85,0.5); border-radius: 4px; overflow: hidden; }
+        .breakdown-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+        .breakdown-fill.suppliers { background: linear-gradient(to right, #3b82f6, #60a5fa); }
+        .breakdown-fill.salaries { background: linear-gradient(to right, #8b5cf6, #a78bfa); }
+        .breakdown-fill.rent { background: linear-gradient(to right, #f97316, #fb923c); }
+        .breakdown-fill.misc { background: linear-gradient(to right, #64748b, #94a3b8); }
+        .breakdown-value { font-size: 0.8rem; color: #e2e8f0; text-align: left; }
+        [dir="ltr"] .breakdown-value { text-align: right; }
+        
+        /* Report Actions */
+        .report-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .report-btn { display: flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem; border-radius: 12px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; border: none; }
+        .report-btn:not(.secondary) { background: linear-gradient(to right, #a78bfa, #818cf8); color: #fff; }
+        .report-btn:not(.secondary):hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(167,139,250,0.35); }
+        .report-btn.secondary { background: rgba(51,65,85,0.5); border: 1px solid #475569; color: #94a3b8; }
+        .report-btn.secondary:hover { background: rgba(51,65,85,0.8); color: #fff; }
+        
+        @media(max-width: 768px) {
+            .summary-cards { grid-template-columns: 1fr; }
+            .vat-reconciliation { flex-direction: column; }
+            .vat-card { max-width: 100%; }
+            .vat-operator { transform: rotate(90deg); padding: 0.5rem 0; }
+            .quick-add-buttons { grid-template-columns: repeat(2, 1fr); }
+            .breakdown-item { grid-template-columns: 60px 1fr 60px; gap: 0.5rem; }
+        }
     </style>
 </head>
 <body>
@@ -488,6 +684,393 @@
             <span class="ar">إعادة التجربة</span>
             <span class="en">Reset Demo</span>
         </button>
+    </div>
+    
+    <!-- ============================================== -->
+    <!-- STEP 4-5: FULL ACCOUNTING & RECONCILIATION -->
+    <!-- ============================================== -->
+    <div class="accounting-section" id="accounting-section" style="display:none;">
+        <div class="section-divider">
+            <div class="divider-line"></div>
+            <div class="divider-badge">
+                <i data-lucide="arrow-down" class="icon"></i>
+                <span class="ar">المحاسبة الكاملة</span>
+                <span class="en">Complete Accounting</span>
+            </div>
+            <div class="divider-line"></div>
+        </div>
+        
+        <div class="accounting-header">
+            <div class="page-badge" style="background: rgba(52,211,153,0.15); border-color: rgba(52,211,153,0.3); color: #34d399;">
+                <i data-lucide="wallet" class="icon icon-sm"></i>
+                <span class="ar">الخطوات ٤-٥</span>
+                <span class="en">Steps 4-5</span>
+            </div>
+            <h2 class="page-title" style="font-size: 1.75rem;">
+                <span class="gradient-text-green"><span class="ar">التسوية التلقائية والتقارير المالية</span><span class="en">Auto Reconciliation & Financial Reports</span></span>
+            </h2>
+            <p class="page-subtitle">
+                <span class="ar">أضف مصاريفك وشاهد التسوية الضريبية والتقارير المالية لحظياً</span>
+                <span class="en">Add your expenses and see VAT reconciliation & financial reports in real-time</span>
+            </p>
+        </div>
+        
+        <!-- Two Column Layout: Sales vs Expenses -->
+        <div class="accounting-grid">
+            <!-- LEFT: Sales Dashboard -->
+            <div class="accounting-panel sales-panel">
+                <div class="panel-header">
+                    <div class="panel-icon sales">
+                        <i data-lucide="trending-up" class="icon icon-xl"></i>
+                    </div>
+                    <div>
+                        <div class="panel-label"><span class="ar">الخطوة ٤</span><span class="en">Step 4</span></div>
+                        <div class="panel-title"><span class="ar">إجمالي المبيعات</span><span class="en">Total Sales</span></div>
+                    </div>
+                    <div class="panel-status">
+                        <span class="status-badge success" id="sales-status">
+                            <i data-lucide="check-circle" class="icon icon-sm"></i>
+                            <span class="ar">١ فاتورة</span>
+                            <span class="en">1 Invoice</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="panel-content">
+                    <!-- Sales Summary Cards -->
+                    <div class="summary-cards">
+                        <div class="summary-card">
+                            <div class="summary-icon"><i data-lucide="file-text" class="icon"></i></div>
+                            <div class="summary-value" id="total-invoices">1</div>
+                            <div class="summary-label"><span class="ar">الفواتير</span><span class="en">Invoices</span></div>
+                        </div>
+                        <div class="summary-card highlight">
+                            <div class="summary-icon"><i data-lucide="saudi-riyal" class="icon"></i></div>
+                            <div class="summary-value" id="total-sales">15,900</div>
+                            <div class="summary-label"><span class="ar">المبيعات</span><span class="en">Sales (SAR)</span></div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon"><i data-lucide="percent" class="icon"></i></div>
+                            <div class="summary-value" id="output-vat">2,385</div>
+                            <div class="summary-label"><span class="ar">ضريبة المخرجات</span><span class="en">Output VAT</span></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Invoice List -->
+                    <div class="invoice-list">
+                        <div class="list-header">
+                            <span><span class="ar">الفواتير الصادرة</span><span class="en">Issued Invoices</span></span>
+                            <span class="list-count" id="invoice-list-count">1</span>
+                        </div>
+                        <div class="invoice-items" id="invoice-items">
+                            <div class="invoice-item">
+                                <div class="invoice-item-icon">
+                                    <i data-lucide="file-check" class="icon"></i>
+                                </div>
+                                <div class="invoice-item-details">
+                                    <div class="invoice-item-title" id="invoice-item-title">INV-2026-ZATCA-XXXX</div>
+                                    <div class="invoice-item-meta">
+                                        <span class="ar">شركة العميل للتجارة</span>
+                                        <span class="en">Customer Trading Co.</span>
+                                    </div>
+                                </div>
+                                <div class="invoice-item-amount">
+                                    <div class="amount">18,285 <small>SAR</small></div>
+                                    <div class="vat-badge">+2,385 <span class="ar">ض</span><span class="en">VAT</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Add More Invoices Button -->
+                    <button class="add-invoice-btn" onclick="addSampleInvoice()">
+                        <i data-lucide="plus-circle" class="icon"></i>
+                        <span class="ar">إضافة فاتورة تجريبية</span>
+                        <span class="en">Add Sample Invoice</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- RIGHT: Expenses Upload -->
+            <div class="accounting-panel expenses-panel">
+                <div class="panel-header">
+                    <div class="panel-icon expenses">
+                        <i data-lucide="receipt" class="icon icon-xl"></i>
+                    </div>
+                    <div>
+                        <div class="panel-label"><span class="ar">الخطوة ٥</span><span class="en">Step 5</span></div>
+                        <div class="panel-title"><span class="ar">تكاليف المدخلات</span><span class="en">Input Costs</span></div>
+                    </div>
+                    <div class="panel-status">
+                        <span class="status-badge waiting" id="expenses-status">
+                            <span class="ar">أضف المصاريف</span>
+                            <span class="en">Add Expenses</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="panel-content">
+                    <!-- Expense Categories -->
+                    <div class="expense-categories">
+                        <!-- Supplier Invoices -->
+                        <div class="expense-category" id="cat-suppliers">
+                            <div class="category-header" onclick="toggleExpenseUpload('suppliers')">
+                                <div class="category-icon suppliers">
+                                    <i data-lucide="truck" class="icon"></i>
+                                </div>
+                                <div class="category-info">
+                                    <div class="category-title"><span class="ar">فواتير الموردين</span><span class="en">Supplier Invoices</span></div>
+                                    <div class="category-hint"><span class="ar">مواد، بضائع، مخزون</span><span class="en">Materials, goods, inventory</span></div>
+                                </div>
+                                <div class="category-amount" id="suppliers-amount">0 SAR</div>
+                                <i data-lucide="chevron-down" class="icon category-chevron"></i>
+                            </div>
+                            <div class="category-upload" id="upload-suppliers">
+                                <div class="mini-upload-zone" onclick="triggerExpenseUpload('suppliers')">
+                                    <i data-lucide="upload" class="icon"></i>
+                                    <span><span class="ar">ارفع الفواتير</span><span class="en">Upload invoices</span></span>
+                                </div>
+                                <input type="file" id="input-suppliers" accept="image/*,.pdf" multiple onchange="handleExpenseUpload('suppliers', this.files)">
+                                <div class="uploaded-expenses" id="expenses-suppliers"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Salaries -->
+                        <div class="expense-category" id="cat-salaries">
+                            <div class="category-header" onclick="toggleExpenseUpload('salaries')">
+                                <div class="category-icon salaries">
+                                    <i data-lucide="users" class="icon"></i>
+                                </div>
+                                <div class="category-info">
+                                    <div class="category-title"><span class="ar">الرواتب والأجور</span><span class="en">Salaries & Wages</span></div>
+                                    <div class="category-hint"><span class="ar">موظفين، عمالة</span><span class="en">Employees, labor</span></div>
+                                </div>
+                                <div class="category-amount" id="salaries-amount">0 SAR</div>
+                                <i data-lucide="chevron-down" class="icon category-chevron"></i>
+                            </div>
+                            <div class="category-upload" id="upload-salaries">
+                                <div class="mini-upload-zone" onclick="triggerExpenseUpload('salaries')">
+                                    <i data-lucide="upload" class="icon"></i>
+                                    <span><span class="ar">ارفع كشف الرواتب</span><span class="en">Upload payroll</span></span>
+                                </div>
+                                <input type="file" id="input-salaries" accept="image/*,.pdf" multiple onchange="handleExpenseUpload('salaries', this.files)">
+                                <div class="uploaded-expenses" id="expenses-salaries"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Rent -->
+                        <div class="expense-category" id="cat-rent">
+                            <div class="category-header" onclick="toggleExpenseUpload('rent')">
+                                <div class="category-icon rent">
+                                    <i data-lucide="home" class="icon"></i>
+                                </div>
+                                <div class="category-info">
+                                    <div class="category-title"><span class="ar">الإيجار</span><span class="en">Rent</span></div>
+                                    <div class="category-hint"><span class="ar">مكتب، محل، مستودع</span><span class="en">Office, shop, warehouse</span></div>
+                                </div>
+                                <div class="category-amount" id="rent-amount">0 SAR</div>
+                                <i data-lucide="chevron-down" class="icon category-chevron"></i>
+                            </div>
+                            <div class="category-upload" id="upload-rent">
+                                <div class="mini-upload-zone" onclick="triggerExpenseUpload('rent')">
+                                    <i data-lucide="upload" class="icon"></i>
+                                    <span><span class="ar">ارفع عقد/إيصال الإيجار</span><span class="en">Upload rent receipt</span></span>
+                                </div>
+                                <input type="file" id="input-rent" accept="image/*,.pdf" multiple onchange="handleExpenseUpload('rent', this.files)">
+                                <div class="uploaded-expenses" id="expenses-rent"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Miscellaneous -->
+                        <div class="expense-category" id="cat-misc">
+                            <div class="category-header" onclick="toggleExpenseUpload('misc')">
+                                <div class="category-icon misc">
+                                    <i data-lucide="more-horizontal" class="icon"></i>
+                                </div>
+                                <div class="category-info">
+                                    <div class="category-title"><span class="ar">مصاريف أخرى</span><span class="en">Miscellaneous</span></div>
+                                    <div class="category-hint"><span class="ar">كهرباء، ماء، اتصالات، صيانة</span><span class="en">Utilities, maintenance, etc.</span></div>
+                                </div>
+                                <div class="category-amount" id="misc-amount">0 SAR</div>
+                                <i data-lucide="chevron-down" class="icon category-chevron"></i>
+                            </div>
+                            <div class="category-upload" id="upload-misc">
+                                <div class="mini-upload-zone" onclick="triggerExpenseUpload('misc')">
+                                    <i data-lucide="upload" class="icon"></i>
+                                    <span><span class="ar">ارفع الفواتير</span><span class="en">Upload receipts</span></span>
+                                </div>
+                                <input type="file" id="input-misc" accept="image/*,.pdf" multiple onchange="handleExpenseUpload('misc', this.files)">
+                                <div class="uploaded-expenses" id="expenses-misc"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Add Buttons -->
+                    <div class="quick-add-section">
+                        <div class="quick-add-label"><span class="ar">إضافة سريعة (تجريبي)</span><span class="en">Quick Add (Demo)</span></div>
+                        <div class="quick-add-buttons">
+                            <button class="quick-add-btn" onclick="addQuickExpense('suppliers', 'فاتورة مورد', 'Supplier Invoice', 5000)">
+                                <i data-lucide="truck" class="icon"></i>
+                                <span>5,000</span>
+                            </button>
+                            <button class="quick-add-btn" onclick="addQuickExpense('salaries', 'راتب موظف', 'Employee Salary', 4500)">
+                                <i data-lucide="users" class="icon"></i>
+                                <span>4,500</span>
+                            </button>
+                            <button class="quick-add-btn" onclick="addQuickExpense('rent', 'إيجار شهري', 'Monthly Rent', 3000)">
+                                <i data-lucide="home" class="icon"></i>
+                                <span>3,000</span>
+                            </button>
+                            <button class="quick-add-btn" onclick="addQuickExpense('misc', 'كهرباء', 'Electricity', 800)">
+                                <i data-lucide="zap" class="icon"></i>
+                                <span>800</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI Processing Animation for Expenses -->
+        <div class="ai-expense-processor" id="ai-expense-processor" style="display:none;">
+            <div class="processor-content">
+                <div class="processor-avatar">
+                    <span>م</span>
+                    <div class="processor-ring"></div>
+                </div>
+                <div class="processor-text">
+                    <span class="ar" id="processor-text-ar">جاري تحليل المصروفات...</span>
+                    <span class="en" id="processor-text-en">Analyzing expenses...</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ============================================== -->
+        <!-- RECONCILIATION & FINANCIAL REPORT SECTION -->
+        <!-- ============================================== -->
+        <div class="reconciliation-section" id="reconciliation-section">
+            <div class="reconciliation-header">
+                <div class="recon-badge">
+                    <i data-lucide="calculator" class="icon icon-sm"></i>
+                    <span class="ar">التسوية التلقائية</span>
+                    <span class="en">Auto Reconciliation</span>
+                </div>
+            </div>
+            
+            <!-- VAT Reconciliation -->
+            <div class="vat-reconciliation">
+                <div class="vat-card output">
+                    <div class="vat-card-header">
+                        <i data-lucide="arrow-up-circle" class="icon"></i>
+                        <span><span class="ar">ضريبة المخرجات</span><span class="en">Output VAT</span></span>
+                    </div>
+                    <div class="vat-card-value" id="recon-output-vat">2,385</div>
+                    <div class="vat-card-label"><span class="ar">مستحقة للهيئة</span><span class="en">Collected from customers</span></div>
+                </div>
+                
+                <div class="vat-operator">
+                    <span>−</span>
+                </div>
+                
+                <div class="vat-card input">
+                    <div class="vat-card-header">
+                        <i data-lucide="arrow-down-circle" class="icon"></i>
+                        <span><span class="ar">ضريبة المدخلات</span><span class="en">Input VAT</span></span>
+                    </div>
+                    <div class="vat-card-value" id="recon-input-vat">0</div>
+                    <div class="vat-card-label"><span class="ar">مدفوعة على المصاريف</span><span class="en">Paid on expenses</span></div>
+                </div>
+                
+                <div class="vat-operator">
+                    <span>=</span>
+                </div>
+                
+                <div class="vat-card net" id="vat-net-card">
+                    <div class="vat-card-header">
+                        <i data-lucide="wallet" class="icon"></i>
+                        <span><span class="ar">صافي الضريبة</span><span class="en">Net VAT</span></span>
+                    </div>
+                    <div class="vat-card-value" id="recon-net-vat">2,385</div>
+                    <div class="vat-card-label" id="vat-net-label">
+                        <span class="ar">مستحق للهيئة</span>
+                        <span class="en">Payable to ZATCA</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Financial Summary -->
+            <div class="financial-summary">
+                <h3 class="summary-title">
+                    <i data-lucide="bar-chart-3" class="icon"></i>
+                    <span class="ar">ملخص الأرباح والخسائر</span>
+                    <span class="en">Profit & Loss Summary</span>
+                </h3>
+                
+                <div class="pnl-grid">
+                    <div class="pnl-item revenue">
+                        <div class="pnl-label"><span class="ar">إجمالي الإيرادات</span><span class="en">Total Revenue</span></div>
+                        <div class="pnl-value" id="pnl-revenue">15,900</div>
+                    </div>
+                    <div class="pnl-item expenses">
+                        <div class="pnl-label"><span class="ar">إجمالي المصاريف</span><span class="en">Total Expenses</span></div>
+                        <div class="pnl-value" id="pnl-expenses">0</div>
+                    </div>
+                    <div class="pnl-item profit" id="pnl-profit-item">
+                        <div class="pnl-label"><span class="ar">صافي الربح</span><span class="en">Net Profit</span></div>
+                        <div class="pnl-value" id="pnl-profit">15,900</div>
+                    </div>
+                    <div class="pnl-item margin">
+                        <div class="pnl-label"><span class="ar">هامش الربح</span><span class="en">Profit Margin</span></div>
+                        <div class="pnl-value" id="pnl-margin">100%</div>
+                    </div>
+                </div>
+                
+                <!-- Expense Breakdown -->
+                <div class="expense-breakdown" id="expense-breakdown" style="display:none;">
+                    <h4 class="breakdown-title">
+                        <i data-lucide="pie-chart" class="icon icon-sm"></i>
+                        <span class="ar">تفصيل المصاريف</span>
+                        <span class="en">Expense Breakdown</span>
+                    </h4>
+                    <div class="breakdown-bars">
+                        <div class="breakdown-item" id="breakdown-suppliers" style="display:none;">
+                            <div class="breakdown-label"><span class="ar">موردين</span><span class="en">Suppliers</span></div>
+                            <div class="breakdown-bar"><div class="breakdown-fill suppliers" id="bar-suppliers" style="width:0%"></div></div>
+                            <div class="breakdown-value" id="breakdown-suppliers-value">0</div>
+                        </div>
+                        <div class="breakdown-item" id="breakdown-salaries" style="display:none;">
+                            <div class="breakdown-label"><span class="ar">رواتب</span><span class="en">Salaries</span></div>
+                            <div class="breakdown-bar"><div class="breakdown-fill salaries" id="bar-salaries" style="width:0%"></div></div>
+                            <div class="breakdown-value" id="breakdown-salaries-value">0</div>
+                        </div>
+                        <div class="breakdown-item" id="breakdown-rent" style="display:none;">
+                            <div class="breakdown-label"><span class="ar">إيجار</span><span class="en">Rent</span></div>
+                            <div class="breakdown-bar"><div class="breakdown-fill rent" id="bar-rent" style="width:0%"></div></div>
+                            <div class="breakdown-value" id="breakdown-rent-value">0</div>
+                        </div>
+                        <div class="breakdown-item" id="breakdown-misc" style="display:none;">
+                            <div class="breakdown-label"><span class="ar">أخرى</span><span class="en">Other</span></div>
+                            <div class="breakdown-bar"><div class="breakdown-fill misc" id="bar-misc" style="width:0%"></div></div>
+                            <div class="breakdown-value" id="breakdown-misc-value">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Generate Report Button -->
+            <div class="report-actions">
+                <button class="report-btn" onclick="generateFinancialReport()">
+                    <i data-lucide="file-spreadsheet" class="icon"></i>
+                    <span class="ar">تحميل التقرير المالي</span>
+                    <span class="en">Download Financial Report</span>
+                </button>
+                <button class="report-btn secondary" onclick="generateVATReport()">
+                    <i data-lucide="file-text" class="icon"></i>
+                    <span class="ar">تقرير الضريبة</span>
+                    <span class="en">VAT Report</span>
+                </button>
+            </div>
+        </div>
     </div>
 </main>
 
@@ -1037,6 +1620,654 @@ function sleep(ms) {
 
 // Initialize Lucide icons
 lucide.createIcons();
+
+// ============================================== //
+// ACCOUNTING SECTION FUNCTIONALITY
+// ============================================== //
+
+// Data storage for accounting
+let accountingData = {
+    sales: {
+        invoices: [],
+        totalSales: 15900,
+        outputVAT: 2385
+    },
+    expenses: {
+        suppliers: [],
+        salaries: [],
+        rent: [],
+        misc: []
+    },
+    totals: {
+        totalExpenses: 0,
+        inputVAT: 0
+    }
+};
+
+// Show accounting section after ZATCA approval
+function showAccountingSection() {
+    const section = document.getElementById('accounting-section');
+    section.style.display = 'block';
+    
+    // Update the invoice ID in the sales list
+    const zatcaId = document.getElementById('zatca-id').textContent;
+    document.getElementById('invoice-item-title').textContent = zatcaId;
+    
+    // Add the first invoice to data
+    accountingData.sales.invoices = [{
+        id: zatcaId,
+        customer: isArabic() ? 'شركة العميل للتجارة' : 'Customer Trading Co.',
+        amount: 15900,
+        vat: 2385,
+        total: 18285
+    }];
+    
+    // Smooth scroll to accounting section
+    setTimeout(() => {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 500);
+    
+    lucide.createIcons();
+}
+
+// Toggle expense upload section
+function toggleExpenseUpload(category) {
+    const catEl = document.getElementById(`cat-${category}`);
+    const wasActive = catEl.classList.contains('active');
+    
+    // Close all others
+    document.querySelectorAll('.expense-category').forEach(el => {
+        el.classList.remove('active');
+    });
+    
+    // Toggle this one
+    if (!wasActive) {
+        catEl.classList.add('active');
+    }
+}
+
+// Trigger file input for expense
+function triggerExpenseUpload(category) {
+    document.getElementById(`input-${category}`).click();
+}
+
+// Handle expense file upload
+async function handleExpenseUpload(category, files) {
+    if (!files || files.length === 0) return;
+    
+    for (const file of files) {
+        // Show AI processor
+        showAIProcessor(isArabic() ? `جاري تحليل ${file.name}...` : `Analyzing ${file.name}...`);
+        
+        // Simulate AI processing
+        await sleep(1500);
+        
+        // Generate random amount for demo
+        const amounts = {
+            suppliers: [2500, 3500, 5000, 7500, 10000],
+            salaries: [3000, 4000, 4500, 5000, 6000],
+            rent: [2000, 3000, 4000, 5000],
+            misc: [200, 500, 800, 1000, 1500]
+        };
+        const amountOptions = amounts[category] || [1000, 2000, 3000];
+        const amount = amountOptions[Math.floor(Math.random() * amountOptions.length)];
+        
+        // Calculate VAT (15% for suppliers and misc, 0 for salaries and rent)
+        const vatApplicable = category === 'suppliers' || category === 'misc';
+        const vat = vatApplicable ? Math.round(amount * 0.15) : 0;
+        
+        // Add expense
+        addExpenseToCategory(category, file.name, amount, vat);
+        
+        hideAIProcessor();
+    }
+    
+    // Reset file input
+    document.getElementById(`input-${category}`).value = '';
+}
+
+// Quick add expense (demo mode)
+async function addQuickExpense(category, nameAr, nameEn, amount) {
+    const name = isArabic() ? nameAr : nameEn;
+    
+    // Show AI processor
+    showAIProcessor(isArabic() ? `جاري إضافة ${name}...` : `Adding ${name}...`);
+    
+    await sleep(800);
+    
+    // Calculate VAT
+    const vatApplicable = category === 'suppliers' || category === 'misc';
+    const vat = vatApplicable ? Math.round(amount * 0.15) : 0;
+    
+    addExpenseToCategory(category, name, amount, vat);
+    
+    hideAIProcessor();
+}
+
+// Add expense to category
+function addExpenseToCategory(category, name, amount, vat) {
+    const expenseId = `exp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    
+    // Add to data
+    accountingData.expenses[category].push({
+        id: expenseId,
+        name: name,
+        amount: amount,
+        vat: vat
+    });
+    
+    // Update category UI
+    const container = document.getElementById(`expenses-${category}`);
+    const expenseHTML = `
+        <div class="uploaded-expense" id="${expenseId}">
+            <i data-lucide="file-check" class="icon icon-sm" style="color:#34d399;"></i>
+            <span class="expense-name">${name}</span>
+            <span class="expense-amount">${formatNumber(amount)}</span>
+            ${vat > 0 ? `<span class="expense-vat">+${formatNumber(vat)} VAT</span>` : ''}
+            <button class="remove-expense" onclick="removeExpense('${category}', '${expenseId}')">
+                <i data-lucide="x" class="icon icon-sm"></i>
+            </button>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', expenseHTML);
+    
+    // Mark category as having expenses
+    document.getElementById(`cat-${category}`).classList.add('has-expenses');
+    
+    // Update totals
+    updateAccountingTotals();
+    
+    lucide.createIcons();
+}
+
+// Remove expense
+function removeExpense(category, expenseId) {
+    // Remove from data
+    accountingData.expenses[category] = accountingData.expenses[category].filter(e => e.id !== expenseId);
+    
+    // Remove from UI
+    document.getElementById(expenseId).remove();
+    
+    // Check if category is empty
+    if (accountingData.expenses[category].length === 0) {
+        document.getElementById(`cat-${category}`).classList.remove('has-expenses');
+    }
+    
+    updateAccountingTotals();
+}
+
+// Update all accounting totals
+function updateAccountingTotals() {
+    // Calculate totals per category
+    const categories = ['suppliers', 'salaries', 'rent', 'misc'];
+    let totalExpenses = 0;
+    let totalInputVAT = 0;
+    
+    categories.forEach(cat => {
+        const catTotal = accountingData.expenses[cat].reduce((sum, e) => sum + e.amount, 0);
+        const catVAT = accountingData.expenses[cat].reduce((sum, e) => sum + e.vat, 0);
+        
+        totalExpenses += catTotal;
+        totalInputVAT += catVAT;
+        
+        // Update category amount display
+        document.getElementById(`${cat}-amount`).textContent = `${formatNumber(catTotal)} SAR`;
+    });
+    
+    accountingData.totals.totalExpenses = totalExpenses;
+    accountingData.totals.inputVAT = totalInputVAT;
+    
+    // Update expenses status
+    const expenseCount = categories.reduce((sum, cat) => sum + accountingData.expenses[cat].length, 0);
+    const expensesStatus = document.getElementById('expenses-status');
+    if (expenseCount > 0) {
+        expensesStatus.className = 'status-badge success';
+        expensesStatus.innerHTML = `<i data-lucide="check-circle" class="icon icon-sm"></i> ${expenseCount} ${isArabic() ? 'مصروف' : 'expenses'}`;
+    } else {
+        expensesStatus.className = 'status-badge waiting';
+        expensesStatus.innerHTML = `<span class="ar">أضف المصاريف</span><span class="en">Add Expenses</span>`;
+    }
+    
+    // Update VAT reconciliation
+    updateVATReconciliation(totalInputVAT);
+    
+    // Update P&L
+    updateProfitLoss(totalExpenses);
+    
+    // Update expense breakdown
+    updateExpenseBreakdown(totalExpenses);
+    
+    lucide.createIcons();
+}
+
+// Update VAT reconciliation display
+function updateVATReconciliation(inputVAT) {
+    const outputVAT = accountingData.sales.outputVAT;
+    const netVAT = outputVAT - inputVAT;
+    
+    document.getElementById('recon-output-vat').textContent = formatNumber(outputVAT);
+    document.getElementById('recon-input-vat').textContent = formatNumber(inputVAT);
+    document.getElementById('recon-net-vat').textContent = formatNumber(Math.abs(netVAT));
+    
+    const netCard = document.getElementById('vat-net-card');
+    const netLabel = document.getElementById('vat-net-label');
+    
+    if (netVAT < 0) {
+        netCard.classList.add('refund');
+        netLabel.innerHTML = `<span class="ar">مسترد من الهيئة</span><span class="en">Refundable from ZATCA</span>`;
+    } else {
+        netCard.classList.remove('refund');
+        netLabel.innerHTML = `<span class="ar">مستحق للهيئة</span><span class="en">Payable to ZATCA</span>`;
+    }
+}
+
+// Update Profit & Loss display
+function updateProfitLoss(totalExpenses) {
+    const revenue = accountingData.sales.totalSales;
+    const profit = revenue - totalExpenses;
+    const margin = revenue > 0 ? Math.round((profit / revenue) * 100) : 0;
+    
+    document.getElementById('pnl-revenue').textContent = formatNumber(revenue);
+    document.getElementById('pnl-expenses').textContent = formatNumber(totalExpenses);
+    document.getElementById('pnl-profit').textContent = formatNumber(Math.abs(profit));
+    document.getElementById('pnl-margin').textContent = `${margin}%`;
+    
+    const profitItem = document.getElementById('pnl-profit-item');
+    const profitLabel = profitItem.querySelector('.pnl-label');
+    
+    if (profit < 0) {
+        profitItem.classList.add('loss');
+        profitLabel.innerHTML = `<span class="ar">صافي الخسارة</span><span class="en">Net Loss</span>`;
+    } else {
+        profitItem.classList.remove('loss');
+        profitLabel.innerHTML = `<span class="ar">صافي الربح</span><span class="en">Net Profit</span>`;
+    }
+}
+
+// Update expense breakdown chart
+function updateExpenseBreakdown(totalExpenses) {
+    const breakdown = document.getElementById('expense-breakdown');
+    
+    if (totalExpenses === 0) {
+        breakdown.style.display = 'none';
+        return;
+    }
+    
+    breakdown.style.display = 'block';
+    
+    const categories = ['suppliers', 'salaries', 'rent', 'misc'];
+    
+    categories.forEach(cat => {
+        const catTotal = accountingData.expenses[cat].reduce((sum, e) => sum + e.amount, 0);
+        const percentage = totalExpenses > 0 ? (catTotal / totalExpenses) * 100 : 0;
+        
+        const itemEl = document.getElementById(`breakdown-${cat}`);
+        const barEl = document.getElementById(`bar-${cat}`);
+        const valueEl = document.getElementById(`breakdown-${cat}-value`);
+        
+        if (catTotal > 0) {
+            itemEl.style.display = 'grid';
+            barEl.style.width = `${percentage}%`;
+            valueEl.textContent = formatNumber(catTotal);
+        } else {
+            itemEl.style.display = 'none';
+        }
+    });
+}
+
+// Add sample invoice
+async function addSampleInvoice() {
+    const invoiceNum = accountingData.sales.invoices.length + 1;
+    const amounts = [8500, 12000, 6750, 9200, 15000];
+    const amount = amounts[Math.floor(Math.random() * amounts.length)];
+    const vat = Math.round(amount * 0.15);
+    
+    const customers = [
+        { ar: 'مؤسسة التقنية', en: 'Tech Solutions' },
+        { ar: 'شركة البناء', en: 'Construction Co.' },
+        { ar: 'مجموعة الخدمات', en: 'Services Group' },
+        { ar: 'مؤسسة الأعمال', en: 'Business Corp' }
+    ];
+    const customer = customers[Math.floor(Math.random() * customers.length)];
+    
+    const newInvoice = {
+        id: `INV-2026-ZATCA-${Math.random().toString(36).substr(2, 8).toUpperCase()}`,
+        customer: isArabic() ? customer.ar : customer.en,
+        amount: amount,
+        vat: vat,
+        total: amount + vat
+    };
+    
+    accountingData.sales.invoices.push(newInvoice);
+    accountingData.sales.totalSales += amount;
+    accountingData.sales.outputVAT += vat;
+    
+    // Add to UI
+    const container = document.getElementById('invoice-items');
+    const invoiceHTML = `
+        <div class="invoice-item animate-in">
+            <div class="invoice-item-icon">
+                <i data-lucide="file-check" class="icon"></i>
+            </div>
+            <div class="invoice-item-details">
+                <div class="invoice-item-title">${newInvoice.id}</div>
+                <div class="invoice-item-meta">${newInvoice.customer}</div>
+            </div>
+            <div class="invoice-item-amount">
+                <div class="amount">${formatNumber(newInvoice.total)} <small>SAR</small></div>
+                <div class="vat-badge">+${formatNumber(newInvoice.vat)} ${isArabic() ? 'ض' : 'VAT'}</div>
+            </div>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', invoiceHTML);
+    
+    // Update summary
+    document.getElementById('total-invoices').textContent = accountingData.sales.invoices.length;
+    document.getElementById('total-sales').textContent = formatNumber(accountingData.sales.totalSales);
+    document.getElementById('output-vat').textContent = formatNumber(accountingData.sales.outputVAT);
+    document.getElementById('invoice-list-count').textContent = accountingData.sales.invoices.length;
+    
+    // Update sales status
+    const salesStatus = document.getElementById('sales-status');
+    salesStatus.innerHTML = `<i data-lucide="check-circle" class="icon icon-sm"></i> ${accountingData.sales.invoices.length} ${isArabic() ? 'فواتير' : 'Invoices'}`;
+    
+    // Update reconciliation
+    updateVATReconciliation(accountingData.totals.inputVAT);
+    updateProfitLoss(accountingData.totals.totalExpenses);
+    
+    lucide.createIcons();
+}
+
+// Show AI processor animation
+function showAIProcessor(message) {
+    const processor = document.getElementById('ai-expense-processor');
+    document.getElementById('processor-text-ar').textContent = message;
+    document.getElementById('processor-text-en').textContent = message;
+    processor.style.display = 'block';
+}
+
+// Hide AI processor
+function hideAIProcessor() {
+    document.getElementById('ai-expense-processor').style.display = 'none';
+}
+
+// Generate Financial Report
+function generateFinancialReport() {
+    const isRTL = isArabic();
+    const date = new Date().toLocaleDateString(isRTL ? 'ar-SA' : 'en-US');
+    
+    const reportHTML = generateReportHTML('financial', isRTL, date);
+    const reportWindow = window.open('', '_blank');
+    reportWindow.document.write(reportHTML);
+    reportWindow.document.close();
+}
+
+// Generate VAT Report
+function generateVATReport() {
+    const isRTL = isArabic();
+    const date = new Date().toLocaleDateString(isRTL ? 'ar-SA' : 'en-US');
+    
+    const reportHTML = generateReportHTML('vat', isRTL, date);
+    const reportWindow = window.open('', '_blank');
+    reportWindow.document.write(reportHTML);
+    reportWindow.document.close();
+}
+
+// Generate report HTML
+function generateReportHTML(type, isRTL, date) {
+    const revenue = accountingData.sales.totalSales;
+    const expenses = accountingData.totals.totalExpenses;
+    const outputVAT = accountingData.sales.outputVAT;
+    const inputVAT = accountingData.totals.inputVAT;
+    const netVAT = outputVAT - inputVAT;
+    const profit = revenue - expenses;
+    const margin = revenue > 0 ? Math.round((profit / revenue) * 100) : 0;
+    
+    const categories = ['suppliers', 'salaries', 'rent', 'misc'];
+    const catNames = {
+        suppliers: { ar: 'موردين', en: 'Suppliers' },
+        salaries: { ar: 'رواتب', en: 'Salaries' },
+        rent: { ar: 'إيجار', en: 'Rent' },
+        misc: { ar: 'أخرى', en: 'Miscellaneous' }
+    };
+    
+    let expenseRows = '';
+    categories.forEach(cat => {
+        const catTotal = accountingData.expenses[cat].reduce((sum, e) => sum + e.amount, 0);
+        const catVAT = accountingData.expenses[cat].reduce((sum, e) => sum + e.vat, 0);
+        if (catTotal > 0) {
+            expenseRows += `
+                <tr>
+                    <td>${isRTL ? catNames[cat].ar : catNames[cat].en}</td>
+                    <td style="text-align:${isRTL ? 'left' : 'right'};">${formatNumber(catTotal)} SAR</td>
+                    <td style="text-align:${isRTL ? 'left' : 'right'};">${formatNumber(catVAT)} SAR</td>
+                </tr>
+            `;
+        }
+    });
+    
+    const title = type === 'financial' 
+        ? (isRTL ? 'التقرير المالي' : 'Financial Report')
+        : (isRTL ? 'تقرير ضريبة القيمة المضافة' : 'VAT Report');
+    
+    return `<!DOCTYPE html>
+<html lang="${isRTL ? 'ar' : 'en'}" dir="${isRTL ? 'rtl' : 'ltr'}">
+<head>
+    <meta charset="UTF-8">
+    <title>${title} - Muhasib</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: '${isRTL ? 'Tajawal' : 'Inter'}', Arial, sans-serif; background: #f1f5f9; min-height: 100vh; padding: 20px; }
+        .report { max-width: 800px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; }
+        .report-header { background: linear-gradient(135deg, #a78bfa, #818cf8); color: white; padding: 30px; }
+        .report-header h1 { font-size: 1.5rem; margin-bottom: 5px; }
+        .report-header p { opacity: 0.9; font-size: 0.9rem; }
+        .report-content { padding: 30px; }
+        .section { margin-bottom: 30px; }
+        .section h2 { font-size: 1.1rem; color: #1e293b; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e2e8f0; }
+        .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; }
+        .summary-item { background: #f8fafc; border-radius: 10px; padding: 15px; border-${isRTL ? 'right' : 'left'}: 4px solid #a78bfa; }
+        .summary-item.revenue { border-color: #34d399; }
+        .summary-item.expenses { border-color: #fb923c; }
+        .summary-item.profit { border-color: #a78bfa; }
+        .summary-item.loss { border-color: #f87171; }
+        .summary-item .label { font-size: 0.8rem; color: #64748b; margin-bottom: 5px; }
+        .summary-item .value { font-size: 1.25rem; font-weight: 700; color: #1e293b; }
+        .summary-item.revenue .value { color: #059669; }
+        .summary-item.expenses .value { color: #ea580c; }
+        .summary-item.profit .value { color: #7c3aed; }
+        .summary-item.loss .value { color: #dc2626; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th { background: #f1f5f9; padding: 12px; text-align: ${isRTL ? 'right' : 'left'}; font-size: 0.85rem; color: #64748b; border-bottom: 2px solid #e2e8f0; }
+        td { padding: 12px; border-bottom: 1px solid #e2e8f0; font-size: 0.9rem; }
+        .vat-summary { display: flex; justify-content: space-between; align-items: center; background: ${netVAT >= 0 ? 'rgba(167,139,250,0.1)' : 'rgba(52,211,153,0.1)'}; border-radius: 12px; padding: 20px; margin-top: 20px; }
+        .vat-item { text-align: center; }
+        .vat-item .label { font-size: 0.8rem; color: #64748b; margin-bottom: 5px; }
+        .vat-item .value { font-size: 1.5rem; font-weight: 700; }
+        .vat-item.output .value { color: #059669; }
+        .vat-item.input .value { color: #ea580c; }
+        .vat-item.net .value { color: ${netVAT >= 0 ? '#7c3aed' : '#059669'}; }
+        .operator { font-size: 1.5rem; color: #64748b; }
+        .footer { background: #f8fafc; padding: 20px; text-align: center; font-size: 0.8rem; color: #64748b; border-top: 1px solid #e2e8f0; }
+        .print-btn { position: fixed; bottom: 20px; right: 20px; background: #a78bfa; color: white; border: none; padding: 15px 25px; border-radius: 10px; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 15px rgba(167,139,250,0.4); }
+        .print-btn:hover { background: #8b5cf6; }
+        @media print { .print-btn { display: none; } body { background: white; padding: 0; } .report { box-shadow: none; } }
+    </style>
+</head>
+<body>
+    <div class="report">
+        <div class="report-header">
+            <h1>${title}</h1>
+            <p>${isRTL ? 'تاريخ التقرير' : 'Report Date'}: ${date}</p>
+        </div>
+        <div class="report-content">
+            ${type === 'financial' ? `
+            <div class="section">
+                <h2>${isRTL ? 'ملخص الأرباح والخسائر' : 'Profit & Loss Summary'}</h2>
+                <div class="summary-grid">
+                    <div class="summary-item revenue">
+                        <div class="label">${isRTL ? 'إجمالي الإيرادات' : 'Total Revenue'}</div>
+                        <div class="value">${formatNumber(revenue)} SAR</div>
+                    </div>
+                    <div class="summary-item expenses">
+                        <div class="label">${isRTL ? 'إجمالي المصاريف' : 'Total Expenses'}</div>
+                        <div class="value">${formatNumber(expenses)} SAR</div>
+                    </div>
+                    <div class="summary-item ${profit >= 0 ? 'profit' : 'loss'}">
+                        <div class="label">${profit >= 0 ? (isRTL ? 'صافي الربح' : 'Net Profit') : (isRTL ? 'صافي الخسارة' : 'Net Loss')}</div>
+                        <div class="value">${formatNumber(Math.abs(profit))} SAR</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="label">${isRTL ? 'هامش الربح' : 'Profit Margin'}</div>
+                        <div class="value">${margin}%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <h2>${isRTL ? 'تفصيل المصاريف' : 'Expense Breakdown'}</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>${isRTL ? 'الفئة' : 'Category'}</th>
+                            <th style="text-align:${isRTL ? 'left' : 'right'};">${isRTL ? 'المبلغ' : 'Amount'}</th>
+                            <th style="text-align:${isRTL ? 'left' : 'right'};">${isRTL ? 'الضريبة' : 'VAT'}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${expenseRows || `<tr><td colspan="3" style="text-align:center;color:#64748b;">${isRTL ? 'لا توجد مصاريف' : 'No expenses'}</td></tr>`}
+                    </tbody>
+                </table>
+            </div>
+            ` : ''}
+            <div class="section">
+                <h2>${isRTL ? 'تسوية ضريبة القيمة المضافة' : 'VAT Reconciliation'}</h2>
+                <div class="vat-summary">
+                    <div class="vat-item output">
+                        <div class="label">${isRTL ? 'ضريبة المخرجات' : 'Output VAT'}</div>
+                        <div class="value">${formatNumber(outputVAT)}</div>
+                    </div>
+                    <div class="operator">−</div>
+                    <div class="vat-item input">
+                        <div class="label">${isRTL ? 'ضريبة المدخلات' : 'Input VAT'}</div>
+                        <div class="value">${formatNumber(inputVAT)}</div>
+                    </div>
+                    <div class="operator">=</div>
+                    <div class="vat-item net">
+                        <div class="label">${netVAT >= 0 ? (isRTL ? 'مستحق للهيئة' : 'Payable') : (isRTL ? 'مسترد' : 'Refundable')}</div>
+                        <div class="value">${formatNumber(Math.abs(netVAT))}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>${isRTL ? 'تم إنشاء هذا التقرير بواسطة مُحاسِب - محاسبة ذكية بالذكاء الاصطناعي' : 'Generated by Muhasib - AI-Powered Smart Accounting'}</p>
+        </div>
+    </div>
+    <button class="print-btn" onclick="window.print()">📄 ${isRTL ? 'طباعة / حفظ PDF' : 'Print / Save PDF'}</button>
+</body>
+</html>`;
+}
+
+// Helper: Format number with commas
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// Modify the existing processZATCA to show accounting section
+const originalProcessZATCA = processZATCA;
+processZATCA = async function() {
+    await originalProcessZATCA();
+    // Show accounting section after ZATCA approval
+    setTimeout(() => {
+        showAccountingSection();
+    }, 1000);
+};
+
+// Modify resetDemo to also reset accounting
+const originalResetDemo = resetDemo;
+resetDemo = function() {
+    originalResetDemo();
+    
+    // Reset accounting section
+    document.getElementById('accounting-section').style.display = 'none';
+    
+    // Reset accounting data
+    accountingData = {
+        sales: {
+            invoices: [],
+            totalSales: 15900,
+            outputVAT: 2385
+        },
+        expenses: {
+            suppliers: [],
+            salaries: [],
+            rent: [],
+            misc: []
+        },
+        totals: {
+            totalExpenses: 0,
+            inputVAT: 0
+        }
+    };
+    
+    // Reset expense categories
+    ['suppliers', 'salaries', 'rent', 'misc'].forEach(cat => {
+        document.getElementById(`expenses-${cat}`).innerHTML = '';
+        document.getElementById(`${cat}-amount`).textContent = '0 SAR';
+        document.getElementById(`cat-${cat}`).classList.remove('has-expenses', 'active');
+    });
+    
+    // Reset invoice list (keep first one placeholder)
+    const invoiceItems = document.getElementById('invoice-items');
+    invoiceItems.innerHTML = `
+        <div class="invoice-item">
+            <div class="invoice-item-icon">
+                <i data-lucide="file-check" class="icon"></i>
+            </div>
+            <div class="invoice-item-details">
+                <div class="invoice-item-title" id="invoice-item-title">INV-2026-ZATCA-XXXX</div>
+                <div class="invoice-item-meta">
+                    <span class="ar">شركة العميل للتجارة</span>
+                    <span class="en">Customer Trading Co.</span>
+                </div>
+            </div>
+            <div class="invoice-item-amount">
+                <div class="amount">18,285 <small>SAR</small></div>
+                <div class="vat-badge">+2,385 <span class="ar">ض</span><span class="en">VAT</span></div>
+            </div>
+        </div>
+    `;
+    
+    // Reset summary cards
+    document.getElementById('total-invoices').textContent = '1';
+    document.getElementById('total-sales').textContent = '15,900';
+    document.getElementById('output-vat').textContent = '2,385';
+    document.getElementById('invoice-list-count').textContent = '1';
+    
+    // Reset reconciliation
+    document.getElementById('recon-output-vat').textContent = '2,385';
+    document.getElementById('recon-input-vat').textContent = '0';
+    document.getElementById('recon-net-vat').textContent = '2,385';
+    document.getElementById('vat-net-card').classList.remove('refund');
+    
+    // Reset P&L
+    document.getElementById('pnl-revenue').textContent = '15,900';
+    document.getElementById('pnl-expenses').textContent = '0';
+    document.getElementById('pnl-profit').textContent = '15,900';
+    document.getElementById('pnl-margin').textContent = '100%';
+    document.getElementById('pnl-profit-item').classList.remove('loss');
+    
+    // Reset expense breakdown
+    document.getElementById('expense-breakdown').style.display = 'none';
+    
+    // Reset statuses
+    document.getElementById('sales-status').innerHTML = `<i data-lucide="check-circle" class="icon icon-sm"></i><span class="ar">١ فاتورة</span><span class="en">1 Invoice</span>`;
+    document.getElementById('expenses-status').className = 'status-badge waiting';
+    document.getElementById('expenses-status').innerHTML = `<span class="ar">أضف المصاريف</span><span class="en">Add Expenses</span>`;
+    
+    lucide.createIcons();
+};
 </script>
 
 </body>

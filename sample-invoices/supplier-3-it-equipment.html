@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فاتورة مورد - تقنية المستقبل</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+        .invoice { max-width: 800px; margin: 0 auto; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #0f766e, #14b8a6); color: white; padding: 30px; display: flex; justify-content: space-between; align-items: flex-start; }
+        .company-info h1 { font-size: 1.8rem; margin-bottom: 10px; }
+        .company-info p { font-size: 0.9rem; opacity: 0.9; margin: 3px 0; }
+        .invoice-title { text-align: left; }
+        .invoice-title h2 { font-size: 2rem; margin-bottom: 10px; }
+        .invoice-title .invoice-num { background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 5px; font-size: 0.9rem; }
+        .invoice-meta { display: flex; justify-content: space-between; padding: 25px 30px; background: #f0fdfa; border-bottom: 1px solid #99f6e4; }
+        .meta-box h4 { font-size: 0.8rem; color: #0f766e; text-transform: uppercase; margin-bottom: 8px; }
+        .meta-box p { font-size: 0.95rem; color: #333; }
+        .content { padding: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        th { background: #0f766e; color: white; padding: 12px 15px; text-align: right; font-size: 0.9rem; }
+        th:last-child { text-align: left; }
+        td { padding: 12px 15px; border-bottom: 1px solid #99f6e4; font-size: 0.9rem; }
+        td:last-child { text-align: left; }
+        tr:nth-child(even) { background: #f0fdfa; }
+        .totals { margin-right: auto; width: 300px; }
+        .total-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #99f6e4; }
+        .total-row.grand { border-bottom: none; border-top: 2px solid #0f766e; margin-top: 10px; padding-top: 15px; font-size: 1.2rem; font-weight: bold; color: #0f766e; }
+        .footer { background: #f0fdfa; padding: 20px 30px; border-top: 1px solid #99f6e4; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .footer h4 { font-size: 0.85rem; color: #0f766e; margin-bottom: 10px; }
+        .footer p { font-size: 0.85rem; color: #666; margin: 3px 0; }
+        .stamp { text-align: center; padding: 20px; }
+        .stamp-box { display: inline-block; border: 2px solid #0f766e; border-radius: 50%; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
+        .stamp-box span { color: #0f766e; font-weight: bold; font-size: 0.8rem; text-align: center; }
+        .warranty { background: #d1fae5; border: 1px solid #34d399; border-radius: 5px; padding: 10px 15px; margin-top: 20px; font-size: 0.85rem; color: #065f46; }
+        @media print { body { padding: 0; background: white; } .invoice { box-shadow: none; } }
+    </style>
+</head>
+<body>
+    <div class="invoice">
+        <div class="header">
+            <div class="company-info">
+                <h1>💻 تقنية المستقبل للحاسبات</h1>
+                <p>Future Tech Computers</p>
+                <p>طريق الملك عبدالعزيز، جدة 21452</p>
+                <p>هاتف: 012-345-6789</p>
+                <p><strong>الرقم الضريبي:</strong> 300321654987321</p>
+            </div>
+            <div class="invoice-title">
+                <h2>فاتورة ضريبية</h2>
+                <div class="invoice-num">INV-IT-2026-0234</div>
+            </div>
+        </div>
+        
+        <div class="invoice-meta">
+            <div class="meta-box">
+                <h4>معلومات العميل</h4>
+                <p><strong>شركة الحلول الرقمية</strong></p>
+                <p>جدة، المملكة العربية السعودية</p>
+                <p>الرقم الضريبي: 310987654321098</p>
+            </div>
+            <div class="meta-box">
+                <h4>تفاصيل الفاتورة</h4>
+                <p><strong>التاريخ:</strong> 2026-01-25</p>
+                <p><strong>تاريخ الاستحقاق:</strong> 2026-02-25</p>
+                <p><strong>طريقة الدفع:</strong> بطاقة ائتمان</p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:50%">الوصف</th>
+                        <th style="width:15%;text-align:center;">الكمية</th>
+                        <th style="width:15%;text-align:center;">السعر</th>
+                        <th style="width:20%">المجموع</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>لابتوب Dell Latitude 5540 - i7</td>
+                        <td style="text-align:center;">2</td>
+                        <td style="text-align:center;">4,500.00</td>
+                        <td>9,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>شاشة Samsung 27" 4K</td>
+                        <td style="text-align:center;">2</td>
+                        <td style="text-align:center;">1,200.00</td>
+                        <td>2,400.00</td>
+                    </tr>
+                    <tr>
+                        <td>لوحة مفاتيح لاسلكية Logitech</td>
+                        <td style="text-align:center;">3</td>
+                        <td style="text-align:center;">250.00</td>
+                        <td>750.00</td>
+                    </tr>
+                    <tr>
+                        <td>ماوس لاسلكي Logitech MX</td>
+                        <td style="text-align:center;">3</td>
+                        <td style="text-align:center;">280.00</td>
+                        <td>840.00</td>
+                    </tr>
+                    <tr>
+                        <td>هارد خارجي 2TB Seagate</td>
+                        <td style="text-align:center;">2</td>
+                        <td style="text-align:center;">350.00</td>
+                        <td>700.00</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="totals">
+                <div class="total-row">
+                    <span>المجموع الفرعي:</span>
+                    <span>13,690.00 ر.س</span>
+                </div>
+                <div class="total-row">
+                    <span>ضريبة القيمة المضافة (15%):</span>
+                    <span>2,053.50 ر.س</span>
+                </div>
+                <div class="total-row grand">
+                    <span>الإجمالي:</span>
+                    <span>15,743.50 ر.س</span>
+                </div>
+            </div>
+            
+            <div class="warranty">
+                🛡️ جميع المنتجات مشمولة بضمان المصنع لمدة سنة كاملة. للدعم الفني: support@futuretech.sa
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-grid">
+                <div>
+                    <h4>معلومات الدفع</h4>
+                    <p>البنك: البنك السعودي الفرنسي</p>
+                    <p>رقم الحساب: SA45 6789 0123 4567 8901 2345</p>
+                    <p>اسم الحساب: تقنية المستقبل للحاسبات</p>
+                </div>
+                <div class="stamp">
+                    <div class="stamp-box">
+                        <span>ختم<br>الشركة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فاتورة مورد - النظافة الشاملة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+        .invoice { max-width: 800px; margin: 0 auto; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #0284c7, #38bdf8); color: white; padding: 30px; display: flex; justify-content: space-between; align-items: flex-start; }
+        .company-info h1 { font-size: 1.8rem; margin-bottom: 10px; }
+        .company-info p { font-size: 0.9rem; opacity: 0.9; margin: 3px 0; }
+        .invoice-title { text-align: left; }
+        .invoice-title h2 { font-size: 2rem; margin-bottom: 10px; }
+        .invoice-title .invoice-num { background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 5px; font-size: 0.9rem; }
+        .invoice-meta { display: flex; justify-content: space-between; padding: 25px 30px; background: #f0f9ff; border-bottom: 1px solid #bae6fd; }
+        .meta-box h4 { font-size: 0.8rem; color: #0284c7; text-transform: uppercase; margin-bottom: 8px; }
+        .meta-box p { font-size: 0.95rem; color: #333; }
+        .content { padding: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        th { background: #0284c7; color: white; padding: 12px 15px; text-align: right; font-size: 0.9rem; }
+        th:last-child { text-align: left; }
+        td { padding: 12px 15px; border-bottom: 1px solid #bae6fd; font-size: 0.9rem; }
+        td:last-child { text-align: left; }
+        tr:nth-child(even) { background: #f0f9ff; }
+        .totals { margin-right: auto; width: 300px; }
+        .total-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #bae6fd; }
+        .total-row.grand { border-bottom: none; border-top: 2px solid #0284c7; margin-top: 10px; padding-top: 15px; font-size: 1.2rem; font-weight: bold; color: #0284c7; }
+        .footer { background: #f0f9ff; padding: 20px 30px; border-top: 1px solid #bae6fd; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .footer h4 { font-size: 0.85rem; color: #0284c7; margin-bottom: 10px; }
+        .footer p { font-size: 0.85rem; color: #666; margin: 3px 0; }
+        .stamp { text-align: center; padding: 20px; }
+        .stamp-box { display: inline-block; border: 2px solid #0284c7; border-radius: 50%; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
+        .stamp-box span { color: #0284c7; font-weight: bold; font-size: 0.8rem; text-align: center; }
+        .note { background: #e0f2fe; border: 1px solid #7dd3fc; border-radius: 5px; padding: 10px 15px; margin-top: 20px; font-size: 0.85rem; color: #0369a1; }
+        @media print { body { padding: 0; background: white; } .invoice { box-shadow: none; } }
+    </style>
+</head>
+<body>
+    <div class="invoice">
+        <div class="header">
+            <div class="company-info">
+                <h1>🧹 النظافة الشاملة</h1>
+                <p>Total Clean Supplies</p>
+                <p>حي السليمانية، الرياض 11564</p>
+                <p>هاتف: 011-567-8901</p>
+                <p><strong>الرقم الضريبي:</strong> 300654321789654</p>
+            </div>
+            <div class="invoice-title">
+                <h2>فاتورة ضريبية</h2>
+                <div class="invoice-num">INV-CL-2026-0891</div>
+            </div>
+        </div>
+        
+        <div class="invoice-meta">
+            <div class="meta-box">
+                <h4>معلومات العميل</h4>
+                <p><strong>مجمع الأعمال التجاري</strong></p>
+                <p>الرياض، المملكة العربية السعودية</p>
+                <p>الرقم الضريبي: 310987654321098</p>
+            </div>
+            <div class="meta-box">
+                <h4>تفاصيل الفاتورة</h4>
+                <p><strong>التاريخ:</strong> 2026-02-02</p>
+                <p><strong>تاريخ الاستحقاق:</strong> 2026-02-16</p>
+                <p><strong>طريقة الدفع:</strong> نقداً</p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:50%">الوصف</th>
+                        <th style="width:15%;text-align:center;">الكمية</th>
+                        <th style="width:15%;text-align:center;">السعر</th>
+                        <th style="width:20%">المجموع</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>منظف أرضيات متعدد الاستخدام 5 لتر</td>
+                        <td style="text-align:center;">10</td>
+                        <td style="text-align:center;">45.00</td>
+                        <td>450.00</td>
+                    </tr>
+                    <tr>
+                        <td>معقم يدين 500 مل</td>
+                        <td style="text-align:center;">24</td>
+                        <td style="text-align:center;">15.00</td>
+                        <td>360.00</td>
+                    </tr>
+                    <tr>
+                        <td>مناديل ورقية (كرتون 24 علبة)</td>
+                        <td style="text-align:center;">5</td>
+                        <td style="text-align:center;">85.00</td>
+                        <td>425.00</td>
+                    </tr>
+                    <tr>
+                        <td>أكياس قمامة كبيرة (100 كيس)</td>
+                        <td style="text-align:center;">10</td>
+                        <td style="text-align:center;">35.00</td>
+                        <td>350.00</td>
+                    </tr>
+                    <tr>
+                        <td>ممسحة أرضيات مع عصارة</td>
+                        <td style="text-align:center;">3</td>
+                        <td style="text-align:center;">75.00</td>
+                        <td>225.00</td>
+                    </tr>
+                    <tr>
+                        <td>منظف زجاج 1 لتر</td>
+                        <td style="text-align:center;">12</td>
+                        <td style="text-align:center;">18.00</td>
+                        <td>216.00</td>
+                    </tr>
+                    <tr>
+                        <td>قفازات نظافة (علبة 100)</td>
+                        <td style="text-align:center;">5</td>
+                        <td style="text-align:center;">28.00</td>
+                        <td>140.00</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="totals">
+                <div class="total-row">
+                    <span>المجموع الفرعي:</span>
+                    <span>2,166.00 ر.س</span>
+                </div>
+                <div class="total-row">
+                    <span>ضريبة القيمة المضافة (15%):</span>
+                    <span>324.90 ر.س</span>
+                </div>
+                <div class="total-row grand">
+                    <span>الإجمالي:</span>
+                    <span>2,490.90 ر.س</span>
+                </div>
+            </div>
+            
+            <div class="note">
+                📦 التوصيل مجاني للطلبات فوق 500 ر.س - شكراً لتعاملكم معنا!
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-grid">
+                <div>
+                    <h4>معلومات الدفع</h4>
+                    <p>البنك: بنك الرياض</p>
+                    <p>رقم الحساب: SA23 4567 8901 2345 6789 0123</p>
+                    <p>اسم الحساب: مؤسسة النظافة الشاملة</p>
+                </div>
+                <div class="stamp">
+                    <div class="stamp-box">
+                        <span>ختم<br>المؤسسة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
