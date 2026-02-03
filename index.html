@@ -559,12 +559,47 @@ function setLang(lang) {
 // Set initial placeholder
 document.querySelector('.business-input').placeholder = 'نوع نشاطك (مطعم، عيادة، مقاول...)';
 
-document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
     e.preventDefault();
-    this.style.display = 'none';
-    document.getElementById('success-msg').classList.add('show');
-    // Re-initialize icons for the success message
-    lucide.createIcons();
+    const form = this;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+    const successMsg = document.getElementById('success-msg');
+    const isArabic = document.getElementById('html-root').getAttribute('lang') === 'ar';
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = isArabic ? 'جاري التسجيل...' : 'Submitting...';
+    
+    try {
+        const response = await fetch('/api/waitlist', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                phone: document.getElementById('phone').value,
+                business: document.getElementById('business').value
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            form.style.display = 'none';
+            successMsg.classList.add('show');
+            lucide.createIcons();
+        } else if (data.error === 'already_registered') {
+            alert(isArabic ? 'هذا الرقم مسجل مسبقاً في قائمة الانتظار!' : 'This phone is already on the waitlist!');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+        } else {
+            throw new Error(data.message || 'Something went wrong');
+        }
+    } catch (error) {
+        console.error('Waitlist error:', error);
+        alert(isArabic ? 'حدث خطأ. يرجى المحاولة مرة أخرى.' : 'An error occurred. Please try again.');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+    }
 });
 
 // Initialize Lucide icons
