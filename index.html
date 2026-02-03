@@ -5,7 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مُحاسِب - Muhasib | AI Accounting</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
+        /* Lucide Icon Styling */
+        .icon { display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; }
+        .icon svg { width: 1em; height: 1em; stroke-width: 2; }
+        .icon-sm svg { width: 0.875em; height: 0.875em; }
+        .icon-lg svg { width: 1.25em; height: 1.25em; }
+        .icon-xl svg { width: 2em; height: 2em; }
+        .icon-2xl svg { width: 2.5em; height: 2.5em; }
+        .icon-emerald { color: #34d399; }
+        .icon-cyan { color: #22d3d1; }
+        .icon-white { color: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Tajawal', sans-serif; background: #020617; color: #fff; line-height: 1.6; }
         [dir="ltr"] body { font-family: 'Inter', sans-serif; }
@@ -209,8 +220,8 @@
     <div class="container">
         <div class="hero-content">
             <div class="badge">
-                <span class="ar">🚀 محاسبة ذكية بالذكاء الاصطناعي للمنشآت السعودية</span>
-                <span class="en">🚀 AI-Powered Smart Accounting for Saudi SMEs</span>
+                <span class="ar"><i data-lucide="rocket" class="icon icon-sm"></i> محاسبة ذكية بالذكاء الاصطناعي للمنشآت السعودية</span>
+                <span class="en"><i data-lucide="rocket" class="icon icon-sm"></i> AI-Powered Smart Accounting for Saudi SMEs</span>
             </div>
             <h1>
                 <span class="gradient-text"><span class="ar">محاسبة ذكية</span><span class="en">Smart Accounting</span></span><br>
@@ -240,8 +251,8 @@
                     <span class="en">What's my margin this month?</span>
                 </div>
                 <div class="msg msg-bot">
-                    <span class="ar">هامش الربح: ٣٢٪ ✅</span>
-                    <span class="en">Profit Margin: 32% ✅</span>
+                    <span class="ar">هامش الربح: ٣٢٪ <i data-lucide="check-circle" class="icon icon-sm icon-emerald"></i></span>
+                    <span class="en">Profit Margin: 32% <i data-lucide="check-circle" class="icon icon-sm icon-emerald"></i></span>
                     <div class="msg-info">
                         <div class="msg-row">
                             <span class="msg-label"><span class="ar">صافي الربح:</span><span class="en">Net Profit:</span></span>
@@ -345,7 +356,7 @@
         <h2 class="section-title"><span class="ar">مميزات أساسية</span><span class="en">Core Features</span></h2>
         <div class="grid-4">
             <div class="feature-card">
-                <div class="card-icon">🧾</div>
+                <div class="card-icon"><i data-lucide="file-text" class="icon icon-2xl icon-emerald"></i></div>
                 <h3><span class="ar">فوترة زاتكا</span><span class="en">ZATCA E-Invoicing</span></h3>
                 <ul>
                     <li><span class="ar">QR Code تلقائي</span><span class="en">Auto QR Code</span></li>
@@ -353,7 +364,7 @@
                 </ul>
             </div>
             <div class="feature-card">
-                <div class="card-icon">📸</div>
+                <div class="card-icon"><i data-lucide="camera" class="icon icon-2xl icon-emerald"></i></div>
                 <h3><span class="ar">التقاط التكاليف</span><span class="en">Cost Capture</span></h3>
                 <ul>
                     <li><span class="ar">صوّر الفاتورة</span><span class="en">Snap receipt</span></li>
@@ -361,7 +372,7 @@
                 </ul>
             </div>
             <div class="feature-card">
-                <div class="card-icon">🧮</div>
+                <div class="card-icon"><i data-lucide="calculator" class="icon icon-2xl icon-emerald"></i></div>
                 <h3><span class="ar">تسوية الضريبة</span><span class="en">VAT Reconciliation</span></h3>
                 <ul>
                     <li><span class="ar">مدخلات ومخرجات</span><span class="en">Input & Output</span></li>
@@ -369,7 +380,7 @@
                 </ul>
             </div>
             <div class="feature-card">
-                <div class="card-icon">📊</div>
+                <div class="card-icon"><i data-lucide="trending-up" class="icon icon-2xl icon-emerald"></i></div>
                 <h3><span class="ar">هوامش لحظية</span><span class="en">Live Margins</span></h3>
                 <ul>
                     <li><span class="ar">ربح حقيقي</span><span class="en">Real profit</span></li>
@@ -406,7 +417,7 @@
                 <a href="#waitlist" class="price-btn"><span class="ar">ابدأ</span><span class="en">Start</span></a>
             </div>
             <div class="price-card featured">
-                <div class="price-badge">⭐ <span class="ar">الأكثر شعبية</span><span class="en">Popular</span></div>
+                <div class="price-badge"><i data-lucide="star" class="icon icon-sm"></i> <span class="ar">الأكثر شعبية</span><span class="en">Popular</span></div>
                 <h3><span class="ar">نمو</span><span class="en">Growth</span></h3>
                 <div class="price-amount"><span>199</span> <small>SAR/<span class="ar">شهر</span><span class="en">mo</span></small></div>
                 <ul class="price-features">
@@ -435,7 +446,7 @@
 <section id="waitlist">
     <div class="container">
         <div class="waitlist-box">
-            <div class="waitlist-icon">🚀</div>
+            <div class="waitlist-icon"><i data-lucide="rocket" class="icon icon-2xl icon-emerald"></i></div>
             <h2><span class="ar">كن من أوائل المستخدمين</span><span class="en">Be an Early Adopter</span></h2>
             <p><span class="ar">شهرين مجاناً + خصم ٣٠٪ مدى الحياة</span><span class="en">2 months free + 30% lifetime discount</span></p>
             <form class="waitlist-form" id="waitlist-form">
@@ -444,7 +455,7 @@
                 <button type="submit"><span class="ar">سجّل في قائمة الانتظار</span><span class="en">Join the Waitlist</span></button>
             </form>
             <div class="success-msg" id="success-msg">
-                <div style="font-size:1.5rem;margin-bottom:0.5rem;">🎉</div>
+                <div style="font-size:1.5rem;margin-bottom:0.5rem;"><i data-lucide="party-popper" class="icon icon-xl icon-emerald"></i></div>
                 <p><span class="ar">تم التسجيل بنجاح!</span><span class="en">You're on the list!</span></p>
             </div>
         </div>
@@ -465,9 +476,9 @@
                     <span class="en">AI-powered smart accounting for Saudi SMEs. ZATCA compliant.</span>
                 </p>
                 <div class="footer-social">
-                    <a href="#" title="Twitter/X">𝕏</a>
-                    <a href="#" title="LinkedIn">in</a>
-                    <a href="#" title="Instagram">📷</a>
+                    <a href="#" title="Twitter/X"><i data-lucide="twitter" class="icon"></i></a>
+                    <a href="#" title="LinkedIn"><i data-lucide="linkedin" class="icon"></i></a>
+                    <a href="#" title="Instagram"><i data-lucide="instagram" class="icon"></i></a>
                 </div>
             </div>
             
@@ -511,8 +522,8 @@
         <!-- Bottom -->
         <div class="footer-bottom">
             <p class="footer-copyright">
-                <span class="ar">© 2026 مُحاسِب. جميع الحقوق محفوظة. صُنع بـ ❤️ في 🇸🇦</span>
-                <span class="en">© 2026 Muhasib. All rights reserved. Made with ❤️ in 🇸🇦</span>
+                <span class="ar">© 2026 مُحاسِب. جميع الحقوق محفوظة. صُنع بـ <i data-lucide="heart" class="icon icon-sm" style="color:#ef4444;"></i> في السعودية</span>
+                <span class="en">© 2026 Muhasib. All rights reserved. Made with <i data-lucide="heart" class="icon icon-sm" style="color:#ef4444;"></i> in Saudi Arabia</span>
             </p>
             <div class="footer-legal">
                 <a href="#"><span class="ar">سياسة الخصوصية</span><span class="en">Privacy Policy</span></a>
@@ -552,7 +563,12 @@ document.getElementById('waitlist-form').addEventListener('submit', function(e) 
     e.preventDefault();
     this.style.display = 'none';
     document.getElementById('success-msg').classList.add('show');
+    // Re-initialize icons for the success message
+    lucide.createIcons();
 });
+
+// Initialize Lucide icons
+lucide.createIcons();
 </script>
 </body>
 </html>
