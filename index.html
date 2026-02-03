@@ -451,6 +451,7 @@
             <p><span class="ar">شهرين مجاناً + خصم ٣٠٪ مدى الحياة</span><span class="en">2 months free + 30% lifetime discount</span></p>
             <form class="waitlist-form" id="waitlist-form">
                 <input type="tel" id="phone" placeholder="05xxxxxxxx" required>
+                <input type="email" id="email" class="email-input" required>
                 <input type="text" id="business" class="business-input" required>
                 <button type="submit"><span class="ar">سجّل في قائمة الانتظار</span><span class="en">Join the Waitlist</span></button>
             </form>
@@ -540,6 +541,7 @@ function setLang(lang) {
     const btnAr = document.getElementById('btn-ar');
     const btnEn = document.getElementById('btn-en');
     const businessInput = document.querySelector('.business-input');
+    const emailInput = document.querySelector('.email-input');
     
     if (lang === 'ar') {
         html.setAttribute('dir', 'rtl');
@@ -547,17 +549,20 @@ function setLang(lang) {
         btnAr.classList.add('active');
         btnEn.classList.remove('active');
         if(businessInput) businessInput.placeholder = 'نوع نشاطك (مطعم، عيادة، مقاول...)';
+        if(emailInput) emailInput.placeholder = 'البريد الإلكتروني';
     } else {
         html.setAttribute('dir', 'ltr');
         html.setAttribute('lang', 'en');
         btnEn.classList.add('active');
         btnAr.classList.remove('active');
         if(businessInput) businessInput.placeholder = 'Business type (restaurant, clinic, contractor...)';
+        if(emailInput) emailInput.placeholder = 'Email address';
     }
 }
 
-// Set initial placeholder
+// Set initial placeholders
 document.querySelector('.business-input').placeholder = 'نوع نشاطك (مطعم، عيادة، مقاول...)';
+document.querySelector('.email-input').placeholder = 'البريد الإلكتروني';
 
 document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -577,6 +582,7 @@ document.getElementById('waitlist-form').addEventListener('submit', async functi
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
                 business: document.getElementById('business').value
             })
         });
