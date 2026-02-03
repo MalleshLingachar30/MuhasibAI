@@ -2716,10 +2716,19 @@ async function startCategorization() {
     
     try {
         // Step 1: OCR Reading
-        // Mark Step 1 as active
-        document.getElementById('cat-step-1').classList.add('active');
+        // Mark all steps active with spinners
+        for (let i = 1; i <= 4; i++) {
+            const step = document.getElementById(`cat-step-${i}`);
+            step.classList.add('active');
+        }
         
-        // Process files with OCR (this does all steps)
+        // Update status
+        document.getElementById('engine-status-detail').innerHTML = `
+            <span class="ar">بدء معالجة ${bulkUploadFiles.length} ملف...</span>
+            <span class="en">Starting to process ${bulkUploadFiles.length} files...</span>
+        `;
+        
+        // Process files with OCR
         await categorizeFiles();
         
         // Mark all steps complete
@@ -2978,6 +2987,16 @@ function showCategorizationResults() {
     
     // Show results section
     document.getElementById('categorization-results').classList.add('show');
+    
+    // Reset button state
+    categorizeBtn.disabled = false;
+    categorizeBtn.innerHTML = `
+        <i data-lucide="brain" class="icon"></i>
+        <span class="ar">بدء التصنيف الذكي</span>
+        <span class="en">Start AI Categorization</span>
+    `;
+    categorizeBtn.classList.remove('processing');
+    bulkUploadSection.classList.remove('processing');
     
     lucide.createIcons();
 }
