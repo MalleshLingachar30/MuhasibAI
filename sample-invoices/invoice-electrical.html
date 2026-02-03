@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فاتورة - خدمات كهربائية | Invoice - Electrical Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { 
+            font-family: 'Tajawal', 'Inter', sans-serif; 
+            background: #f8fafc; 
+            padding: 15px;
+            color: #1e293b;
+        }
+        .invoice {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: #fff;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 30px;
+            flex-wrap: nowrap;
+        }
+        .company-info { flex: 1; min-width: 0; }
+        .company-info h1 { font-size: 1.4rem; margin-bottom: 0.5rem; line-height: 1.3; }
+        .company-info p { font-size: 0.75rem; opacity: 0.9; margin-bottom: 0.2rem; }
+        .invoice-title { 
+            text-align: left; 
+            flex-shrink: 0; 
+            min-width: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        [dir="rtl"] .invoice-title { align-items: flex-end; text-align: right; }
+        .invoice-title h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .invoice-title .invoice-number { 
+            background: rgba(255,255,255,0.2); 
+            padding: 0.4rem 0.8rem; 
+            border-radius: 6px;
+            font-size: 0.75rem;
+            display: inline-block;
+        }
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 5rem;
+            color: rgba(239, 68, 68, 0.06);
+            font-weight: 800;
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 0;
+        }
+        .content { padding: 25px 30px; position: relative; overflow: hidden; }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .meta-box { background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .meta-box h3 { 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            color: #64748b; 
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+        .meta-box p { font-size: 0.9rem; margin-bottom: 0.25rem; }
+        .meta-box .name { font-weight: 700; font-size: 1rem; color: #1e40af; }
+        
+        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; table-layout: fixed; }
+        th { 
+            background: #1e40af; 
+            color: #fff; 
+            padding: 10px 12px; 
+            text-align: right; 
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        th:last-child, td:last-child { text-align: left; }
+        td { 
+            padding: 12px; 
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+            vertical-align: top;
+        }
+        tr:nth-child(even) { background: #f8fafc; }
+        .item-desc { font-weight: 500; font-size: 0.85rem; }
+        .item-details { font-size: 0.75rem; color: #64748b; margin-top: 0.2rem; }
+        
+        .totals { 
+            display: flex; 
+            justify-content: flex-start; 
+            margin-bottom: 30px;
+        }
+        .totals-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            min-width: 300px;
+        }
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+        .total-row.subtotal { border-bottom: 1px solid #e2e8f0; }
+        .total-row.vat { color: #64748b; }
+        .total-row.grand {
+            border-top: 2px solid #1e40af;
+            margin-top: 8px;
+            padding-top: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e40af;
+        }
+        
+        .footer {
+            background: #f8fafc;
+            padding: 20px 30px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .payment-info h4 { font-size: 0.8rem; color: #64748b; margin-bottom: 0.5rem; }
+        .payment-info p { font-size: 0.85rem; }
+        .original-badge {
+            background: #fef3c7;
+            border: 2px dashed #f59e0b;
+            color: #92400e;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .print-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #1e40af;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(30,64,175,0.3);
+        }
+        .print-btn:hover { background: #1e3a8a; }
+        
+        @media screen and (max-width: 600px) {
+            .header { flex-direction: column; gap: 15px; }
+            .invoice-title { align-items: flex-start !important; text-align: right !important; width: 100%; }
+            .meta-grid { grid-template-columns: 1fr; }
+            th, td { padding: 8px; font-size: 0.75rem; }
+        }
+        
+        @media print {
+            html, body { 
+                padding: 0; 
+                background: #fff;
+            }
+            .invoice { 
+                box-shadow: none; 
+                border: none; 
+                max-width: none;
+                width: 100%;
+            }
+            .print-btn { display: none; }
+            .watermark { font-size: 4rem; }
+        }
+        
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice">
+        <div class="header">
+            <div class="company-info">
+                <h1>⚡ البرق للخدمات الكهربائية</h1>
+                <p>Al-Barq Electrical Services</p>
+                <p>📍 شارع الملك فهد، حي العليا، الرياض 12211</p>
+                <p>📞 +966 11 456 7890 | ✉️ info@albarq-elec.sa</p>
+                <p style="margin-top:10px;"><strong>الرقم الضريبي (VAT):</strong> 300456789012345</p>
+                <p><strong>السجل التجاري:</strong> 1010234567</p>
+            </div>
+            <div class="invoice-title">
+                <h2>فـاتـورة</h2>
+                <div class="invoice-number">INV-2026-0142</div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="watermark">فاتورة أصلية - ORIGINAL</div>
+            
+            <div class="meta-grid">
+                <div class="meta-box">
+                    <h3>معلومات العميل | Customer</h3>
+                    <p class="name">شركة النخبة للمقاولات</p>
+                    <p>Al-Nukhba Contracting Co.</p>
+                    <p>حي الياسمين، الرياض</p>
+                    <p>الرقم الضريبي: 310987654321098</p>
+                </div>
+                <div class="meta-box">
+                    <h3>تفاصيل الفاتورة | Invoice Details</h3>
+                    <p><strong>تاريخ الإصدار:</strong> 2026/02/01</p>
+                    <p><strong>تاريخ الاستحقاق:</strong> 2026/02/15</p>
+                    <p><strong>رقم أمر العمل:</strong> WO-2026-089</p>
+                    <p><strong>الموقع:</strong> فيلا رقم 45، حي النرجس</p>
+                </div>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:40%">الوصف | Description</th>
+                        <th style="width:15%">الكمية | Qty</th>
+                        <th style="width:20%">السعر | Price</th>
+                        <th style="width:25%">المجموع | Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="item-desc">تمديدات كهربائية رئيسية</div>
+                            <div class="item-details">Main electrical wiring installation - 3 floors</div>
+                        </td>
+                        <td>1</td>
+                        <td>4,500.00 ر.س</td>
+                        <td>4,500.00 ر.س</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item-desc">لوحة توزيع كهربائية 24 خط</div>
+                            <div class="item-details">Distribution board 24-way with MCBs</div>
+                        </td>
+                        <td>2</td>
+                        <td>850.00 ر.س</td>
+                        <td>1,700.00 ر.س</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item-desc">تركيب إضاءة LED داخلية</div>
+                            <div class="item-details">LED lighting installation - 45 points</div>
+                        </td>
+                        <td>45</td>
+                        <td>75.00 ر.س</td>
+                        <td>3,375.00 ر.س</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item-desc">مفاتيح وأفياش ذكية</div>
+                            <div class="item-details">Smart switches and sockets - Schneider</div>
+                        </td>
+                        <td>28</td>
+                        <td>120.00 ر.س</td>
+                        <td>3,360.00 ر.س</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item-desc">أجور يد عاملة وتركيب</div>
+                            <div class="item-details">Labor and installation charges - 4 days</div>
+                        </td>
+                        <td>4</td>
+                        <td>600.00 ر.س</td>
+                        <td>2,400.00 ر.س</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="totals">
+                <div class="totals-box">
+                    <div class="total-row subtotal">
+                        <span>المجموع الفرعي | Subtotal</span>
+                        <span>15,335.00 ر.س</span>
+                    </div>
+                    <div class="total-row vat">
+                        <span>ضريبة القيمة المضافة (15%) | VAT</span>
+                        <span>2,300.25 ر.س</span>
+                    </div>
+                    <div class="total-row grand">
+                        <span>الإجمالي | Grand Total</span>
+                        <span>17,635.25 ر.س</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="payment-info">
+                <h4>معلومات الدفع | Payment Info</h4>
+                <p>بنك الراجحي | IBAN: SA03 8000 0000 6080 1016 7519</p>
+                <p>يرجى ذكر رقم الفاتورة عند التحويل</p>
+            </div>
+            <div class="original-badge">
+                ⚠️ فاتورة أصلية - غير معتمدة من زاتكا
+                <br><small>Original Invoice - Not ZATCA Approved</small>
+            </div>
+        </div>
+    </div>
+    
+    <button class="print-btn" onclick="window.print()">📄 طباعة / حفظ PDF</button>
+</body>
+</html>

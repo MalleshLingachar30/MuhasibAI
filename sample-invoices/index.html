@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فواتير تجريبية | Sample Invoices - Muhasib</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Tajawal', 'Inter', sans-serif; 
+            background: #020617; 
+            color: #fff;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #a78bfa, #818cf8);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #020617;
+            font-size: 1.5rem;
+        }
+        .logo-text { font-size: 1.5rem; font-weight: bold; }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(to left, #a78bfa, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            color: #94a3b8;
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .instructions {
+            background: rgba(167,139,250,0.1);
+            border: 1px solid rgba(167,139,250,0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .instructions h3 {
+            color: #a78bfa;
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .instructions ol {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            padding-right: 1.5rem;
+        }
+        .instructions li { margin-bottom: 0.5rem; }
+        
+        .invoices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .invoice-card {
+            background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.9));
+            border-radius: 16px;
+            border: 1px solid #1e293b;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .invoice-card:hover {
+            border-color: rgba(167,139,250,0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(167,139,250,0.15);
+        }
+        
+        .card-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid #1e293b;
+        }
+        .card-header .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .card-header h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+        .card-header .en-name {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+        
+        .card-body {
+            padding: 1.25rem;
+        }
+        .invoice-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .meta-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+        }
+        .meta-label { color: #64748b; }
+        .meta-value { color: #e2e8f0; font-weight: 500; }
+        .meta-value.total { color: #a78bfa; font-weight: 700; }
+        
+        .card-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        .btn {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .btn-primary {
+            background: linear-gradient(to right, #a78bfa, #818cf8);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 4px 15px rgba(167,139,250,0.4);
+        }
+        .btn-secondary {
+            background: rgba(51,65,85,0.5);
+            color: #94a3b8;
+            border: 1px solid #334155;
+        }
+        .btn-secondary:hover {
+            background: rgba(51,65,85,0.8);
+            color: #fff;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            transition: color 0.3s;
+        }
+        .back-link:hover { color: #fff; }
+        
+        .note {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(251,191,36,0.1);
+            border: 1px solid rgba(251,191,36,0.3);
+            border-radius: 8px;
+            color: #fbbf24;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">م</div>
+                <span class="logo-text">Muhasib</span>
+            </div>
+            <h1>فواتير تجريبية للعرض التفاعلي</h1>
+            <p class="subtitle">استخدم هذه الفواتير لتجربة نظام الفوترة الإلكترونية المتوافق مع زاتكا</p>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 كيفية الاستخدام</h3>
+            <ol>
+                <li>اختر أي فاتورة من القائمة أدناه واضغط على "فتح الفاتورة"</li>
+                <li>اضغط على زر "طباعة / حفظ PDF" في الصفحة، ثم اختر "حفظ كـ PDF"</li>
+                <li>استخدم ملف PDF في العرض التفاعلي لمشاهدة عملية الاعتماد من زاتكا</li>
+            </ol>
+        </div>
+        
+        <div class="invoices-grid">
+            <!-- Electrical Invoice -->
+            <div class="invoice-card">
+                <div class="card-header">
+                    <div class="icon">⚡</div>
+                    <h3>البرق للخدمات الكهربائية</h3>
+                    <div class="en-name">Al-Barq Electrical Services</div>
+                </div>
+                <div class="card-body">
+                    <div class="invoice-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">رقم الفاتورة</span>
+                            <span class="meta-value">INV-2026-0142</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">التاريخ</span>
+                            <span class="meta-value">2026/02/01</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">الإجمالي (شامل الضريبة)</span>
+                            <span class="meta-value total">17,635.25 ر.س</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="invoice-electrical.html" class="btn btn-primary" target="_blank">فتح الفاتورة</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Design Invoice -->
+            <div class="invoice-card">
+                <div class="card-header">
+                    <div class="icon">🎨</div>
+                    <h3>إبداع للتصميم الداخلي</h3>
+                    <div class="en-name">Ibda'a Interior Design Studio</div>
+                </div>
+                <div class="card-body">
+                    <div class="invoice-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">رقم الفاتورة</span>
+                            <span class="meta-value">INV-2026-0089</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">التاريخ</span>
+                            <span class="meta-value">2026/01/28</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">الإجمالي (شامل الضريبة)</span>
+                            <span class="meta-value total">32,660.00 ر.س</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="invoice-design.html" class="btn btn-primary" target="_blank">فتح الفاتورة</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Plumbing Invoice -->
+            <div class="invoice-card">
+                <div class="card-header">
+                    <div class="icon">🔧</div>
+                    <h3>الصفاء لخدمات السباكة</h3>
+                    <div class="en-name">Al-Safa Plumbing Services</div>
+                </div>
+                <div class="card-body">
+                    <div class="invoice-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">رقم الفاتورة</span>
+                            <span class="meta-value">INV-2026-0256</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">التاريخ</span>
+                            <span class="meta-value">2026/02/02</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">الإجمالي (شامل الضريبة)</span>
+                            <span class="meta-value total">7,475.00 ر.س</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="invoice-plumbing.html" class="btn btn-primary" target="_blank">فتح الفاتورة</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Photography Invoice -->
+            <div class="invoice-card">
+                <div class="card-header">
+                    <div class="icon">📸</div>
+                    <h3>عدسة الإبداع للتصوير</h3>
+                    <div class="en-name">Creative Lens Photography</div>
+                </div>
+                <div class="card-body">
+                    <div class="invoice-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">رقم الفاتورة</span>
+                            <span class="meta-value">INV-2026-0078</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">التاريخ</span>
+                            <span class="meta-value">2026/01/30</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">الإجمالي (شامل الضريبة)</span>
+                            <span class="meta-value total">18,285.00 ر.س</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="invoice-photography.html" class="btn btn-primary" target="_blank">فتح الفاتورة</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="note">
+            ⚠️ هذه فواتير تجريبية للعرض فقط - تحمل علامة "فاتورة أصلية - غير معتمدة من زاتكا"
+            <br>بعد المعالجة في العرض التفاعلي، ستحصل على فاتورة معتمدة برمز QR ومعرّف زاتكا
+        </div>
+        
+        <a href="../demo-no-pos.html" class="back-link">
+            ← الذهاب للعرض التفاعلي
+        </a>
+    </div>
+</body>
+</html>
