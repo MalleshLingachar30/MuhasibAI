@@ -279,6 +279,61 @@
         .add-invoice-btn { width: 100%; padding: 0.75rem; background: rgba(52,211,153,0.1); border: 1px dashed rgba(52,211,153,0.3); border-radius: 10px; color: #34d399; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
         .add-invoice-btn:hover { background: rgba(52,211,153,0.2); border-style: solid; }
         
+        /* Sales Bulk Upload */
+        .sales-bulk-upload { margin-bottom: 1rem; }
+        .sales-upload-zone { 
+            background: rgba(15,23,42,0.5); 
+            border: 2px dashed rgba(52,211,153,0.3); 
+            border-radius: 12px; 
+            padding: 1.25rem; 
+            text-align: center; 
+            cursor: pointer; 
+            transition: all 0.3s;
+        }
+        .sales-upload-zone:hover { border-color: rgba(52,211,153,0.6); background: rgba(52,211,153,0.1); }
+        .sales-upload-zone.drag-over { border-color: #34d399; background: rgba(52,211,153,0.15); }
+        .sales-upload-zone.has-files { border-style: solid; border-color: #34d399; }
+        .sales-upload-icon { margin-bottom: 0.5rem; }
+        .sales-upload-text { font-size: 0.85rem; color: #e2e8f0; margin-bottom: 0.25rem; }
+        .sales-upload-hint { font-size: 0.75rem; color: #64748b; }
+        
+        .sales-files-preview { display: none; margin-top: 1rem; }
+        .sales-files-preview.show { display: block; }
+        .sales-files-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; font-size: 0.8rem; }
+        .sales-files-count { color: #34d399; font-weight: 600; }
+        .sales-files-clear { background: none; border: none; color: #64748b; font-size: 0.75rem; cursor: pointer; }
+        .sales-files-clear:hover { color: #f87171; }
+        .sales-files-list { display: flex; flex-wrap: wrap; gap: 0.5rem; max-height: 100px; overflow-y: auto; }
+        .sales-file-tag { display: flex; align-items: center; gap: 0.35rem; background: rgba(52,211,153,0.15); border: 1px solid rgba(52,211,153,0.3); padding: 0.35rem 0.6rem; border-radius: 6px; font-size: 0.75rem; color: #34d399; }
+        .sales-file-tag button { background: none; border: none; color: #64748b; cursor: pointer; padding: 0; margin-left: 0.25rem; }
+        .sales-file-tag button:hover { color: #f87171; }
+        
+        .process-sales-btn { 
+            width: 100%; 
+            margin-top: 0.75rem; 
+            padding: 0.75rem; 
+            background: linear-gradient(135deg, #34d399, #22d3d1); 
+            border: none; 
+            border-radius: 10px; 
+            color: #020617; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .process-sales-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(52,211,153,0.3); }
+        .process-sales-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+        
+        .sales-divider { display: flex; align-items: center; gap: 0.75rem; margin: 1rem 0; }
+        .sales-divider-line { flex: 1; height: 1px; background: #334155; }
+        .sales-divider-text { font-size: 0.7rem; color: #64748b; text-transform: uppercase; }
+        
+        .invoice-empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 1rem; text-align: center; }
+        
         /* Expense Categories */
         .expense-categories { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem; }
         .expense-category { background: rgba(15,23,42,0.5); border-radius: 12px; overflow: hidden; border: 1px solid transparent; transition: all 0.3s; }
@@ -323,6 +378,189 @@
         .quick-add-btn { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; padding: 0.75rem 0.5rem; background: rgba(51,65,85,0.3); border: 1px solid #334155; border-radius: 10px; color: #94a3b8; font-size: 0.75rem; cursor: pointer; transition: all 0.3s; }
         .quick-add-btn:hover { background: rgba(52,211,153,0.15); border-color: rgba(52,211,153,0.3); color: #34d399; }
         .quick-add-btn span { font-weight: 600; }
+        
+        /* ============================================== */
+        /* AI BULK EXPENSE CATEGORIZER STYLES */
+        /* ============================================== */
+        
+        .bulk-upload-section { 
+            background: linear-gradient(135deg, rgba(30,41,59,0.95), rgba(15,23,42,0.95)); 
+            border-radius: 24px; 
+            border: 2px dashed rgba(167,139,250,0.4); 
+            padding: 2rem; 
+            margin-bottom: 2rem; 
+            transition: all 0.3s;
+        }
+        .bulk-upload-section:hover { border-color: rgba(167,139,250,0.7); }
+        .bulk-upload-section.processing { border-style: solid; border-color: rgba(52,211,153,0.5); }
+        .bulk-upload-section.completed { border-style: solid; border-color: rgba(52,211,153,0.7); background: linear-gradient(135deg, rgba(30,41,59,0.95), rgba(5,150,105,0.1)); }
+        
+        .bulk-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .bulk-icon-wrapper { width: 72px; height: 72px; border-radius: 20px; background: linear-gradient(135deg, rgba(167,139,250,0.3), rgba(129,140,248,0.2)); display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; }
+        .bulk-icon-wrapper::after { content: ''; position: absolute; inset: -3px; border-radius: 23px; border: 2px solid rgba(167,139,250,0.3); animation: pulse-ring 2s ease-out infinite; }
+        .bulk-upload-section.processing .bulk-icon-wrapper::after { border-color: rgba(52,211,153,0.5); }
+        .bulk-upload-section.completed .bulk-icon-wrapper { background: linear-gradient(135deg, rgba(52,211,153,0.3), rgba(34,211,209,0.2)); }
+        .bulk-header-content { flex: 1; min-width: 200px; }
+        .bulk-title { font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem; }
+        .bulk-title .ai-badge { background: linear-gradient(135deg, #a78bfa, #818cf8); padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .bulk-subtitle { color: #94a3b8; font-size: 0.9rem; }
+        
+        .bulk-upload-zone { 
+            background: rgba(15,23,42,0.5); 
+            border: 2px dashed #475569; 
+            border-radius: 16px; 
+            padding: 2.5rem; 
+            text-align: center; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            margin-bottom: 1.5rem;
+        }
+        .bulk-upload-zone:hover { border-color: #a78bfa; background: rgba(167,139,250,0.1); }
+        .bulk-upload-zone.drag-over { border-color: #a78bfa; background: rgba(167,139,250,0.15); transform: scale(1.01); }
+        .bulk-upload-zone.has-files { border-style: solid; border-color: #34d399; background: rgba(52,211,153,0.1); }
+        
+        .bulk-upload-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+        .bulk-upload-icon i { color: #64748b; }
+        .bulk-upload-zone:hover .bulk-upload-icon i { color: #a78bfa; }
+        .bulk-upload-zone.has-files .bulk-upload-icon i { color: #34d399; }
+        
+        .bulk-upload-text { font-size: 1rem; color: #e2e8f0; margin-bottom: 0.5rem; font-weight: 500; }
+        .bulk-upload-hint { font-size: 0.85rem; color: #64748b; }
+        .bulk-upload-formats { display: flex; gap: 0.5rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
+        .format-badge { background: rgba(51,65,85,0.5); padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.75rem; color: #94a3b8; }
+        
+        /* File List Preview */
+        .bulk-files-preview { display: none; margin-bottom: 1.5rem; }
+        .bulk-files-preview.show { display: block; }
+        .files-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid #334155; }
+        .files-count { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: #e2e8f0; }
+        .files-count .count-badge { background: rgba(167,139,250,0.2); color: #a78bfa; padding: 0.25rem 0.75rem; border-radius: 50px; font-weight: 600; }
+        .files-clear { background: none; border: none; color: #64748b; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.35rem; transition: color 0.3s; }
+        .files-clear:hover { color: #f87171; }
+        
+        .files-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem; max-height: 200px; overflow-y: auto; padding: 0.25rem; }
+        .file-chip { display: flex; align-items: center; gap: 0.5rem; background: rgba(51,65,85,0.4); border: 1px solid #475569; border-radius: 10px; padding: 0.6rem 0.75rem; font-size: 0.8rem; }
+        .file-chip-icon { color: #a78bfa; flex-shrink: 0; }
+        .file-chip-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #e2e8f0; }
+        .file-chip-remove { background: none; border: none; color: #64748b; cursor: pointer; padding: 0.25rem; transition: color 0.3s; }
+        .file-chip-remove:hover { color: #f87171; }
+        
+        /* AI Categorization Button */
+        .categorize-btn { 
+            width: 100%; 
+            background: linear-gradient(135deg, #a78bfa, #818cf8); 
+            border: none; 
+            padding: 1rem 2rem; 
+            border-radius: 14px; 
+            font-size: 1rem; 
+            font-weight: 700; 
+            color: #fff; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+        .categorize-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(167,139,250,0.4); }
+        .categorize-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+        .categorize-btn.processing { background: linear-gradient(135deg, #34d399, #22d3d1); }
+        
+        /* AI Processing Animation */
+        .ai-categorization-engine { display: none; margin-top: 2rem; }
+        .ai-categorization-engine.show { display: block; animation: fadeIn 0.5s ease; }
+        
+        .engine-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .engine-avatar { width: 60px; height: 60px; border-radius: 16px; background: linear-gradient(135deg, #34d399, #22d3d1); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #020617; font-size: 1.5rem; position: relative; }
+        .engine-avatar-ring { position: absolute; inset: -5px; border-radius: 20px; border: 2px solid #34d399; animation: pulse-ring 1.2s ease-out infinite; }
+        .engine-status { flex: 1; }
+        .engine-status-text { font-size: 1.1rem; font-weight: 600; color: #34d399; margin-bottom: 0.25rem; }
+        .engine-status-detail { font-size: 0.85rem; color: #94a3b8; }
+        
+        /* Processing Steps */
+        .categorization-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+        @media(max-width: 768px) { .categorization-steps { grid-template-columns: repeat(2, 1fr); } }
+        .cat-step { background: rgba(51,65,85,0.3); border-radius: 12px; padding: 1rem; text-align: center; transition: all 0.3s; border: 1px solid transparent; }
+        .cat-step.active { background: rgba(167,139,250,0.15); border-color: rgba(167,139,250,0.3); }
+        .cat-step.completed { background: rgba(52,211,153,0.1); border-color: rgba(52,211,153,0.3); }
+        .cat-step-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(100,116,139,0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem; color: #64748b; transition: all 0.3s; }
+        .cat-step.active .cat-step-icon { background: rgba(167,139,250,0.3); color: #a78bfa; }
+        .cat-step.completed .cat-step-icon { background: rgba(52,211,153,0.3); color: #34d399; }
+        .cat-step-label { font-size: 0.8rem; color: #94a3b8; }
+        .cat-step.active .cat-step-label { color: #e2e8f0; }
+        .cat-step.completed .cat-step-label { color: #34d399; }
+        
+        /* Categorization Results */
+        .categorization-results { display: none; animation: fadeIn 0.5s ease; }
+        .categorization-results.show { display: block; }
+        
+        .results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem; }
+        .results-title { display: flex; align-items: center; gap: 0.75rem; font-size: 1rem; font-weight: 600; color: #34d399; }
+        .results-summary { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .result-tag { display: flex; align-items: center; gap: 0.35rem; background: rgba(51,65,85,0.4); padding: 0.4rem 0.75rem; border-radius: 8px; font-size: 0.8rem; }
+        .result-tag.suppliers { color: #60a5fa; border-left: 3px solid #60a5fa; }
+        .result-tag.salaries { color: #a78bfa; border-left: 3px solid #a78bfa; }
+        .result-tag.rent { color: #fb923c; border-left: 3px solid #fb923c; }
+        .result-tag.misc { color: #94a3b8; border-left: 3px solid #94a3b8; }
+        [dir="ltr"] .result-tag { border-left: none; border-right: 3px solid; }
+        [dir="ltr"] .result-tag.suppliers { border-right-color: #60a5fa; }
+        [dir="ltr"] .result-tag.salaries { border-right-color: #a78bfa; }
+        [dir="ltr"] .result-tag.rent { border-right-color: #fb923c; }
+        [dir="ltr"] .result-tag.misc { border-right-color: #94a3b8; }
+        
+        .results-categories { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+        @media(max-width: 768px) { .results-categories { grid-template-columns: 1fr; } }
+        
+        .result-category { background: rgba(15,23,42,0.5); border-radius: 14px; padding: 1rem; border: 1px solid #334155; transition: all 0.3s; }
+        .result-category:hover { border-color: rgba(167,139,250,0.3); }
+        .result-category-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .result-cat-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .result-cat-icon.suppliers { background: rgba(96,165,250,0.2); color: #60a5fa; }
+        .result-cat-icon.salaries { background: rgba(167,139,250,0.2); color: #a78bfa; }
+        .result-cat-icon.rent { background: rgba(251,146,60,0.2); color: #fb923c; }
+        .result-cat-icon.misc { background: rgba(148,163,184,0.2); color: #94a3b8; }
+        .result-cat-title { flex: 1; font-size: 0.9rem; font-weight: 600; color: #e2e8f0; }
+        .result-cat-count { background: rgba(52,211,153,0.2); color: #34d399; padding: 0.2rem 0.6rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; }
+        
+        .result-cat-items { display: flex; flex-direction: column; gap: 0.5rem; max-height: 150px; overflow-y: auto; }
+        .result-cat-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; background: rgba(51,65,85,0.3); border-radius: 8px; font-size: 0.8rem; }
+        .result-cat-item-name { flex: 1; color: #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .result-cat-item-amount { color: #34d399; font-weight: 600; }
+        .result-cat-item-vat { color: #64748b; font-size: 0.7rem; }
+        
+        .result-cat-total { display: flex; justify-content: space-between; padding-top: 0.75rem; margin-top: 0.75rem; border-top: 1px solid #334155; font-size: 0.85rem; }
+        .result-cat-total-label { color: #94a3b8; }
+        .result-cat-total-value { color: #34d399; font-weight: 700; }
+        
+        .result-category.empty { opacity: 0.5; }
+        .result-category.empty .result-cat-items { display: none; }
+        .empty-message { color: #64748b; font-size: 0.8rem; text-align: center; padding: 1rem; }
+        
+        /* Apply Button */
+        .apply-results-btn { 
+            width: 100%; 
+            background: linear-gradient(135deg, #34d399, #22d3d1); 
+            border: none; 
+            padding: 1rem 2rem; 
+            border-radius: 14px; 
+            font-size: 1rem; 
+            font-weight: 700; 
+            color: #020617; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+        .apply-results-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(52,211,153,0.4); }
+        
+        /* Success Animation */
+        .categorization-success { display: none; text-align: center; padding: 2rem; animation: fadeIn 0.5s ease; }
+        .categorization-success.show { display: block; }
+        .success-icon { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, rgba(52,211,153,0.2), rgba(34,211,209,0.1)); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; }
+        .success-title { font-size: 1.25rem; font-weight: 700; color: #34d399; margin-bottom: 0.5rem; }
+        .success-message { color: #94a3b8; font-size: 0.9rem; }
         
         /* AI Expense Processor */
         .ai-expense-processor { background: linear-gradient(135deg, rgba(52,211,153,0.1), rgba(34,211,209,0.05)); border: 1px solid rgba(52,211,153,0.3); border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; }
@@ -715,6 +953,273 @@
             </p>
         </div>
         
+        <!-- ============================================== -->
+        <!-- AI BULK EXPENSE CATEGORIZER -->
+        <!-- ============================================== -->
+        <div class="bulk-upload-section" id="bulk-upload-section">
+            <div class="bulk-header">
+                <div class="bulk-icon-wrapper">
+                    <i data-lucide="sparkles" class="icon icon-3xl icon-purple"></i>
+                </div>
+                <div class="bulk-header-content">
+                    <h3 class="bulk-title">
+                        <span class="ar">رفع جميع المصاريف دفعة واحدة</span>
+                        <span class="en">Upload All Expenses at Once</span>
+                        <span class="ai-badge">AI</span>
+                    </h3>
+                    <p class="bulk-subtitle">
+                        <span class="ar">ارفع جميع فواتيرك من أي مجلد - سيقوم الذكاء الاصطناعي بتصنيفها تلقائياً وتوزيعها على الفئات المناسبة</span>
+                        <span class="en">Upload all your invoices from any folder - AI will automatically categorize and distribute them to appropriate pools</span>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Bulk Upload Zone -->
+            <div class="bulk-upload-zone" id="bulk-upload-zone">
+                <input type="file" id="bulk-file-input" multiple accept="image/*,.pdf" style="display:none;">
+                <div class="bulk-upload-icon">
+                    <i data-lucide="folder-up" class="icon icon-4xl"></i>
+                </div>
+                <div class="bulk-upload-text">
+                    <span class="ar">اسحب جميع الفواتير هنا أو انقر للاختيار</span>
+                    <span class="en">Drag all invoices here or click to select</span>
+                </div>
+                <div class="bulk-upload-hint">
+                    <span class="ar">فواتير موردين، إيصالات إيجار، كشوف رواتب، فواتير خدمات - كلها معاً!</span>
+                    <span class="en">Supplier invoices, rent receipts, payroll, utility bills - all together!</span>
+                </div>
+                <div class="bulk-upload-formats">
+                    <span class="format-badge">PDF</span>
+                    <span class="format-badge">PNG</span>
+                    <span class="format-badge">JPG</span>
+                    <span class="format-badge"><span class="ar">حد أقصى 20 ملف</span><span class="en">Max 20 files</span></span>
+                </div>
+            </div>
+            
+            <!-- Files Preview -->
+            <div class="bulk-files-preview" id="bulk-files-preview">
+                <div class="files-header">
+                    <div class="files-count">
+                        <i data-lucide="files" class="icon"></i>
+                        <span class="ar">الملفات المرفوعة</span>
+                        <span class="en">Uploaded Files</span>
+                        <span class="count-badge" id="bulk-files-count">0</span>
+                    </div>
+                    <button class="files-clear" id="bulk-files-clear">
+                        <i data-lucide="trash-2" class="icon icon-sm"></i>
+                        <span class="ar">مسح الكل</span>
+                        <span class="en">Clear All</span>
+                    </button>
+                </div>
+                <div class="files-grid" id="bulk-files-grid"></div>
+            </div>
+            
+            <!-- Categorize Button -->
+            <button class="categorize-btn" id="categorize-btn" disabled>
+                <i data-lucide="brain" class="icon icon-lg"></i>
+                <span class="ar">تصنيف تلقائي بالذكاء الاصطناعي</span>
+                <span class="en">Auto-Categorize with AI</span>
+            </button>
+            
+            <!-- AI Categorization Engine Animation -->
+            <div class="ai-categorization-engine" id="ai-categorization-engine">
+                <div class="engine-header">
+                    <div class="engine-avatar">
+                        <span>م</span>
+                        <div class="engine-avatar-ring"></div>
+                    </div>
+                    <div class="engine-status">
+                        <div class="engine-status-text" id="engine-status-text">
+                            <span class="ar">جاري تحليل الفواتير...</span>
+                            <span class="en">Analyzing invoices...</span>
+                        </div>
+                        <div class="engine-status-detail" id="engine-status-detail">
+                            <span class="ar">قراءة محتوى الملفات</span>
+                            <span class="en">Reading file contents</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="categorization-steps">
+                    <div class="cat-step" id="cat-step-1">
+                        <div class="cat-step-icon">
+                            <i data-lucide="scan-text" class="icon"></i>
+                        </div>
+                        <div class="cat-step-label">
+                            <span class="ar">قراءة OCR</span>
+                            <span class="en">OCR Reading</span>
+                        </div>
+                    </div>
+                    <div class="cat-step" id="cat-step-2">
+                        <div class="cat-step-icon">
+                            <i data-lucide="brain" class="icon"></i>
+                        </div>
+                        <div class="cat-step-label">
+                            <span class="ar">تحليل AI</span>
+                            <span class="en">AI Analysis</span>
+                        </div>
+                    </div>
+                    <div class="cat-step" id="cat-step-3">
+                        <div class="cat-step-icon">
+                            <i data-lucide="tags" class="icon"></i>
+                        </div>
+                        <div class="cat-step-label">
+                            <span class="ar">تصنيف</span>
+                            <span class="en">Categorizing</span>
+                        </div>
+                    </div>
+                    <div class="cat-step" id="cat-step-4">
+                        <div class="cat-step-icon">
+                            <i data-lucide="calculator" class="icon"></i>
+                        </div>
+                        <div class="cat-step-label">
+                            <span class="ar">استخراج البيانات</span>
+                            <span class="en">Data Extraction</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Categorization Results -->
+            <div class="categorization-results" id="categorization-results">
+                <div class="results-header">
+                    <div class="results-title">
+                        <i data-lucide="check-circle" class="icon icon-lg"></i>
+                        <span class="ar">تم التصنيف بنجاح!</span>
+                        <span class="en">Categorization Complete!</span>
+                    </div>
+                    <div class="results-summary" id="results-summary"></div>
+                </div>
+                
+                <div class="results-categories">
+                    <!-- Suppliers Results -->
+                    <div class="result-category" id="result-cat-suppliers">
+                        <div class="result-category-header">
+                            <div class="result-cat-icon suppliers">
+                                <i data-lucide="truck" class="icon"></i>
+                            </div>
+                            <div class="result-cat-title">
+                                <span class="ar">فواتير الموردين</span>
+                                <span class="en">Supplier Invoices</span>
+                            </div>
+                            <div class="result-cat-count" id="result-count-suppliers">0</div>
+                        </div>
+                        <div class="result-cat-items" id="result-items-suppliers"></div>
+                        <div class="empty-message">
+                            <span class="ar">لا توجد فواتير موردين</span>
+                            <span class="en">No supplier invoices</span>
+                        </div>
+                        <div class="result-cat-total">
+                            <span class="result-cat-total-label">
+                                <span class="ar">الإجمالي</span>
+                                <span class="en">Total</span>
+                            </span>
+                            <span class="result-cat-total-value" id="result-total-suppliers">0 SAR</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Salaries Results -->
+                    <div class="result-category" id="result-cat-salaries">
+                        <div class="result-category-header">
+                            <div class="result-cat-icon salaries">
+                                <i data-lucide="users" class="icon"></i>
+                            </div>
+                            <div class="result-cat-title">
+                                <span class="ar">الرواتب والأجور</span>
+                                <span class="en">Salaries & Wages</span>
+                            </div>
+                            <div class="result-cat-count" id="result-count-salaries">0</div>
+                        </div>
+                        <div class="result-cat-items" id="result-items-salaries"></div>
+                        <div class="empty-message">
+                            <span class="ar">لا توجد كشوف رواتب</span>
+                            <span class="en">No payroll records</span>
+                        </div>
+                        <div class="result-cat-total">
+                            <span class="result-cat-total-label">
+                                <span class="ar">الإجمالي</span>
+                                <span class="en">Total</span>
+                            </span>
+                            <span class="result-cat-total-value" id="result-total-salaries">0 SAR</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Rent Results -->
+                    <div class="result-category" id="result-cat-rent">
+                        <div class="result-category-header">
+                            <div class="result-cat-icon rent">
+                                <i data-lucide="home" class="icon"></i>
+                            </div>
+                            <div class="result-cat-title">
+                                <span class="ar">الإيجار</span>
+                                <span class="en">Rent</span>
+                            </div>
+                            <div class="result-cat-count" id="result-count-rent">0</div>
+                        </div>
+                        <div class="result-cat-items" id="result-items-rent"></div>
+                        <div class="empty-message">
+                            <span class="ar">لا توجد إيصالات إيجار</span>
+                            <span class="en">No rent receipts</span>
+                        </div>
+                        <div class="result-cat-total">
+                            <span class="result-cat-total-label">
+                                <span class="ar">الإجمالي</span>
+                                <span class="en">Total</span>
+                            </span>
+                            <span class="result-cat-total-value" id="result-total-rent">0 SAR</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Misc Results -->
+                    <div class="result-category" id="result-cat-misc">
+                        <div class="result-category-header">
+                            <div class="result-cat-icon misc">
+                                <i data-lucide="more-horizontal" class="icon"></i>
+                            </div>
+                            <div class="result-cat-title">
+                                <span class="ar">مصاريف أخرى</span>
+                                <span class="en">Miscellaneous</span>
+                            </div>
+                            <div class="result-cat-count" id="result-count-misc">0</div>
+                        </div>
+                        <div class="result-cat-items" id="result-items-misc"></div>
+                        <div class="empty-message">
+                            <span class="ar">لا توجد مصاريف أخرى</span>
+                            <span class="en">No misc expenses</span>
+                        </div>
+                        <div class="result-cat-total">
+                            <span class="result-cat-total-label">
+                                <span class="ar">الإجمالي</span>
+                                <span class="en">Total</span>
+                            </span>
+                            <span class="result-cat-total-value" id="result-total-misc">0 SAR</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="apply-results-btn" id="apply-results-btn">
+                    <i data-lucide="check-check" class="icon icon-lg"></i>
+                    <span class="ar">تطبيق التصنيف وتحديث الحسابات</span>
+                    <span class="en">Apply Categorization & Update Accounts</span>
+                </button>
+            </div>
+            
+            <!-- Success State -->
+            <div class="categorization-success" id="categorization-success">
+                <div class="success-icon">
+                    <i data-lucide="check-circle" class="icon icon-3xl icon-emerald"></i>
+                </div>
+                <div class="success-title">
+                    <span class="ar">تم تطبيق التصنيف بنجاح!</span>
+                    <span class="en">Categorization Applied Successfully!</span>
+                </div>
+                <div class="success-message">
+                    <span class="ar">تم توزيع جميع الفواتير على الفئات المناسبة وتحديث الحسابات</span>
+                    <span class="en">All invoices have been distributed to appropriate categories and accounts updated</span>
+                </div>
+            </div>
+        </div>
+        
         <!-- Two Column Layout: Sales vs Expenses -->
         <div class="accounting-grid">
             <!-- LEFT: Sales Dashboard -->
@@ -728,10 +1233,9 @@
                         <div class="panel-title"><span class="ar">إجمالي المبيعات</span><span class="en">Total Sales</span></div>
                     </div>
                     <div class="panel-status">
-                        <span class="status-badge success" id="sales-status">
-                            <i data-lucide="check-circle" class="icon icon-sm"></i>
-                            <span class="ar">١ فاتورة</span>
-                            <span class="en">1 Invoice</span>
+                        <span class="status-badge waiting" id="sales-status">
+                            <span class="ar">ارفع الفواتير</span>
+                            <span class="en">Upload Invoices</span>
                         </span>
                     </div>
                 </div>
@@ -741,43 +1245,74 @@
                     <div class="summary-cards">
                         <div class="summary-card">
                             <div class="summary-icon"><i data-lucide="file-text" class="icon"></i></div>
-                            <div class="summary-value" id="total-invoices">1</div>
+                            <div class="summary-value" id="total-invoices">0</div>
                             <div class="summary-label"><span class="ar">الفواتير</span><span class="en">Invoices</span></div>
                         </div>
                         <div class="summary-card highlight">
                             <div class="summary-icon"><i data-lucide="saudi-riyal" class="icon"></i></div>
-                            <div class="summary-value" id="total-sales">15,900</div>
+                            <div class="summary-value" id="total-sales">0</div>
                             <div class="summary-label"><span class="ar">المبيعات</span><span class="en">Sales (SAR)</span></div>
                         </div>
                         <div class="summary-card">
                             <div class="summary-icon"><i data-lucide="percent" class="icon"></i></div>
-                            <div class="summary-value" id="output-vat">2,385</div>
+                            <div class="summary-value" id="output-vat">0</div>
                             <div class="summary-label"><span class="ar">ضريبة المخرجات</span><span class="en">Output VAT</span></div>
                         </div>
+                    </div>
+                    
+                    <!-- Bulk Sales Upload -->
+                    <div class="sales-bulk-upload">
+                        <div class="sales-upload-zone" id="sales-upload-zone">
+                            <input type="file" id="sales-file-input" multiple accept="image/*,.pdf" style="display:none;">
+                            <div class="sales-upload-icon">
+                                <i data-lucide="upload-cloud" class="icon icon-xl icon-emerald"></i>
+                            </div>
+                            <div class="sales-upload-text">
+                                <span class="ar">ارفع فواتير المبيعات دفعة واحدة</span>
+                                <span class="en">Upload multiple sales invoices at once</span>
+                            </div>
+                            <div class="sales-upload-hint">
+                                <span class="ar">اسحب الملفات هنا أو انقر للاختيار (حد أقصى 10 ملفات)</span>
+                                <span class="en">Drag files here or click to select (max 10 files)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="sales-files-preview" id="sales-files-preview">
+                            <div class="sales-files-header">
+                                <span class="sales-files-count" id="sales-files-count">0 <span class="ar">ملفات</span><span class="en">files</span></span>
+                                <button class="sales-files-clear" id="sales-files-clear">
+                                    <span class="ar">مسح الكل</span><span class="en">Clear all</span>
+                                </button>
+                            </div>
+                            <div class="sales-files-list" id="sales-files-list"></div>
+                        </div>
+                        
+                        <button class="process-sales-btn" id="process-sales-btn" disabled>
+                            <i data-lucide="zap" class="icon"></i>
+                            <span class="ar">معالجة الفواتير عبر زاتكا</span>
+                            <span class="en">Process Invoices via ZATCA</span>
+                        </button>
+                    </div>
+                    
+                    <div class="sales-divider">
+                        <div class="sales-divider-line"></div>
+                        <span class="sales-divider-text"><span class="ar">أو</span><span class="en">or</span></span>
+                        <div class="sales-divider-line"></div>
                     </div>
                     
                     <!-- Invoice List -->
                     <div class="invoice-list">
                         <div class="list-header">
                             <span><span class="ar">الفواتير الصادرة</span><span class="en">Issued Invoices</span></span>
-                            <span class="list-count" id="invoice-list-count">1</span>
+                            <span class="list-count" id="invoice-list-count">0</span>
                         </div>
                         <div class="invoice-items" id="invoice-items">
-                            <div class="invoice-item">
-                                <div class="invoice-item-icon">
-                                    <i data-lucide="file-check" class="icon"></i>
-                                </div>
-                                <div class="invoice-item-details">
-                                    <div class="invoice-item-title" id="invoice-item-title">INV-2026-ZATCA-XXXX</div>
-                                    <div class="invoice-item-meta">
-                                        <span class="ar">شركة العميل للتجارة</span>
-                                        <span class="en">Customer Trading Co.</span>
-                                    </div>
-                                </div>
-                                <div class="invoice-item-amount">
-                                    <div class="amount">18,285 <small>SAR</small></div>
-                                    <div class="vat-badge">+2,385 <span class="ar">ض</span><span class="en">VAT</span></div>
-                                </div>
+                            <div class="invoice-empty-state" id="invoice-empty-state">
+                                <i data-lucide="inbox" class="icon icon-xl" style="color:#64748b; margin-bottom:0.5rem;"></i>
+                                <p style="color:#64748b; font-size:0.85rem;">
+                                    <span class="ar">لا توجد فواتير - ارفع فواتيرك أعلاه</span>
+                                    <span class="en">No invoices yet - upload yours above</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -964,7 +1499,7 @@
                         <i data-lucide="arrow-up-circle" class="icon"></i>
                         <span><span class="ar">ضريبة المخرجات</span><span class="en">Output VAT</span></span>
                     </div>
-                    <div class="vat-card-value" id="recon-output-vat">2,385</div>
+                    <div class="vat-card-value" id="recon-output-vat">0</div>
                     <div class="vat-card-label"><span class="ar">مستحقة للهيئة</span><span class="en">Collected from customers</span></div>
                 </div>
                 
@@ -990,7 +1525,7 @@
                         <i data-lucide="wallet" class="icon"></i>
                         <span><span class="ar">صافي الضريبة</span><span class="en">Net VAT</span></span>
                     </div>
-                    <div class="vat-card-value" id="recon-net-vat">2,385</div>
+                    <div class="vat-card-value" id="recon-net-vat">0</div>
                     <div class="vat-card-label" id="vat-net-label">
                         <span class="ar">مستحق للهيئة</span>
                         <span class="en">Payable to ZATCA</span>
@@ -1009,7 +1544,7 @@
                 <div class="pnl-grid">
                     <div class="pnl-item revenue">
                         <div class="pnl-label"><span class="ar">إجمالي الإيرادات</span><span class="en">Total Revenue</span></div>
-                        <div class="pnl-value" id="pnl-revenue">15,900</div>
+                        <div class="pnl-value" id="pnl-revenue">0</div>
                     </div>
                     <div class="pnl-item expenses">
                         <div class="pnl-label"><span class="ar">إجمالي المصاريف</span><span class="en">Total Expenses</span></div>
@@ -1017,11 +1552,11 @@
                     </div>
                     <div class="pnl-item profit" id="pnl-profit-item">
                         <div class="pnl-label"><span class="ar">صافي الربح</span><span class="en">Net Profit</span></div>
-                        <div class="pnl-value" id="pnl-profit">15,900</div>
+                        <div class="pnl-value" id="pnl-profit">0</div>
                     </div>
                     <div class="pnl-item margin">
                         <div class="pnl-label"><span class="ar">هامش الربح</span><span class="en">Profit Margin</span></div>
-                        <div class="pnl-value" id="pnl-margin">100%</div>
+                        <div class="pnl-value" id="pnl-margin">0%</div>
                     </div>
                 </div>
                 
@@ -1629,8 +2164,8 @@ lucide.createIcons();
 let accountingData = {
     sales: {
         invoices: [],
-        totalSales: 15900,
-        outputVAT: 2385
+        totalSales: 0,
+        outputVAT: 0
     },
     expenses: {
         suppliers: [],
@@ -1649,18 +2184,43 @@ function showAccountingSection() {
     const section = document.getElementById('accounting-section');
     section.style.display = 'block';
     
-    // Update the invoice ID in the sales list
-    const zatcaId = document.getElementById('zatca-id').textContent;
-    document.getElementById('invoice-item-title').textContent = zatcaId;
+    // Start with zero invoices - user will upload their own
+    accountingData.sales.invoices = [];
+    accountingData.sales.totalSales = 0;
+    accountingData.sales.outputVAT = 0;
     
-    // Add the first invoice to data
-    accountingData.sales.invoices = [{
-        id: zatcaId,
-        customer: isArabic() ? 'شركة العميل للتجارة' : 'Customer Trading Co.',
-        amount: 15900,
-        vat: 2385,
-        total: 18285
-    }];
+    // Clear the invoice list and show empty state
+    document.getElementById('invoice-items').innerHTML = `
+        <div class="invoice-empty-state" id="invoice-empty-state">
+            <i data-lucide="inbox" class="icon icon-xl" style="color:#64748b; margin-bottom:0.5rem;"></i>
+            <p style="color:#64748b; font-size:0.85rem;">
+                <span class="ar">لا توجد فواتير - ارفع فواتيرك أعلاه</span>
+                <span class="en">No invoices yet - upload yours above</span>
+            </p>
+        </div>
+    `;
+    
+    // Update summary to show zeros
+    document.getElementById('total-invoices').textContent = '0';
+    document.getElementById('total-sales').textContent = '0';
+    document.getElementById('output-vat').textContent = '0';
+    document.getElementById('invoice-list-count').textContent = '0';
+    
+    // Update sales status
+    document.getElementById('sales-status').innerHTML = `
+        <span class="ar">ارفع الفواتير</span>
+        <span class="en">Upload Invoices</span>
+    `;
+    document.getElementById('sales-status').className = 'status-badge waiting';
+    
+    // Update reconciliation to show zeros
+    document.getElementById('recon-output-vat').textContent = '0';
+    document.getElementById('recon-net-vat').textContent = '0';
+    
+    // Update P&L
+    document.getElementById('pnl-revenue').textContent = '0';
+    document.getElementById('pnl-profit').textContent = '0';
+    document.getElementById('pnl-margin').textContent = '0%';
     
     // Smooth scroll to accounting section
     setTimeout(() => {
@@ -1917,6 +2477,12 @@ function updateExpenseBreakdown(totalExpenses) {
 
 // Add sample invoice
 async function addSampleInvoice() {
+    // Remove empty state if present
+    const emptyState = document.getElementById('invoice-empty-state');
+    if (emptyState) {
+        emptyState.remove();
+    }
+    
     const invoiceNum = accountingData.sales.invoices.length + 1;
     const amounts = [8500, 12000, 6750, 9200, 15000];
     const amount = amounts[Math.floor(Math.random() * amounts.length)];
@@ -2192,12 +2758,12 @@ resetDemo = function() {
     // Reset accounting section
     document.getElementById('accounting-section').style.display = 'none';
     
-    // Reset accounting data
+    // Reset accounting data - start with zeros
     accountingData = {
         sales: {
             invoices: [],
-            totalSales: 15900,
-            outputVAT: 2385
+            totalSales: 0,
+            outputVAT: 0
         },
         expenses: {
             suppliers: [],
@@ -2218,56 +2784,715 @@ resetDemo = function() {
         document.getElementById(`cat-${cat}`).classList.remove('has-expenses', 'active');
     });
     
-    // Reset invoice list (keep first one placeholder)
+    // Reset invoice list to empty state
     const invoiceItems = document.getElementById('invoice-items');
     invoiceItems.innerHTML = `
-        <div class="invoice-item">
-            <div class="invoice-item-icon">
-                <i data-lucide="file-check" class="icon"></i>
-            </div>
-            <div class="invoice-item-details">
-                <div class="invoice-item-title" id="invoice-item-title">INV-2026-ZATCA-XXXX</div>
-                <div class="invoice-item-meta">
-                    <span class="ar">شركة العميل للتجارة</span>
-                    <span class="en">Customer Trading Co.</span>
-                </div>
-            </div>
-            <div class="invoice-item-amount">
-                <div class="amount">18,285 <small>SAR</small></div>
-                <div class="vat-badge">+2,385 <span class="ar">ض</span><span class="en">VAT</span></div>
-            </div>
+        <div class="invoice-empty-state" id="invoice-empty-state">
+            <i data-lucide="inbox" class="icon icon-xl" style="color:#64748b; margin-bottom:0.5rem;"></i>
+            <p style="color:#64748b; font-size:0.85rem;">
+                <span class="ar">لا توجد فواتير - ارفع فواتيرك أعلاه</span>
+                <span class="en">No invoices yet - upload yours above</span>
+            </p>
         </div>
     `;
     
-    // Reset summary cards
-    document.getElementById('total-invoices').textContent = '1';
-    document.getElementById('total-sales').textContent = '15,900';
-    document.getElementById('output-vat').textContent = '2,385';
-    document.getElementById('invoice-list-count').textContent = '1';
+    // Reset summary cards to zeros
+    document.getElementById('total-invoices').textContent = '0';
+    document.getElementById('total-sales').textContent = '0';
+    document.getElementById('output-vat').textContent = '0';
+    document.getElementById('invoice-list-count').textContent = '0';
     
-    // Reset reconciliation
-    document.getElementById('recon-output-vat').textContent = '2,385';
+    // Reset reconciliation to zeros
+    document.getElementById('recon-output-vat').textContent = '0';
     document.getElementById('recon-input-vat').textContent = '0';
-    document.getElementById('recon-net-vat').textContent = '2,385';
+    document.getElementById('recon-net-vat').textContent = '0';
     document.getElementById('vat-net-card').classList.remove('refund');
     
-    // Reset P&L
-    document.getElementById('pnl-revenue').textContent = '15,900';
+    // Reset P&L to zeros
+    document.getElementById('pnl-revenue').textContent = '0';
     document.getElementById('pnl-expenses').textContent = '0';
-    document.getElementById('pnl-profit').textContent = '15,900';
-    document.getElementById('pnl-margin').textContent = '100%';
+    document.getElementById('pnl-profit').textContent = '0';
+    document.getElementById('pnl-margin').textContent = '0%';
     document.getElementById('pnl-profit-item').classList.remove('loss');
     
     // Reset expense breakdown
     document.getElementById('expense-breakdown').style.display = 'none';
     
-    // Reset statuses
-    document.getElementById('sales-status').innerHTML = `<i data-lucide="check-circle" class="icon icon-sm"></i><span class="ar">١ فاتورة</span><span class="en">1 Invoice</span>`;
+    // Reset statuses to waiting
+    document.getElementById('sales-status').className = 'status-badge waiting';
+    document.getElementById('sales-status').innerHTML = `<span class="ar">ارفع الفواتير</span><span class="en">Upload Invoices</span>`;
     document.getElementById('expenses-status').className = 'status-badge waiting';
     document.getElementById('expenses-status').innerHTML = `<span class="ar">أضف المصاريف</span><span class="en">Add Expenses</span>`;
     
     lucide.createIcons();
 };
+
+// ============================================== //
+// AI BULK EXPENSE CATEGORIZER FUNCTIONALITY
+// ============================================== //
+
+// Bulk upload data storage
+let bulkUploadFiles = [];
+let categorizationResults = {
+    suppliers: [],
+    salaries: [],
+    rent: [],
+    misc: []
+};
+
+// DOM Elements for bulk upload
+const bulkUploadZone = document.getElementById('bulk-upload-zone');
+const bulkFileInput = document.getElementById('bulk-file-input');
+const bulkFilesPreview = document.getElementById('bulk-files-preview');
+const bulkFilesGrid = document.getElementById('bulk-files-grid');
+const bulkFilesCount = document.getElementById('bulk-files-count');
+const bulkFilesClear = document.getElementById('bulk-files-clear');
+const categorizeBtn = document.getElementById('categorize-btn');
+const bulkUploadSection = document.getElementById('bulk-upload-section');
+
+// Click to upload
+bulkUploadZone.addEventListener('click', () => {
+    bulkFileInput.click();
+});
+
+// Drag and drop
+bulkUploadZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    bulkUploadZone.classList.add('drag-over');
+});
+
+bulkUploadZone.addEventListener('dragleave', () => {
+    bulkUploadZone.classList.remove('drag-over');
+});
+
+bulkUploadZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    bulkUploadZone.classList.remove('drag-over');
+    handleBulkFiles(e.dataTransfer.files);
+});
+
+// File input change
+bulkFileInput.addEventListener('change', (e) => {
+    handleBulkFiles(e.target.files);
+});
+
+// Clear all files
+bulkFilesClear.addEventListener('click', () => {
+    clearBulkUpload();
+});
+
+// Handle bulk files
+function handleBulkFiles(files) {
+    if (!files || files.length === 0) return;
+    
+    const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'];
+    
+    for (const file of files) {
+        if (bulkUploadFiles.length >= 20) {
+            alert(isArabic() ? 'الحد الأقصى 20 ملف' : 'Maximum 20 files allowed');
+            break;
+        }
+        
+        if (!validTypes.includes(file.type)) {
+            continue;
+        }
+        
+        if (file.size > 10 * 1024 * 1024) {
+            continue;
+        }
+        
+        // Check for duplicates
+        if (!bulkUploadFiles.some(f => f.name === file.name && f.size === file.size)) {
+            bulkUploadFiles.push(file);
+        }
+    }
+    
+    updateBulkFilesPreview();
+}
+
+// Update files preview
+function updateBulkFilesPreview() {
+    if (bulkUploadFiles.length === 0) {
+        bulkFilesPreview.classList.remove('show');
+        bulkUploadZone.classList.remove('has-files');
+        categorizeBtn.disabled = true;
+        return;
+    }
+    
+    bulkFilesPreview.classList.add('show');
+    bulkUploadZone.classList.add('has-files');
+    categorizeBtn.disabled = false;
+    
+    bulkFilesCount.textContent = bulkUploadFiles.length;
+    
+    bulkFilesGrid.innerHTML = bulkUploadFiles.map((file, index) => `
+        <div class="file-chip" data-index="${index}">
+            <i data-lucide="${file.type === 'application/pdf' ? 'file-text' : 'image'}" class="icon file-chip-icon"></i>
+            <span class="file-chip-name">${file.name}</span>
+            <button class="file-chip-remove" onclick="removeBulkFile(${index})">
+                <i data-lucide="x" class="icon icon-sm"></i>
+            </button>
+        </div>
+    `).join('');
+    
+    lucide.createIcons();
+}
+
+// Remove single file
+function removeBulkFile(index) {
+    bulkUploadFiles.splice(index, 1);
+    updateBulkFilesPreview();
+}
+
+// Clear all bulk upload
+function clearBulkUpload() {
+    bulkUploadFiles = [];
+    bulkFileInput.value = '';
+    updateBulkFilesPreview();
+    resetCategorization();
+}
+
+// Reset categorization state
+function resetCategorization() {
+    categorizationResults = { suppliers: [], salaries: [], rent: [], misc: [] };
+    
+    document.getElementById('ai-categorization-engine').classList.remove('show');
+    document.getElementById('categorization-results').classList.remove('show');
+    document.getElementById('categorization-success').classList.remove('show');
+    
+    bulkUploadSection.classList.remove('processing', 'completed');
+    
+    // Reset categorization steps
+    for (let i = 1; i <= 4; i++) {
+        document.getElementById(`cat-step-${i}`).classList.remove('active', 'completed');
+    }
+    
+    categorizeBtn.disabled = bulkUploadFiles.length === 0;
+    categorizeBtn.innerHTML = `
+        <i data-lucide="brain" class="icon icon-lg"></i>
+        <span class="ar">تصنيف تلقائي بالذكاء الاصطناعي</span>
+        <span class="en">Auto-Categorize with AI</span>
+    `;
+    categorizeBtn.classList.remove('processing');
+    lucide.createIcons();
+}
+
+// Categorize button click
+categorizeBtn.addEventListener('click', startCategorization);
+
+// Start AI categorization
+async function startCategorization() {
+    if (bulkUploadFiles.length === 0) return;
+    
+    // Update UI state
+    categorizeBtn.disabled = true;
+    categorizeBtn.innerHTML = `<span class="spinner"></span> <span class="ar">جاري التحليل...</span><span class="en">Analyzing...</span>`;
+    categorizeBtn.classList.add('processing');
+    bulkUploadSection.classList.add('processing');
+    
+    // Show AI engine
+    const aiEngine = document.getElementById('ai-categorization-engine');
+    aiEngine.classList.add('show');
+    
+    // Hide previous results
+    document.getElementById('categorization-results').classList.remove('show');
+    document.getElementById('categorization-success').classList.remove('show');
+    
+    // Reset results
+    categorizationResults = { suppliers: [], salaries: [], rent: [], misc: [] };
+    
+    try {
+        // Step 1: OCR Reading
+        await animateCatStep(1, isArabic() ? 'قراءة محتوى الملفات...' : 'Reading file contents...', 1200);
+        
+        // Step 2: AI Analysis
+        await animateCatStep(2, isArabic() ? 'تحليل الفواتير بالذكاء الاصطناعي...' : 'AI analyzing invoices...', 1500);
+        
+        // Step 3: Categorizing
+        await animateCatStep(3, isArabic() ? 'تصنيف حسب نوع الفاتورة...' : 'Categorizing by invoice type...', 1200);
+        
+        // Categorize files using simulated AI logic
+        categorizeFiles();
+        
+        // Step 4: Data Extraction
+        await animateCatStep(4, isArabic() ? 'استخراج المبالغ والضرائب...' : 'Extracting amounts and taxes...', 1000);
+        
+        // Show results
+        showCategorizationResults();
+        
+    } catch (error) {
+        console.error('Categorization error:', error);
+        resetCategorization();
+    }
+}
+
+// Animate categorization step
+async function animateCatStep(stepNum, statusText, delay) {
+    const step = document.getElementById(`cat-step-${stepNum}`);
+    step.classList.add('active');
+    
+    // Update status
+    document.getElementById('engine-status-detail').innerHTML = statusText;
+    
+    // Add spinner
+    const icon = step.querySelector('.cat-step-icon');
+    icon.innerHTML = '<span class="spinner" style="width:18px;height:18px;"></span>';
+    
+    await sleep(delay);
+    
+    step.classList.remove('active');
+    step.classList.add('completed');
+    icon.innerHTML = '<i data-lucide="check" class="icon"></i>';
+    lucide.createIcons();
+}
+
+// Categorize files using keyword-based simulation
+function categorizeFiles() {
+    const categoryPatterns = {
+        suppliers: {
+            keywords: ['supplier', 'vendor', 'مورد', 'توريد', 'materials', 'مواد', 'goods', 'بضائع', 'inventory', 'مخزون', 'purchase', 'شراء', 'building-materials', 'office-supplies', 'it-equipment', 'cleaning-supplies', 'food-wholesale', 'wholesale', 'equipment', 'cleaning', 'food'],
+            amounts: [2500, 3500, 4200, 5000, 6500, 7800, 8500, 10000, 12000, 15000]
+        },
+        salaries: {
+            keywords: ['salary', 'payroll', 'راتب', 'رواتب', 'wages', 'أجور', 'employee', 'موظف', 'staff', 'كشف', 'payslip', 'compensation'],
+            amounts: [3500, 4000, 4500, 5000, 5500, 6000, 7000, 8000, 9000, 10000]
+        },
+        rent: {
+            keywords: ['rent', 'إيجار', 'lease', 'عقد', 'rent-receipt', 'property', 'عقار', 'rental'],
+            amounts: [2500, 3000, 3500, 4000, 4500, 5000, 6000, 8000]
+        },
+        misc: {
+            keywords: ['electricity', 'كهرباء', 'water', 'ماء', 'internet', 'انترنت', 'telecom', 'اتصالات', 'maintenance', 'صيانة', 'utility', 'خدمات', 'misc', 'other', 'أخرى', 'furniture', 'office-furniture', 'invoice-design', 'invoice-electrical', 'invoice-photography', 'invoice-plumbing', 'services', 'professional'],
+            amounts: [200, 350, 500, 650, 800, 1000, 1200, 1500, 2000, 2500]
+        }
+    };
+    
+    bulkUploadFiles.forEach(file => {
+        const fileName = file.name.toLowerCase();
+        let category = 'misc'; // Default category
+        
+        // Check which category the file belongs to
+        for (const [cat, patterns] of Object.entries(categoryPatterns)) {
+            if (patterns.keywords.some(keyword => fileName.includes(keyword.toLowerCase()))) {
+                category = cat;
+                break;
+            }
+        }
+        
+        // Generate random amount based on category
+        const amounts = categoryPatterns[category].amounts;
+        const amount = amounts[Math.floor(Math.random() * amounts.length)];
+        
+        // Calculate VAT (15% for suppliers and misc, 0 for salaries and rent)
+        const vatApplicable = category === 'suppliers' || category === 'misc';
+        const vat = vatApplicable ? Math.round(amount * 0.15) : 0;
+        
+        // Add to results
+        categorizationResults[category].push({
+            id: `bulk-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+            name: file.name,
+            amount: amount,
+            vat: vat,
+            originalFile: file
+        });
+    });
+}
+
+// Show categorization results
+function showCategorizationResults() {
+    // Update status
+    document.getElementById('engine-status-text').innerHTML = `
+        <span class="ar">اكتمل التصنيف!</span>
+        <span class="en">Categorization Complete!</span>
+    `;
+    document.getElementById('engine-status-detail').innerHTML = `
+        <span class="ar">تم تصنيف ${bulkUploadFiles.length} فاتورة</span>
+        <span class="en">${bulkUploadFiles.length} invoices categorized</span>
+    `;
+    
+    // Build summary tags
+    const summaryHTML = [];
+    const categories = ['suppliers', 'salaries', 'rent', 'misc'];
+    const catLabels = {
+        suppliers: { ar: 'موردين', en: 'Suppliers' },
+        salaries: { ar: 'رواتب', en: 'Salaries' },
+        rent: { ar: 'إيجار', en: 'Rent' },
+        misc: { ar: 'أخرى', en: 'Other' }
+    };
+    
+    categories.forEach(cat => {
+        const count = categorizationResults[cat].length;
+        if (count > 0) {
+            summaryHTML.push(`
+                <span class="result-tag ${cat}">
+                    ${count} <span class="ar">${catLabels[cat].ar}</span><span class="en">${catLabels[cat].en}</span>
+                </span>
+            `);
+        }
+    });
+    document.getElementById('results-summary').innerHTML = summaryHTML.join('');
+    
+    // Populate each category
+    categories.forEach(cat => {
+        const items = categorizationResults[cat];
+        const container = document.getElementById(`result-items-${cat}`);
+        const countEl = document.getElementById(`result-count-${cat}`);
+        const totalEl = document.getElementById(`result-total-${cat}`);
+        const categoryEl = document.getElementById(`result-cat-${cat}`);
+        
+        countEl.textContent = items.length;
+        
+        if (items.length === 0) {
+            categoryEl.classList.add('empty');
+            container.innerHTML = '';
+            totalEl.textContent = '0 SAR';
+        } else {
+            categoryEl.classList.remove('empty');
+            
+            const total = items.reduce((sum, item) => sum + item.amount, 0);
+            totalEl.textContent = `${formatNumber(total)} SAR`;
+            
+            container.innerHTML = items.map(item => `
+                <div class="result-cat-item">
+                    <i data-lucide="file-check" class="icon icon-sm" style="color:#34d399;"></i>
+                    <span class="result-cat-item-name">${item.name}</span>
+                    <span class="result-cat-item-amount">${formatNumber(item.amount)}</span>
+                    ${item.vat > 0 ? `<span class="result-cat-item-vat">+${formatNumber(item.vat)} VAT</span>` : ''}
+                </div>
+            `).join('');
+        }
+    });
+    
+    // Show results section
+    document.getElementById('categorization-results').classList.add('show');
+    
+    lucide.createIcons();
+}
+
+// Apply results button
+document.getElementById('apply-results-btn').addEventListener('click', applyCategorizationResults);
+
+// Apply categorization results to expense categories
+async function applyCategorizationResults() {
+    const applyBtn = document.getElementById('apply-results-btn');
+    applyBtn.disabled = true;
+    applyBtn.innerHTML = `<span class="spinner"></span> <span class="ar">جاري التطبيق...</span><span class="en">Applying...</span>`;
+    
+    // Show AI processor
+    showAIProcessor(isArabic() ? 'جاري نقل الفواتير إلى الفئات...' : 'Moving invoices to categories...');
+    
+    await sleep(800);
+    
+    // Add each categorized expense to its category
+    const categories = ['suppliers', 'salaries', 'rent', 'misc'];
+    
+    for (const cat of categories) {
+        for (const item of categorizationResults[cat]) {
+            // Add to accounting data
+            accountingData.expenses[cat].push({
+                id: item.id,
+                name: item.name,
+                amount: item.amount,
+                vat: item.vat
+            });
+            
+            // Add to UI
+            const container = document.getElementById(`expenses-${cat}`);
+            const expenseHTML = `
+                <div class="uploaded-expense" id="${item.id}">
+                    <i data-lucide="file-check" class="icon icon-sm" style="color:#34d399;"></i>
+                    <span class="expense-name">${item.name}</span>
+                    <span class="expense-amount">${formatNumber(item.amount)}</span>
+                    ${item.vat > 0 ? `<span class="expense-vat">+${formatNumber(item.vat)} VAT</span>` : ''}
+                    <button class="remove-expense" onclick="removeExpense('${cat}', '${item.id}')">
+                        <i data-lucide="x" class="icon icon-sm"></i>
+                    </button>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', expenseHTML);
+            
+            // Mark category as having expenses
+            document.getElementById(`cat-${cat}`).classList.add('has-expenses');
+        }
+    }
+    
+    hideAIProcessor();
+    
+    // Update all totals
+    updateAccountingTotals();
+    
+    // Show success state
+    document.getElementById('categorization-results').classList.remove('show');
+    document.getElementById('ai-categorization-engine').classList.remove('show');
+    document.getElementById('categorization-success').classList.add('show');
+    bulkUploadSection.classList.remove('processing');
+    bulkUploadSection.classList.add('completed');
+    
+    // Update button
+    categorizeBtn.innerHTML = `
+        <i data-lucide="check-circle" class="icon icon-lg"></i>
+        <span class="ar">تم التطبيق بنجاح!</span>
+        <span class="en">Applied Successfully!</span>
+    `;
+    categorizeBtn.style.background = 'linear-gradient(135deg, #34d399, #22d3d1)';
+    
+    // Clear bulk upload data after a delay
+    await sleep(2000);
+    
+    // Reset for new uploads
+    bulkUploadFiles = [];
+    bulkFileInput.value = '';
+    updateBulkFilesPreview();
+    
+    await sleep(1000);
+    
+    // Reset the section for new uploads
+    resetCategorization();
+    categorizeBtn.style.background = '';
+    
+    // Scroll to show the updated expense categories
+    document.getElementById('cat-suppliers').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    lucide.createIcons();
+}
+
+// Extend resetDemo to also reset bulk upload
+const originalResetDemo2 = resetDemo;
+resetDemo = function() {
+    originalResetDemo2();
+    clearBulkUpload();
+    clearSalesBulkUpload();
+};
+
+// ============================================== //
+// BULK SALES INVOICE UPLOAD FUNCTIONALITY
+// ============================================== //
+
+// Sales bulk upload data storage
+let salesBulkFiles = [];
+
+// DOM Elements for sales bulk upload
+const salesUploadZone = document.getElementById('sales-upload-zone');
+const salesFileInput = document.getElementById('sales-file-input');
+const salesFilesPreview = document.getElementById('sales-files-preview');
+const salesFilesList = document.getElementById('sales-files-list');
+const salesFilesCount = document.getElementById('sales-files-count');
+const salesFilesClear = document.getElementById('sales-files-clear');
+const processSalesBtn = document.getElementById('process-sales-btn');
+
+// Click to upload
+salesUploadZone.addEventListener('click', () => {
+    salesFileInput.click();
+});
+
+// Drag and drop
+salesUploadZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    salesUploadZone.classList.add('drag-over');
+});
+
+salesUploadZone.addEventListener('dragleave', () => {
+    salesUploadZone.classList.remove('drag-over');
+});
+
+salesUploadZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    salesUploadZone.classList.remove('drag-over');
+    handleSalesBulkFiles(e.dataTransfer.files);
+});
+
+// File input change
+salesFileInput.addEventListener('change', (e) => {
+    handleSalesBulkFiles(e.target.files);
+});
+
+// Clear all files
+salesFilesClear.addEventListener('click', () => {
+    clearSalesBulkUpload();
+});
+
+// Handle sales bulk files
+function handleSalesBulkFiles(files) {
+    if (!files || files.length === 0) return;
+    
+    const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'];
+    
+    for (const file of files) {
+        if (salesBulkFiles.length >= 10) {
+            alert(isArabic() ? 'الحد الأقصى 10 ملفات' : 'Maximum 10 files allowed');
+            break;
+        }
+        
+        if (!validTypes.includes(file.type)) continue;
+        if (file.size > 10 * 1024 * 1024) continue;
+        
+        // Check for duplicates
+        if (!salesBulkFiles.some(f => f.name === file.name && f.size === file.size)) {
+            salesBulkFiles.push(file);
+        }
+    }
+    
+    updateSalesFilesPreview();
+}
+
+// Update sales files preview
+function updateSalesFilesPreview() {
+    if (salesBulkFiles.length === 0) {
+        salesFilesPreview.classList.remove('show');
+        salesUploadZone.classList.remove('has-files');
+        processSalesBtn.disabled = true;
+        return;
+    }
+    
+    salesFilesPreview.classList.add('show');
+    salesUploadZone.classList.add('has-files');
+    processSalesBtn.disabled = false;
+    
+    salesFilesCount.innerHTML = `${salesBulkFiles.length} <span class="ar">ملفات</span><span class="en">files</span>`;
+    
+    salesFilesList.innerHTML = salesBulkFiles.map((file, index) => `
+        <span class="sales-file-tag">
+            <i data-lucide="${file.type === 'application/pdf' ? 'file-text' : 'image'}" class="icon icon-sm"></i>
+            ${file.name.length > 15 ? file.name.substring(0, 12) + '...' : file.name}
+            <button onclick="removeSalesFile(${index})">
+                <i data-lucide="x" class="icon icon-sm"></i>
+            </button>
+        </span>
+    `).join('');
+    
+    lucide.createIcons();
+}
+
+// Remove single sales file
+function removeSalesFile(index) {
+    salesBulkFiles.splice(index, 1);
+    updateSalesFilesPreview();
+}
+
+// Clear all sales bulk upload
+function clearSalesBulkUpload() {
+    salesBulkFiles = [];
+    salesFileInput.value = '';
+    updateSalesFilesPreview();
+    processSalesBtn.disabled = true;
+    processSalesBtn.innerHTML = `
+        <i data-lucide="zap" class="icon"></i>
+        <span class="ar">معالجة الفواتير عبر زاتكا</span>
+        <span class="en">Process Invoices via ZATCA</span>
+    `;
+    lucide.createIcons();
+}
+
+// Process sales button click
+processSalesBtn.addEventListener('click', processBulkSalesInvoices);
+
+// Process bulk sales invoices
+async function processBulkSalesInvoices() {
+    if (salesBulkFiles.length === 0) return;
+    
+    processSalesBtn.disabled = true;
+    processSalesBtn.innerHTML = `<span class="spinner"></span> <span class="ar">جاري المعالجة...</span><span class="en">Processing...</span>`;
+    
+    // Show AI processor
+    showAIProcessor(isArabic() ? 'جاري معالجة الفواتير عبر زاتكا...' : 'Processing invoices via ZATCA...');
+    
+    // Remove empty state if present
+    const emptyState = document.getElementById('invoice-empty-state');
+    if (emptyState) {
+        emptyState.remove();
+    }
+    
+    const totalFiles = salesBulkFiles.length;
+    
+    for (let i = 0; i < totalFiles; i++) {
+        const file = salesBulkFiles[i];
+        
+        // Update processor text
+        showAIProcessor(isArabic() 
+            ? `جاري معالجة ${i + 1} من ${totalFiles}: ${file.name}` 
+            : `Processing ${i + 1} of ${totalFiles}: ${file.name}`);
+        
+        await sleep(800);
+        
+        // Generate invoice data
+        const amounts = [5500, 7200, 8500, 9800, 11000, 12500, 14000, 15900, 18000, 22000];
+        const amount = amounts[Math.floor(Math.random() * amounts.length)];
+        const vat = Math.round(amount * 0.15);
+        
+        const customers = [
+            { ar: 'مؤسسة التقنية', en: 'Tech Solutions' },
+            { ar: 'شركة البناء', en: 'Construction Co.' },
+            { ar: 'مجموعة الخدمات', en: 'Services Group' },
+            { ar: 'مؤسسة الأعمال', en: 'Business Corp' },
+            { ar: 'شركة الاستشارات', en: 'Consulting Ltd' },
+            { ar: 'مصنع المنتجات', en: 'Products Factory' }
+        ];
+        const customer = customers[Math.floor(Math.random() * customers.length)];
+        
+        const newInvoice = {
+            id: `INV-2026-ZATCA-${Math.random().toString(36).substr(2, 8).toUpperCase()}`,
+            customer: isArabic() ? customer.ar : customer.en,
+            amount: amount,
+            vat: vat,
+            total: amount + vat,
+            fileName: file.name
+        };
+        
+        // Add to data
+        accountingData.sales.invoices.push(newInvoice);
+        accountingData.sales.totalSales += amount;
+        accountingData.sales.outputVAT += vat;
+        
+        // Add to UI
+        const container = document.getElementById('invoice-items');
+        const invoiceHTML = `
+            <div class="invoice-item animate-in">
+                <div class="invoice-item-icon">
+                    <i data-lucide="file-check" class="icon"></i>
+                </div>
+                <div class="invoice-item-details">
+                    <div class="invoice-item-title">${newInvoice.id}</div>
+                    <div class="invoice-item-meta">${newInvoice.customer}</div>
+                </div>
+                <div class="invoice-item-amount">
+                    <div class="amount">${formatNumber(newInvoice.total)} <small>SAR</small></div>
+                    <div class="vat-badge">+${formatNumber(newInvoice.vat)} ${isArabic() ? 'ض' : 'VAT'}</div>
+                </div>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', invoiceHTML);
+        lucide.createIcons();
+    }
+    
+    hideAIProcessor();
+    
+    // Update summary
+    document.getElementById('total-invoices').textContent = accountingData.sales.invoices.length;
+    document.getElementById('total-sales').textContent = formatNumber(accountingData.sales.totalSales);
+    document.getElementById('output-vat').textContent = formatNumber(accountingData.sales.outputVAT);
+    document.getElementById('invoice-list-count').textContent = accountingData.sales.invoices.length;
+    
+    // Update sales status
+    const salesStatus = document.getElementById('sales-status');
+    salesStatus.innerHTML = `<i data-lucide="check-circle" class="icon icon-sm"></i> ${accountingData.sales.invoices.length} ${isArabic() ? 'فواتير' : 'Invoices'}`;
+    
+    // Update reconciliation
+    updateVATReconciliation(accountingData.totals.inputVAT);
+    updateProfitLoss(accountingData.totals.totalExpenses);
+    
+    // Show success
+    processSalesBtn.innerHTML = `
+        <i data-lucide="check-circle" class="icon"></i>
+        <span class="ar">تم معالجة ${totalFiles} فواتير!</span>
+        <span class="en">${totalFiles} invoices processed!</span>
+    `;
+    
+    lucide.createIcons();
+    
+    // Clear after delay
+    await sleep(2000);
+    clearSalesBulkUpload();
+}
 </script>
 
 </body>
