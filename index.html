@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مُحاسِب - Muhasib | AI Accounting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: #020617; color: #fff; line-height: 1.6; }
+        [dir="ltr"] body { font-family: 'Inter', sans-serif; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        
+        /* Header */
+        header { position: fixed; top: 0; width: 100%; background: rgba(2,6,23,0.9); backdrop-filter: blur(8px); z-index: 50; border-bottom: 1px solid #1e293b; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 1rem; max-width: 1200px; margin: 0 auto; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #34d399, #22d3d1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #020617; font-size: 1.25rem; }
+        .logo-text { font-size: 1.25rem; font-weight: bold; }
+        .header-actions { display: flex; align-items: center; gap: 1rem; }
+        .lang-toggle { display: flex; background: #1e293b; border-radius: 8px; padding: 4px; }
+        .lang-btn { padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer; transition: all 0.3s; background: transparent; color: #94a3b8; }
+        .lang-btn.active { background: #10b981; color: #fff; }
+        .cta-btn { background: #10b981; color: #fff; padding: 0.5rem 1.25rem; border-radius: 8px; font-size: 0.875rem; font-weight: 500; transition: background 0.3s; }
+        .cta-btn:hover { background: #34d399; }
+        
+        /* Hero */
+        .hero { padding: 7rem 1rem 4rem; }
+        .hero-content { max-width: 850px; }
+        .badge { display: inline-block; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 50px; padding: 0.5rem 1rem; color: #34d399; font-size: 0.875rem; margin-bottom: 1.5rem; }
+        .hero h1 { font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.5rem; }
+        @media(min-width:768px) { .hero h1 { font-size: 3.5rem; } }
+        .gradient-text { background: linear-gradient(to left, #34d399, #22d3d1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 1.125rem; color: #94a3b8; margin-bottom: 2rem; }
+        .hero p .white { color: #fff; }
+        .btn-primary { display: inline-block; background: linear-gradient(to left, #10b981, #22d3d1); padding: 1rem 2rem; border-radius: 12px; font-size: 1.125rem; font-weight: 500; }
+        
+        /* Chat Demo */
+        .chat-demo { margin-top: 3rem; background: #0f172a; border-radius: 16px; border: 1px solid #1e293b; padding: 1rem; max-width: 350px; }
+        .chat-header { display: flex; align-items: center; gap: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid #1e293b; }
+        .chat-avatar { width: 32px; height: 32px; background: linear-gradient(135deg, #34d399, #22d3d1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #020617; font-size: 0.75rem; }
+        .chat-name { font-size: 0.875rem; font-weight: 500; }
+        .chat-status { font-size: 0.75rem; color: #34d399; }
+        .chat-messages { padding: 1rem 0; }
+        .msg { padding: 0.5rem 0.75rem; border-radius: 12px; max-width: 220px; font-size: 0.875rem; margin-bottom: 0.5rem; }
+        .msg-user { background: #047857; margin-left: auto; border-bottom-right-radius: 4px; }
+        [dir="ltr"] .msg-user { margin-left: 0; margin-right: auto; }
+        .msg-bot { background: #1e293b; border-bottom-left-radius: 4px; }
+        .msg-info { background: rgba(51,65,85,0.5); padding: 0.5rem; border-radius: 8px; font-size: 0.75rem; margin-top: 0.5rem; }
+        .msg-row { display: flex; justify-content: space-between; gap: 1rem; }
+        .msg-label { color: #94a3b8; }
+        .msg-value { color: #34d399; }
+        
+        /* Stats */
+        .stats { padding: 3rem 1rem; border-top: 1px solid #1e293b; border-bottom: 1px solid #1e293b; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center; max-width: 800px; margin: 0 auto; }
+        .stat-value { font-size: 1.5rem; font-weight: bold; }
+        @media(min-width:768px) { .stat-value { font-size: 2rem; } }
+        .stat-value.emerald { color: #34d399; }
+        .stat-value.cyan { color: #22d3d1; }
+        .stat-value.purple { color: #a78bfa; }
+        .stat-label { font-size: 0.875rem; color: #94a3b8; }
+        
+        /* Sections */
+        section { padding: 3.5rem 1rem; }
+        .section-dark { background: rgba(15,23,42,0.5); }
+        .section-title { font-size: 1.5rem; font-weight: bold; text-align: center; margin-bottom: 1rem; }
+        @media(min-width:768px) { .section-title { font-size: 2rem; } }
+        .section-subtitle { text-align: center; color: #94a3b8; margin-bottom: 2.5rem; font-size: 1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        
+        /* Grid Cards */
+        .grid-4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        @media(min-width:768px) { .grid-4 { grid-template-columns: repeat(4, 1fr); } }
+        .grid-3 { display: grid; gap: 1.5rem; }
+        @media(min-width:768px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+        .grid-2 { display: grid; gap: 1.5rem; }
+        @media(min-width:768px) { .grid-2 { grid-template-columns: repeat(2, 1fr); } }
+        .card { background: rgba(30,41,59,0.5); border-radius: 12px; padding: 1.25rem; border: 1px solid #1e293b; }
+        .card-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+        .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .card p { font-size: 0.875rem; color: #94a3b8; }
+        .card ul { list-style: none; font-size: 0.875rem; color: #94a3b8; }
+        .card ul li { margin-bottom: 0.25rem; }
+        .card ul li::before { content: "• "; color: #34d399; }
+        
+        /* Solution Cards - Two Products */
+        .solution-card { background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.9)); border-radius: 20px; padding: 2rem; border: 1px solid #1e293b; position: relative; overflow: hidden; }
+        .solution-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(to right, #34d399, #22d3d1); }
+        .solution-card.purple::before { background: linear-gradient(to right, #a78bfa, #818cf8); }
+        .solution-badge { display: inline-block; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 50px; padding: 0.3rem 0.8rem; color: #34d399; font-size: 0.75rem; font-weight: 600; margin-bottom: 1rem; }
+        .solution-card.purple .solution-badge { background: rgba(167,139,250,0.15); border-color: rgba(167,139,250,0.3); color: #a78bfa; }
+        .solution-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .solution-card .tagline { color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.25rem; }
+        .solution-card .for-label { color: #64748b; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .solution-industries { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+        .solution-industries span { background: rgba(51,65,85,0.5); border-radius: 4px; padding: 0.25rem 0.5rem; font-size: 0.75rem; color: #cbd5e1; }
+        .solution-features { list-style: none; margin-bottom: 1.5rem; }
+        .solution-features li { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.6rem; font-size: 0.9rem; color: #e2e8f0; }
+        .solution-features li::before { content: "✓"; color: #34d399; font-weight: bold; flex-shrink: 0; }
+        .solution-card.purple .solution-features li::before { color: #a78bfa; }
+        .solution-value { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 0.75rem; text-align: center; }
+        .solution-card.purple .solution-value { background: rgba(167,139,250,0.1); border-color: rgba(167,139,250,0.2); }
+        .solution-value p { font-size: 0.85rem; color: #34d399; font-weight: 500; }
+        .solution-card.purple .solution-value p { color: #a78bfa; }
+        
+        /* Feature Cards */
+        .feature-card { background: linear-gradient(135deg, rgba(30,41,59,0.8), rgba(15,23,42,0.8)); border-radius: 16px; padding: 1.5rem; border: 1px solid #1e293b; }
+        .feature-card .card-icon { font-size: 2.5rem; }
+        .feature-card h3 { font-size: 1.125rem; color: #34d399; margin-bottom: 0.75rem; }
+        .feature-card ul { list-style: none; }
+        .feature-card ul li { margin-bottom: 0.5rem; font-size: 0.9rem; color: #e2e8f0; }
+        .feature-card ul li::before { content: "✓ "; color: #34d399; font-weight: bold; }
+        
+        /* Steps */
+        .steps { display: grid; gap: 1.5rem; text-align: center; }
+        @media(min-width:768px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+        .step-num { width: 56px; height: 56px; background: linear-gradient(135deg, #10b981, #22d3d1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: bold; margin: 0 auto 1rem; }
+        .step h3 { font-weight: 600; margin-bottom: 0.25rem; }
+        .step p { font-size: 0.875rem; color: #94a3b8; }
+        
+        /* Pricing */
+        .pricing-grid { display: grid; gap: 1rem; max-width: 900px; margin: 0 auto; }
+        @media(min-width:768px) { .pricing-grid { grid-template-columns: repeat(3, 1fr); } }
+        .price-card { background: rgba(30,41,59,0.5); border-radius: 12px; padding: 1.25rem; border: 1px solid #1e293b; }
+        .price-card.featured { background: rgba(6,78,59,0.3); border-color: #10b981; }
+        .price-badge { color: #34d399; font-size: 0.75rem; margin-bottom: 0.25rem; }
+        .price-card h3 { font-weight: bold; margin-bottom: 0.75rem; }
+        .price-amount { margin-bottom: 1rem; }
+        .price-amount span { font-size: 1.75rem; font-weight: bold; }
+        .price-amount small { color: #94a3b8; font-size: 0.875rem; }
+        .price-features { list-style: none; font-size: 0.875rem; margin-bottom: 1rem; }
+        .price-features li { margin-bottom: 0.5rem; }
+        .price-features li::before { content: "✓ "; color: #34d399; }
+        .price-btn { display: block; text-align: center; padding: 0.75rem; border-radius: 8px; font-size: 0.875rem; font-weight: 500; background: #334155; transition: background 0.3s; }
+        .price-btn:hover { background: #475569; }
+        .price-btn.primary { background: #10b981; }
+        .price-btn.primary:hover { background: #34d399; }
+        
+        /* Target Audience */
+        .audience-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 1.5rem; }
+        .audience-tag { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 50px; padding: 0.4rem 1rem; color: #94a3b8; font-size: 0.8rem; }
+        
+        /* Waitlist */
+        .waitlist-box { max-width: 400px; margin: 0 auto; background: linear-gradient(to bottom, #1e293b, #0f172a); border-radius: 16px; padding: 1.5rem; border: 1px solid #1e293b; text-align: center; }
+        .waitlist-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+        .waitlist-box h2 { font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .waitlist-box > p { font-size: 0.875rem; color: #94a3b8; margin-bottom: 1rem; }
+        .waitlist-form { display: flex; flex-direction: column; gap: 0.75rem; }
+        .waitlist-form input { background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 0.75rem 1rem; font-size: 0.875rem; color: #fff; }
+        .waitlist-form input:focus { outline: none; border-color: #10b981; }
+        .waitlist-form button { background: linear-gradient(to left, #10b981, #22d3d1); border: none; padding: 0.75rem; border-radius: 8px; font-weight: 500; color: #fff; cursor: pointer; font-size: 1rem; }
+        .success-msg { display: none; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+        .success-msg.show { display: block; }
+        .success-msg p { color: #34d399; font-weight: 500; }
+        
+        /* Footer */
+        footer { padding: 3rem 1rem 1.5rem; border-top: 1px solid #1e293b; background: rgba(15,23,42,0.5); }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        .footer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-bottom: 2rem; }
+        @media(min-width:768px) { .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; } }
+        .footer-brand { }
+        .footer-logo { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .footer-icon { width: 32px; height: 32px; background: linear-gradient(135deg, #34d399, #22d3d1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #020617; font-size: 0.875rem; }
+        .footer-logo span { font-size: 1.25rem; font-weight: bold; }
+        .footer-desc { color: #64748b; font-size: 0.875rem; margin-bottom: 1rem; max-width: 280px; }
+        .footer-social { display: flex; gap: 0.75rem; }
+        .footer-social a { width: 36px; height: 36px; background: #1e293b; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 1rem; transition: all 0.3s; }
+        .footer-social a:hover { background: #10b981; color: #fff; }
+        .footer-col h4 { font-size: 0.875rem; font-weight: 600; color: #fff; margin-bottom: 1rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 0.5rem; }
+        .footer-col ul li a { color: #94a3b8; font-size: 0.875rem; transition: color 0.3s; }
+        .footer-col ul li a:hover { color: #34d399; }
+        .footer-bottom { display: flex; flex-direction: column; gap: 1rem; padding-top: 1.5rem; border-top: 1px solid #1e293b; text-align: center; }
+        @media(min-width:768px) { .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; text-align: left; } }
+        .footer-copyright { color: #64748b; font-size: 0.8rem; }
+        .footer-legal { display: flex; gap: 1.5rem; justify-content: center; }
+        @media(min-width:768px) { .footer-legal { justify-content: flex-end; } }
+        .footer-legal a { color: #64748b; font-size: 0.8rem; transition: color 0.3s; }
+        .footer-legal a:hover { color: #94a3b8; }
+        
+        /* Language */
+        .en { display: none; }
+        .ar { display: inline; }
+        [dir="ltr"] .en { display: inline; }
+        [dir="ltr"] .ar { display: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="logo">
+            <div class="logo-icon">م</div>
+            <span class="logo-text">Muhasib</span>
+        </div>
+        <div class="header-actions">
+            <div class="lang-toggle">
+                <button class="lang-btn active" id="btn-ar" onclick="setLang('ar')">عربي</button>
+                <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+            </div>
+            <a href="#waitlist" class="cta-btn"><span class="ar">سجّل</span><span class="en">Join</span></a>
+        </div>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="badge">
+                <span class="ar">🚀 محاسبة ذكية بالذكاء الاصطناعي للمنشآت السعودية</span>
+                <span class="en">🚀 AI-Powered Smart Accounting for Saudi SMEs</span>
+            </div>
+            <h1>
+                <span class="gradient-text"><span class="ar">محاسبة ذكية</span><span class="en">Smart Accounting</span></span><br>
+                <span class="ar">متوافقة مع زاتكا</span><span class="en">ZATCA Compliant</span>
+            </h1>
+            <p>
+                <span class="ar">فوترة إلكترونية، تسوية حسابات تلقائية، حساب هوامش الربح لحظياً، واسترداد ضريبة المدخلات. <span class="white">صُمم للمنشآت الصغيرة والمتوسطة في السعودية.</span></span>
+                <span class="en">E-invoicing, automatic reconciliation, live margin calculation & input tax credit tracking. <span class="white">Built for SMEs in KSA — restaurants, clinics, supermarkets, contractors & more.</span></span>
+            </p>
+            <a href="#waitlist" class="btn-primary">
+                <span class="ar">سجّل في قائمة الانتظار</span>
+                <span class="en">Join the Waitlist</span>
+            </a>
+        </div>
+        
+        <div class="chat-demo">
+            <div class="chat-header">
+                <div class="chat-avatar">م</div>
+                <div>
+                    <div class="chat-name">Muhasib AI</div>
+                    <div class="chat-status"><span class="ar">جاهز</span><span class="en">Ready</span></div>
+                </div>
+            </div>
+            <div class="chat-messages">
+                <div class="msg msg-user">
+                    <span class="ar">كم هامش ربحي هذا الشهر؟</span>
+                    <span class="en">What's my margin this month?</span>
+                </div>
+                <div class="msg msg-bot">
+                    <span class="ar">هامش الربح: ٣٢٪ ✅</span>
+                    <span class="en">Profit Margin: 32% ✅</span>
+                    <div class="msg-info">
+                        <div class="msg-row">
+                            <span class="msg-label"><span class="ar">صافي الربح:</span><span class="en">Net Profit:</span></span>
+                            <span class="msg-value">48,500 SAR</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stats-grid">
+        <div>
+            <div class="stat-value emerald">1M+</div>
+            <div class="stat-label"><span class="ar">منشأة في السعودية</span><span class="en">SMEs in Saudi Arabia</span></div>
+        </div>
+        <div>
+            <div class="stat-value cyan">100%</div>
+            <div class="stat-label"><span class="ar">متوافق مع زاتكا</span><span class="en">ZATCA Compliant</span></div>
+        </div>
+        <div>
+            <div class="stat-value purple"><span class="ar">لحظي</span><span class="en">Real-time</span></div>
+            <div class="stat-label"><span class="ar">حساب الهوامش والضريبة</span><span class="en">Margins & Tax Calculation</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- Two Solutions Section -->
+<section>
+    <div class="container">
+        <h2 class="section-title"><span class="ar">حلّان لكل نوع منشأة</span><span class="en">Two Solutions for Every Business</span></h2>
+        <p class="section-subtitle"><span class="ar">سواء كان لديك نظام نقاط بيع أو لا، عندنا الحل المناسب لك</span><span class="en">Whether you have a POS system or not, we have the right solution for you</span></p>
+        
+        <div class="grid-2">
+            <!-- Solution A: With POS -->
+            <div class="solution-card">
+                <div class="solution-badge"><span class="ar">للمنشآت التي لديها POS</span><span class="en">For Businesses WITH POS</span></div>
+                <h3><span class="ar">محاسبة ذكية</span><span class="en">Smart Accounting Add-on</span></h3>
+                <p class="tagline"><span class="ar">"نظام POS يتولى المبيعات، ونحن نتولى الباقي"</span><span class="en">"Your POS handles sales. We handle everything else."</span></p>
+                
+                <div class="for-label"><span class="ar">مثالي لـ</span><span class="en">Perfect for</span></div>
+                <div class="solution-industries">
+                    <span><span class="ar">مطاعم</span><span class="en">Restaurants</span></span>
+                    <span><span class="ar">كافيهات</span><span class="en">Cafés</span></span>
+                    <span><span class="ar">سوبرماركت</span><span class="en">Supermarkets</span></span>
+                    <span><span class="ar">ميني ماركت</span><span class="en">Mini Markets</span></span>
+                    <span><span class="ar">عيادات</span><span class="en">Clinics</span></span>
+                    <span><span class="ar">صيدليات</span><span class="en">Pharmacies</span></span>
+                </div>
+                
+                <ul class="solution-features">
+                    <li><span class="ar">التقاط تكاليف المدخلات بسهولة</span><span class="en">Easy input cost capture</span></li>
+                    <li><span class="ar">تسوية تلقائية مع نظام POS</span><span class="en">Auto-reconciliation with POS</span></li>
+                    <li><span class="ar">حساب هوامش الربح لحظياً</span><span class="en">Live margin calculation</span></li>
+                    <li><span class="ar">تتبع ضريبة المدخلات واستردادها</span><span class="en">Input VAT tracking & credit</span></li>
+                    <li><span class="ar">تقارير أرباح وخسائر كاملة</span><span class="en">Full P&L reports</span></li>
+                </ul>
+                
+                <div class="solution-value">
+                    <p><span class="ar">"شوف ربحك الحقيقي، مو بس المبيعات"</span><span class="en">"See your real profit, not just sales"</span></p>
+                </div>
+            </div>
+            
+            <!-- Solution B: Without POS -->
+            <div class="solution-card purple">
+                <div class="solution-badge"><span class="ar">للمنشآت بدون نظام</span><span class="en">For Businesses WITHOUT POS</span></div>
+                <h3><span class="ar">نظام محاسبة متكامل</span><span class="en">Complete AI Accounting</span></h3>
+                <p class="tagline"><span class="ar">"نظام محاسبتك الكامل بالذكاء الاصطناعي"</span><span class="en">"Your complete AI-powered accounting system"</span></p>
+                
+                <div class="for-label"><span class="ar">مثالي لـ</span><span class="en">Perfect for</span></div>
+                <div class="solution-industries">
+                    <span><span class="ar">مقاولين</span><span class="en">Contractors</span></span>
+                    <span><span class="ar">مستشارين</span><span class="en">Consultants</span></span>
+                    <span><span class="ar">كهربائيين</span><span class="en">Electricians</span></span>
+                    <span><span class="ar">سباكين</span><span class="en">Plumbers</span></span>
+                    <span><span class="ar">مصممين</span><span class="en">Designers</span></span>
+                    <span><span class="ar">مصورين</span><span class="en">Photographers</span></span>
+                </div>
+                
+                <ul class="solution-features">
+                    <li><span class="ar">فوترة إلكترونية متوافقة مع زاتكا</span><span class="en">ZATCA-compliant e-invoicing</span></li>
+                    <li><span class="ar">تتبع المصروفات بالذكاء الاصطناعي</span><span class="en">AI-powered expense tracking</span></li>
+                    <li><span class="ar">حساب الضريبة تلقائياً</span><span class="en">Automatic VAT calculation</span></li>
+                    <li><span class="ar">إدارة العملاء والمدفوعات</span><span class="en">Client & payment management</span></li>
+                    <li><span class="ar">تقارير مالية شاملة</span><span class="en">Comprehensive financial reports</span></li>
+                </ul>
+                
+                <div class="solution-value">
+                    <p><span class="ar">"كل شي تحتاجه في مكان واحد"</span><span class="en">"Everything you need in one place"</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Features -->
+<section class="section-dark">
+    <div class="container">
+        <h2 class="section-title"><span class="ar">مميزات أساسية</span><span class="en">Core Features</span></h2>
+        <div class="grid-4">
+            <div class="feature-card">
+                <div class="card-icon">🧾</div>
+                <h3><span class="ar">فوترة زاتكا</span><span class="en">ZATCA E-Invoicing</span></h3>
+                <ul>
+                    <li><span class="ar">QR Code تلقائي</span><span class="en">Auto QR Code</span></li>
+                    <li><span class="ar">إرسال فوري</span><span class="en">Instant delivery</span></li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="card-icon">📸</div>
+                <h3><span class="ar">التقاط التكاليف</span><span class="en">Cost Capture</span></h3>
+                <ul>
+                    <li><span class="ar">صوّر الفاتورة</span><span class="en">Snap receipt</span></li>
+                    <li><span class="ar">AI يستخرج البيانات</span><span class="en">AI extracts data</span></li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="card-icon">🧮</div>
+                <h3><span class="ar">تسوية الضريبة</span><span class="en">VAT Reconciliation</span></h3>
+                <ul>
+                    <li><span class="ar">مدخلات ومخرجات</span><span class="en">Input & Output</span></li>
+                    <li><span class="ar">تقرير جاهز للتقديم</span><span class="en">Filing-ready report</span></li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="card-icon">📊</div>
+                <h3><span class="ar">هوامش لحظية</span><span class="en">Live Margins</span></h3>
+                <ul>
+                    <li><span class="ar">ربح حقيقي</span><span class="en">Real profit</span></li>
+                    <li><span class="ar">تدفق نقدي</span><span class="en">Cash flow</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <h2 class="section-title"><span class="ar">كيف يعمل؟</span><span class="en">How It Works</span></h2>
+        <div class="steps">
+            <div class="step"><div class="step-num">1</div><h3><span class="ar">سجّل منشأتك</span><span class="en">Register Your Business</span></h3><p><span class="ar">اسم المنشأة، الرقم الضريبي، ونوع النشاط</span><span class="en">Business name, tax ID & industry type</span></p></div>
+            <div class="step"><div class="step-num">2</div><h3><span class="ar">اربط أو ابدأ</span><span class="en">Connect or Start</span></h3><p><span class="ar">اربط POS أو ابدأ بالفوترة مباشرة</span><span class="en">Link your POS or start invoicing directly</span></p></div>
+            <div class="step"><div class="step-num">3</div><h3><span class="ar">تابع أرباحك</span><span class="en">Track Your Profits</span></h3><p><span class="ar">هوامش، ضريبة، وتقارير مالية لحظية</span><span class="en">Margins, VAT & financial reports in real-time</span></p></div>
+        </div>
+    </div>
+</section>
+
+<section class="section-dark">
+    <div class="container">
+        <h2 class="section-title"><span class="ar">أسعار بسيطة</span><span class="en">Simple Pricing</span></h2>
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h3><span class="ar">مبتدئ</span><span class="en">Starter</span></h3>
+                <div class="price-amount"><span>99</span> <small>SAR/<span class="ar">شهر</span><span class="en">mo</span></small></div>
+                <ul class="price-features">
+                    <li><span class="ar">فوترة زاتكا (٥٠/شهر)</span><span class="en">ZATCA invoicing (50/mo)</span></li>
+                    <li><span class="ar">تتبع المصروفات</span><span class="en">Expense tracking</span></li>
+                    <li><span class="ar">تقرير ضريبة شهري</span><span class="en">Monthly VAT report</span></li>
+                </ul>
+                <a href="#waitlist" class="price-btn"><span class="ar">ابدأ</span><span class="en">Start</span></a>
+            </div>
+            <div class="price-card featured">
+                <div class="price-badge">⭐ <span class="ar">الأكثر شعبية</span><span class="en">Popular</span></div>
+                <h3><span class="ar">نمو</span><span class="en">Growth</span></h3>
+                <div class="price-amount"><span>199</span> <small>SAR/<span class="ar">شهر</span><span class="en">mo</span></small></div>
+                <ul class="price-features">
+                    <li><span class="ar">فواتير غير محدودة</span><span class="en">Unlimited invoices</span></li>
+                    <li><span class="ar">ربط مع POS</span><span class="en">POS integration</span></li>
+                    <li><span class="ar">هوامش ربح لحظية</span><span class="en">Live profit margins</span></li>
+                    <li><span class="ar">تسوية ضريبة تلقائية</span><span class="en">Auto VAT reconciliation</span></li>
+                </ul>
+                <a href="#waitlist" class="price-btn primary"><span class="ar">ابدأ الآن</span><span class="en">Get Started</span></a>
+            </div>
+            <div class="price-card">
+                <h3><span class="ar">احترافي</span><span class="en">Pro</span></h3>
+                <div class="price-amount"><span>399</span> <small>SAR/<span class="ar">شهر</span><span class="en">mo</span></small></div>
+                <ul class="price-features">
+                    <li><span class="ar">كل مميزات Growth</span><span class="en">All Growth features</span></li>
+                    <li><span class="ar">فروع متعددة</span><span class="en">Multi-branch</span></li>
+                    <li><span class="ar">وصول للمحاسب</span><span class="en">Accountant access</span></li>
+                    <li><span class="ar">تقارير مخصصة</span><span class="en">Custom reports</span></li>
+                </ul>
+                <a href="#waitlist" class="price-btn"><span class="ar">تواصل</span><span class="en">Contact</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="waitlist">
+    <div class="container">
+        <div class="waitlist-box">
+            <div class="waitlist-icon">🚀</div>
+            <h2><span class="ar">كن من أوائل المستخدمين</span><span class="en">Be an Early Adopter</span></h2>
+            <p><span class="ar">شهرين مجاناً + خصم ٣٠٪ مدى الحياة</span><span class="en">2 months free + 30% lifetime discount</span></p>
+            <form class="waitlist-form" id="waitlist-form">
+                <input type="tel" id="phone" placeholder="05xxxxxxxx" required>
+                <input type="text" id="business" class="business-input" required>
+                <button type="submit"><span class="ar">سجّل في قائمة الانتظار</span><span class="en">Join the Waitlist</span></button>
+            </form>
+            <div class="success-msg" id="success-msg">
+                <div style="font-size:1.5rem;margin-bottom:0.5rem;">🎉</div>
+                <p><span class="ar">تم التسجيل بنجاح!</span><span class="en">You're on the list!</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-grid">
+            <!-- Brand -->
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-icon">م</div>
+                    <span>Muhasib</span>
+                </div>
+                <p class="footer-desc">
+                    <span class="ar">محاسبة ذكية بالذكاء الاصطناعي للمنشآت السعودية. متوافق مع زاتكا.</span>
+                    <span class="en">AI-powered smart accounting for Saudi SMEs. ZATCA compliant.</span>
+                </p>
+                <div class="footer-social">
+                    <a href="#" title="Twitter/X">𝕏</a>
+                    <a href="#" title="LinkedIn">in</a>
+                    <a href="#" title="Instagram">📷</a>
+                </div>
+            </div>
+            
+            <!-- Product -->
+            <div class="footer-col">
+                <h4><span class="ar">المنتج</span><span class="en">Product</span></h4>
+                <ul>
+                    <li><a href="#"><span class="ar">فوترة زاتكا</span><span class="en">ZATCA Invoicing</span></a></li>
+                    <li><a href="#"><span class="ar">تتبع المصروفات</span><span class="en">Expense Tracking</span></a></li>
+                    <li><a href="#"><span class="ar">تسوية الضريبة</span><span class="en">VAT Reconciliation</span></a></li>
+                    <li><a href="#"><span class="ar">ربط POS</span><span class="en">POS Integration</span></a></li>
+                    <li><a href="#"><span class="ar">التقارير المالية</span><span class="en">Financial Reports</span></a></li>
+                </ul>
+            </div>
+            
+            <!-- Solutions -->
+            <div class="footer-col">
+                <h4><span class="ar">الحلول</span><span class="en">Solutions</span></h4>
+                <ul>
+                    <li><a href="#"><span class="ar">للمطاعم</span><span class="en">For Restaurants</span></a></li>
+                    <li><a href="#"><span class="ar">للسوبرماركت</span><span class="en">For Supermarkets</span></a></li>
+                    <li><a href="#"><span class="ar">للعيادات</span><span class="en">For Clinics</span></a></li>
+                    <li><a href="#"><span class="ar">للمقاولين</span><span class="en">For Contractors</span></a></li>
+                    <li><a href="#"><span class="ar">للمستشارين</span><span class="en">For Consultants</span></a></li>
+                </ul>
+            </div>
+            
+            <!-- Company -->
+            <div class="footer-col">
+                <h4><span class="ar">الشركة</span><span class="en">Company</span></h4>
+                <ul>
+                    <li><a href="#"><span class="ar">من نحن</span><span class="en">About Us</span></a></li>
+                    <li><a href="#"><span class="ar">المدونة</span><span class="en">Blog</span></a></li>
+                    <li><a href="#"><span class="ar">مركز المساعدة</span><span class="en">Help Center</span></a></li>
+                    <li><a href="#"><span class="ar">تواصل معنا</span><span class="en">Contact Us</span></a></li>
+                    <li><a href="#"><span class="ar">الأسعار</span><span class="en">Pricing</span></a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Bottom -->
+        <div class="footer-bottom">
+            <p class="footer-copyright">
+                <span class="ar">© 2026 مُحاسِب. جميع الحقوق محفوظة. صُنع بـ ❤️ في 🇸🇦</span>
+                <span class="en">© 2026 Muhasib. All rights reserved. Made with ❤️ in 🇸🇦</span>
+            </p>
+            <div class="footer-legal">
+                <a href="#"><span class="ar">سياسة الخصوصية</span><span class="en">Privacy Policy</span></a>
+                <a href="#"><span class="ar">الشروط والأحكام</span><span class="en">Terms of Service</span></a>
+                <a href="#"><span class="ar">سياسة الاسترداد</span><span class="en">Refund Policy</span></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+function setLang(lang) {
+    const html = document.getElementById('html-root');
+    const btnAr = document.getElementById('btn-ar');
+    const btnEn = document.getElementById('btn-en');
+    const businessInput = document.querySelector('.business-input');
+    
+    if (lang === 'ar') {
+        html.setAttribute('dir', 'rtl');
+        html.setAttribute('lang', 'ar');
+        btnAr.classList.add('active');
+        btnEn.classList.remove('active');
+        if(businessInput) businessInput.placeholder = 'نوع نشاطك (مطعم، عيادة، مقاول...)';
+    } else {
+        html.setAttribute('dir', 'ltr');
+        html.setAttribute('lang', 'en');
+        btnEn.classList.add('active');
+        btnAr.classList.remove('active');
+        if(businessInput) businessInput.placeholder = 'Business type (restaurant, clinic, contractor...)';
+    }
+}
+
+// Set initial placeholder
+document.querySelector('.business-input').placeholder = 'نوع نشاطك (مطعم، عيادة، مقاول...)';
+
+document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('success-msg').classList.add('show');
+});
+</script>
+</body>
+</html>
