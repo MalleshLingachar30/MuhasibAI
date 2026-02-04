@@ -107,12 +107,16 @@ Respond with JSON only, no explanation.`
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('OpenAI API error:', errorData);
+      console.error('OpenAI API error:', JSON.stringify(errorData));
+      const errorMessage = errorData.error?.message || 'Unknown OpenAI error';
+      const demoData = getDemoData(filename);
+      demoData.ocr_error = errorMessage;
+      demoData.ocr_error_code = errorData.error?.code || 'unknown';
       // Return demo data as fallback
       return res.status(200).json({ 
         success: true,
-        error: errorData.error?.message || 'Unknown error',
-        data: getDemoData(filename)
+        error: errorMessage,
+        data: demoData
       });
     }
 

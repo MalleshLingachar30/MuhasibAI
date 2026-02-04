@@ -2794,6 +2794,11 @@ async function categorizeFiles() {
                 const data = result.data;
                 const category = data.category || 'misc';
                 
+                // Log OCR error if present (for debugging)
+                if (data.ocr_error) {
+                    console.warn('OCR API Error for', file.name, ':', data.ocr_error, data.ocr_error_code);
+                }
+                
                 // Add to results
                 categorizationResults[category].push({
                     id: `bulk-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
@@ -2806,6 +2811,7 @@ async function categorizeFiles() {
                     invoiceNumber: data.invoice_number,
                     confidence: data.confidence || 0,
                     isDemo: data.demo || false,
+                    ocrError: data.ocr_error || null,
                     originalFile: file
                 });
             } else {
@@ -2979,7 +2985,7 @@ function showCategorizationResults() {
                     </div>
                     <span class="result-cat-item-amount">${formatNumber(item.amount)}</span>
                     ${item.vat > 0 ? `<span class="result-cat-item-vat">+${formatNumber(item.vat)} VAT</span>` : ''}
-                    ${item.isDemo ? '<span class="demo-badge">Demo</span>' : ''}
+                    ${item.isDemo ? `<span class="demo-badge" title="${item.ocrError || 'Using demo data'}">Demo</span>` : ''}
                 </div>
             `).join('');
         }
