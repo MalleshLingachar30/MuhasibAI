@@ -1890,9 +1890,13 @@ function openInvoiceWindow(highlightMethod = null) {
     
     const invoiceHTML = generateInvoiceWithActions(zatcaId, fileName, approvalDate, approvalTime, highlightMethod);
     
-    const invoiceWindow = window.open('', '_blank');
-    invoiceWindow.document.write(invoiceHTML);
-    invoiceWindow.document.close();
+    const invoiceWindow = window.open('', '_blank', 'width=900,height=800');
+    if (invoiceWindow) {
+        invoiceWindow.document.write(invoiceHTML);
+        invoiceWindow.document.close();
+        // Focus the window to ensure it's visible
+        invoiceWindow.focus();
+    }
 }
 
 // Generate complete invoice HTML with action buttons
@@ -1969,16 +1973,18 @@ function generateInvoiceWithActions(zatcaId, fileName, approvalDate, approvalTim
         .spacer { height: 100px; }
         
         @media print {
-            body { background: white; }
+            body { background: white !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
             .action-bar { display: none !important; }
-            .spacer { display: none; }
-            .invoice-container { box-shadow: none; margin: 0; border-radius: 0; }
+            .spacer { display: none !important; }
+            .invoice-container { box-shadow: none !important; margin: 0 !important; border-radius: 0 !important; }
+            .approved-banner, .header { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            * { visibility: visible !important; }
         }
         @page { size: A4; margin: 10mm; }
     </style>
 </head>
 <body>
-    <div class="invoice-container">
+    <div class="invoice-container" id="invoice-container">
         <div class="approved-banner">✓ ${isRTL ? 'فاتورة معتمدة من هيئة الزكاة والضريبة والجمارك' : 'Invoice Approved by ZATCA'}</div>
         
         <div class="header">
@@ -2053,7 +2059,7 @@ function generateInvoiceWithActions(zatcaId, fileName, approvalDate, approvalTim
     
     <!-- Action Bar -->
     <div class="action-bar">
-        <button class="action-btn pdf" onclick="window.print()">
+        <button class="action-btn pdf" onclick="saveToPDF()">
             📄 ${isRTL ? 'حفظ كـ PDF' : 'Save as PDF'}
         </button>
         <a class="action-btn email ${highlightMethod === 'email' ? 'highlight' : ''}" href="mailto:?subject=${emailSubject}&body=${emailBody}">
@@ -2063,6 +2069,30 @@ function generateInvoiceWithActions(zatcaId, fileName, approvalDate, approvalTim
             💬 ${isRTL ? 'إرسال واتساب' : 'Send WhatsApp'}
         </a>
     </div>
+    <script>
+        function saveToPDF() {
+            // Ensure fonts and content are fully loaded before printing
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(function() {
+                    setTimeout(function() {
+                        window.print();
+                    }, 200);
+                });
+            } else {
+                // Fallback for browsers that don't support document.fonts
+                setTimeout(function() {
+                    window.print();
+                }, 800);
+            }
+        }
+        
+        // Pre-load fonts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.fonts) {
+                document.fonts.load('700 1em ${isRTL ? "Tajawal" : "Inter"}');
+            }
+        });
+    </script>
 </body>
 </html>`;
 }
