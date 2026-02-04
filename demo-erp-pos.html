@@ -2539,9 +2539,14 @@ function generateReportHTML(type, isRTL, date) {
 </html>`;
 }
 
-// Helper: Format number with commas
+// Helper: Format number with commas (handles decimals properly)
 function formatNumber(num) {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // Round to 2 decimal places to avoid floating-point precision issues
+    const rounded = Math.round(num * 100) / 100;
+    const parts = rounded.toString().split('.');
+    // Add commas only to the integer part
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join('.');
 }
 
 
