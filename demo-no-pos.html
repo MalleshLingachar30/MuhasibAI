@@ -2071,28 +2071,13 @@ function generateInvoiceWithActions(zatcaId, fileName, approvalDate, approvalTim
     </div>
     <script>
         function saveToPDF() {
-            // Ensure fonts and content are fully loaded before printing
             if (document.fonts && document.fonts.ready) {
-                document.fonts.ready.then(function() {
-                    setTimeout(function() {
-                        window.print();
-                    }, 200);
-                });
+                document.fonts.ready.then(function() { setTimeout(function() { window.print(); }, 200); });
             } else {
-                // Fallback for browsers that don't support document.fonts
-                setTimeout(function() {
-                    window.print();
-                }, 800);
+                setTimeout(function() { window.print(); }, 800);
             }
         }
-        
-        // Pre-load fonts when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            if (document.fonts) {
-                document.fonts.load('700 1em ${isRTL ? "Tajawal" : "Inter"}');
-            }
-        });
-    </script>
+    <\/script>
 </body>
 </html>`;
 }
