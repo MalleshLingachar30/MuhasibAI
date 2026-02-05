@@ -1008,7 +1008,7 @@
                     
                     <!-- Main Total Display -->
                     <div class="main-total-display">
-                        <div class="main-total-value" id="pos-main-total">87,450</div>
+                        <div class="main-total-value" id="pos-main-total">9,500</div>
                         <div class="main-total-currency">SAR</div>
                     </div>
                     
@@ -1016,13 +1016,13 @@
                     <div class="sales-stats-row">
                         <div class="stat-item-small">
                             <i data-lucide="file-text" class="icon icon-sm"></i>
-                            <span class="stat-num" id="pos-invoices">156</span>
+                            <span class="stat-num" id="pos-invoices">52</span>
                             <span class="stat-text"><span class="ar">فاتورة</span><span class="en">invoices</span></span>
                         </div>
                         <div class="stat-divider"></div>
                         <div class="stat-item-small highlight">
                             <i data-lucide="percent" class="icon icon-sm"></i>
-                            <span class="stat-num" id="pos-vat">13,117</span>
+                            <span class="stat-num" id="pos-vat">1,425</span>
                             <span class="stat-text"><span class="ar">ضريبة</span><span class="en">VAT</span></span>
                         </div>
                     </div>
@@ -1420,17 +1420,17 @@
                     <div class="summary-cards">
                         <div class="summary-card">
                             <div class="summary-icon"><i data-lucide="file-text" class="icon"></i></div>
-                            <div class="summary-value" id="total-invoices">156</div>
+                            <div class="summary-value" id="total-invoices">52</div>
                             <div class="summary-label"><span class="ar">الفواتير</span><span class="en">Invoices</span></div>
                         </div>
                         <div class="summary-card highlight">
                             <div class="summary-icon"><i data-lucide="banknote" class="icon"></i></div>
-                            <div class="summary-value" id="total-sales">87,450</div>
+                            <div class="summary-value" id="total-sales">9,500</div>
                             <div class="summary-label"><span class="ar">المبيعات</span><span class="en">Sales (SAR)</span></div>
                         </div>
                         <div class="summary-card">
                             <div class="summary-icon"><i data-lucide="percent" class="icon"></i></div>
-                            <div class="summary-value" id="output-vat">13,117</div>
+                            <div class="summary-value" id="output-vat">1,425</div>
                             <div class="summary-label"><span class="ar">ضريبة المخرجات</span><span class="en">Output VAT</span></div>
                         </div>
                     </div>
@@ -1439,7 +1439,7 @@
                     <div class="invoice-list">
                         <div class="list-header">
                             <span><span class="ar">آخر الفواتير من POS</span><span class="en">Recent POS Invoices</span></span>
-                            <span class="list-count" id="invoice-list-count">156</span>
+                            <span class="list-count" id="invoice-list-count">52</span>
                         </div>
                         <div class="invoice-items" id="invoice-items">
                             <!-- Will be populated by JS -->
@@ -1765,9 +1765,9 @@ function setLang(lang) {
 
 // POS cumulative totals (all transactions for today)
 let posTotals = {
-    totalSales: 87450,
-    totalVAT: 13117,
-    invoiceCount: 156
+    totalSales: 9500,
+    totalVAT: 1425,
+    invoiceCount: 52
 };
 
 // Recent visible transactions (last few shown in the list)
@@ -1955,9 +1955,9 @@ async function syncPOSData() {
 function resetDemo() {
     // Reset POS totals to initial values
     posTotals = {
-        totalSales: 87450,
-        totalVAT: 13117,
-        invoiceCount: 156
+        totalSales: 9500,
+        totalVAT: 1425,
+        invoiceCount: 52
     };
     
     // Reset accounting data
@@ -1970,8 +1970,8 @@ function resetDemo() {
                 vat: t.vat,
                 total: t.amount + t.vat
             })),
-            totalSales: 87450,
-            outputVAT: 13117
+            totalSales: 9500,
+            outputVAT: 1425
         },
         expenses: {
             suppliers: [],

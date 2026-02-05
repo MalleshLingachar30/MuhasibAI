@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مُحاسِب - تقادم الذمم المدينة | Accounts Receivable Aging</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        /* Base Styles */
+        .icon { display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; }
+        .icon svg { width: 1em; height: 1em; stroke-width: 2; }
+        .icon-sm svg { width: 0.875em; height: 0.875em; }
+        .icon-lg svg { width: 1.25em; height: 1.25em; }
+        .icon-xl svg { width: 2em; height: 2em; }
+        .icon-2xl svg { width: 2.5em; height: 2.5em; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: #020617; color: #fff; line-height: 1.6; min-height: 100vh; }
+        [dir="ltr"] body { font-family: 'Inter', sans-serif; }
+        a { text-decoration: none; color: inherit; }
+        
+        /* Header */
+        header { position: fixed; top: 0; width: 100%; background: rgba(2,6,23,0.9); backdrop-filter: blur(8px); z-index: 50; border-bottom: 1px solid #1e293b; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; max-width: 1400px; margin: 0 auto; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #f59e0b, #fbbf24); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #020617; font-size: 1.25rem; }
+        .logo-text { font-size: 1.25rem; font-weight: bold; }
+        .header-actions { display: flex; align-items: center; gap: 1rem; }
+        .lang-toggle { display: flex; background: #1e293b; border-radius: 8px; padding: 4px; }
+        .lang-btn { padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer; transition: all 0.3s; background: transparent; color: #94a3b8; }
+        .lang-btn.active { background: #f59e0b; color: #fff; }
+        .back-btn { display: flex; align-items: center; gap: 0.5rem; color: #94a3b8; font-size: 0.875rem; transition: color 0.3s; }
+        .back-btn:hover { color: #fff; }
+        
+        /* Main Container */
+        .demo-container { padding: 7rem 2rem 3rem; max-width: 1400px; margin: 0 auto; }
+        
+        /* Page Header */
+        .page-header { text-align: center; margin-bottom: 2rem; }
+        .page-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); border-radius: 50px; padding: 0.5rem 1.25rem; color: #fbbf24; font-size: 0.875rem; margin-bottom: 1rem; }
+        .page-title { font-size: 2rem; font-weight: 800; margin-bottom: 0.75rem; }
+        @media(min-width:768px) { .page-title { font-size: 2.5rem; } }
+        .gradient-text { background: linear-gradient(to left, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .page-subtitle { color: #94a3b8; font-size: 1rem; max-width: 700px; margin: 0 auto; }
+        
+        /* Language */
+        .en { display: none; }
+        .ar { display: inline; }
+        [dir="ltr"] .en { display: inline; }
+        [dir="ltr"] .ar { display: none; }
+        
+        /* Report Container */
+        .report-container { background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.9)); border-radius: 20px; border: 1px solid #1e293b; overflow: hidden; margin-bottom: 2rem; }
+        
+        /* Report Header */
+        .report-header { padding: 1.5rem; border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .report-title-section { display: flex; align-items: center; gap: 1rem; }
+        .report-icon { width: 56px; height: 56px; background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(251,191,36,0.2)); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: #fbbf24; }
+        .report-title { font-size: 1.25rem; font-weight: 700; }
+        .report-period { font-size: 0.85rem; color: #64748b; margin-top: 0.25rem; }
+        .report-actions { display: flex; gap: 0.75rem; }
+        .action-btn { padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid #334155; background: transparent; color: #94a3b8; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 0.5rem; }
+        .action-btn:hover { border-color: #fbbf24; color: #fbbf24; }
+        .action-btn.primary { background: linear-gradient(135deg, #f59e0b, #fbbf24); border: none; color: #020617; font-weight: 600; }
+        .action-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(245,158,11,0.3); }
+        
+        /* Report Content */
+        .report-content { padding: 1.5rem; }
+        
+        /* Summary Stats */
+        .summary-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        @media(max-width: 1024px) { .summary-stats { grid-template-columns: repeat(3, 1fr); } }
+        @media(max-width: 640px) { .summary-stats { grid-template-columns: repeat(2, 1fr); } }
+        
+        .stat-card { background: rgba(51,65,85,0.3); border-radius: 12px; padding: 1rem; text-align: center; transition: all 0.3s; border: 1px solid transparent; }
+        .stat-card:hover { border-color: rgba(245,158,11,0.3); }
+        .stat-card.current { border-color: rgba(52,211,153,0.5); background: rgba(52,211,153,0.1); }
+        .stat-card.warning { border-color: rgba(251,191,36,0.5); background: rgba(251,191,36,0.1); }
+        .stat-card.danger { border-color: rgba(239,68,68,0.5); background: rgba(239,68,68,0.1); }
+        .stat-label { font-size: 0.75rem; color: #64748b; margin-bottom: 0.5rem; }
+        .stat-value { font-size: 1.25rem; font-weight: 700; color: #fff; }
+        .stat-card.current .stat-value { color: #34d399; }
+        .stat-card.warning .stat-value { color: #fbbf24; }
+        .stat-card.danger .stat-value { color: #ef4444; }
+        
+        /* Aging Table */
+        .aging-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
+        .aging-table th { padding: 1rem 0.75rem; background: rgba(51,65,85,0.5); text-align: right; font-size: 0.8rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 2px solid #334155; }
+        [dir="ltr"] .aging-table th { text-align: left; }
+        .aging-table th:last-child { text-align: left; }
+        [dir="ltr"] .aging-table th:last-child { text-align: right; }
+        .aging-table td { padding: 1rem 0.75rem; border-bottom: 1px solid rgba(51,65,85,0.3); font-size: 0.9rem; }
+        .aging-table tr:hover { background: rgba(51,65,85,0.2); }
+        .aging-table .customer-name { font-weight: 600; color: #e2e8f0; }
+        .aging-table .amount { font-family: 'Inter', monospace; direction: ltr; text-align: left; }
+        [dir="ltr"] .aging-table .amount { text-align: right; }
+        .aging-table .amount.current { color: #34d399; }
+        .aging-table .amount.warning { color: #fbbf24; }
+        .aging-table .amount.danger { color: #ef4444; }
+        .aging-table .total-row { background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(251,191,36,0.05)); font-weight: 700; }
+        .aging-table .total-row td { border-bottom: none; color: #fbbf24; }
+        
+        .empty-cell { color: #475569; }
+        
+        /* Alert Box */
+        .alert-box { display: flex; align-items: flex-start; gap: 1rem; padding: 1.25rem; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: 12px; margin-bottom: 1.5rem; }
+        .alert-box.warning { background: rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.3); }
+        .alert-icon { width: 40px; height: 40px; background: rgba(239,68,68,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #ef4444; flex-shrink: 0; }
+        .alert-box.warning .alert-icon { background: rgba(251,191,36,0.2); color: #fbbf24; }
+        .alert-content { flex: 1; }
+        .alert-title { font-size: 0.95rem; font-weight: 600; color: #ef4444; margin-bottom: 0.25rem; }
+        .alert-box.warning .alert-title { color: #fbbf24; }
+        .alert-text { font-size: 0.85rem; color: #94a3b8; }
+        
+        /* Action Suggestion */
+        .action-suggestion { display: flex; align-items: center; gap: 1rem; padding: 1.25rem; background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(96,165,250,0.05)); border: 1px solid rgba(59,130,246,0.3); border-radius: 12px; }
+        .action-icon { width: 40px; height: 40px; background: rgba(59,130,246,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #3b82f6; flex-shrink: 0; }
+        .action-content { flex: 1; }
+        .action-title { font-size: 0.95rem; font-weight: 600; color: #3b82f6; margin-bottom: 0.25rem; }
+        .action-text { font-size: 0.85rem; color: #94a3b8; }
+        .action-btn-small { padding: 0.5rem 1rem; background: rgba(59,130,246,0.2); border: 1px solid rgba(59,130,246,0.3); border-radius: 8px; color: #3b82f6; font-size: 0.8rem; cursor: pointer; transition: all 0.3s; }
+        .action-btn-small:hover { background: rgba(59,130,246,0.3); }
+        
+        /* Chart Placeholder */
+        .chart-section { margin-top: 2rem; }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .chart-title { font-size: 1rem; font-weight: 600; color: #e2e8f0; }
+        .chart-container { background: rgba(15,23,42,0.5); border-radius: 12px; padding: 1.5rem; }
+        
+        /* Aging Bar Chart */
+        .aging-bar-chart { display: flex; align-items: flex-end; justify-content: space-around; height: 200px; gap: 1rem; }
+        .bar-item { display: flex; flex-direction: column; align-items: center; flex: 1; }
+        .bar { width: 100%; max-width: 60px; border-radius: 8px 8px 0 0; transition: all 0.3s; cursor: pointer; }
+        .bar:hover { opacity: 0.8; transform: scaleY(1.02); transform-origin: bottom; }
+        .bar.current { background: linear-gradient(to top, #059669, #34d399); }
+        .bar.days30 { background: linear-gradient(to top, #0891b2, #22d3d1); }
+        .bar.days60 { background: linear-gradient(to top, #d97706, #fbbf24); }
+        .bar.days90 { background: linear-gradient(to top, #ea580c, #fb923c); }
+        .bar.days90plus { background: linear-gradient(to top, #dc2626, #ef4444); }
+        .bar-label { font-size: 0.75rem; color: #64748b; margin-top: 0.75rem; text-align: center; }
+        .bar-value { font-size: 0.8rem; font-weight: 600; color: #e2e8f0; margin-top: 0.25rem; }
+        
+        @media print {
+            body { background: #fff; color: #000; }
+            header { display: none; }
+            .demo-container { padding: 1rem; }
+            .report-container { border: 1px solid #ccc; }
+            .action-btn { display: none; }
+        }
+        
+        @media(max-width: 768px) {
+            .demo-container { padding: 6rem 1rem 2rem; }
+            .page-title { font-size: 1.75rem; }
+            .report-header { flex-direction: column; align-items: flex-start; }
+            .report-actions { width: 100%; justify-content: flex-end; }
+            .aging-table { font-size: 0.8rem; }
+            .aging-table th, .aging-table td { padding: 0.5rem 0.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="logo">
+            <div class="logo-icon">م</div>
+            <span class="logo-text">Muhasib</span>
+        </div>
+        <div class="header-actions">
+            <a href="index.html" class="back-btn">
+                <i data-lucide="arrow-right" class="icon"></i>
+                <span class="ar">الرجوع للرئيسية</span>
+                <span class="en">Back to Home</span>
+            </a>
+            <div class="lang-toggle">
+                <button class="lang-btn active" id="btn-ar" onclick="setLang('ar')">عربي</button>
+                <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="demo-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="page-badge">
+            <i data-lucide="clock" class="icon icon-sm"></i>
+            <span class="ar">تقارير العملاء</span>
+            <span class="en">Customer Reports</span>
+        </div>
+        <h1 class="page-title">
+            <span class="ar">تقادم الذمم <span class="gradient-text">المدينة</span></span>
+            <span class="en">Accounts Receivable <span class="gradient-text">Aging</span></span>
+        </h1>
+        <p class="page-subtitle">
+            <span class="ar">من يدين لك بالمال ومنذ متى - تتبع المستحقات ومتابعة التحصيل</span>
+            <span class="en">Who owes you money and for how long - track receivables and follow up on collections</span>
+        </p>
+    </div>
+    
+    <!-- Report Container -->
+    <div class="report-container" id="report">
+        <!-- Report Header -->
+        <div class="report-header">
+            <div class="report-title-section">
+                <div class="report-icon">
+                    <i data-lucide="users" class="icon icon-2xl"></i>
+                </div>
+                <div>
+                    <div class="report-title">
+                        <span class="ar">تقرير تقادم الذمم المدينة</span>
+                        <span class="en">Accounts Receivable Aging Report</span>
+                    </div>
+                    <div class="report-period">
+                        <span class="ar">كما في ٣١ يناير ٢٠٢٥</span>
+                        <span class="en">As of January 31, 2025</span>
+                    </div>
+                </div>
+            </div>
+            <div class="report-actions">
+                <button class="action-btn" onclick="window.print()">
+                    <i data-lucide="printer" class="icon icon-sm"></i>
+                    <span class="ar">طباعة</span>
+                    <span class="en">Print</span>
+                </button>
+                <button class="action-btn primary" onclick="downloadPDF()">
+                    <i data-lucide="download" class="icon icon-sm"></i>
+                    <span class="ar">تحميل PDF</span>
+                    <span class="en">Download PDF</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Report Content -->
+        <div class="report-content">
+            <!-- Summary Stats -->
+            <div class="summary-stats">
+                <div class="stat-card current">
+                    <div class="stat-label">
+                        <span class="ar">جاري</span>
+                        <span class="en">Current</span>
+                    </div>
+                    <div class="stat-value">5,750</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">
+                        <span class="ar">١-٣٠ يوم</span>
+                        <span class="en">1-30 Days</span>
+                    </div>
+                    <div class="stat-value">12,000</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-label">
+                        <span class="ar">٣١-٦٠ يوم</span>
+                        <span class="en">31-60 Days</span>
+                    </div>
+                    <div class="stat-value">8,500</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-label">
+                        <span class="ar">٦١-٩٠ يوم</span>
+                        <span class="en">61-90 Days</span>
+                    </div>
+                    <div class="stat-value">7,000</div>
+                </div>
+                <div class="stat-card danger">
+                    <div class="stat-label">
+                        <span class="ar">+٩٠ يوم</span>
+                        <span class="en">90+ Days</span>
+                    </div>
+                    <div class="stat-value">11,750</div>
+                </div>
+            </div>
+            
+            <!-- Alert Box -->
+            <div class="alert-box">
+                <div class="alert-icon">
+                    <i data-lucide="alert-triangle" class="icon icon-lg"></i>
+                </div>
+                <div class="alert-content">
+                    <div class="alert-title">
+                        <span class="ar">تنبيه: ١٨,٧٥٠ ر.س متأخرة أكثر من ٦٠ يوم (٤٢٪)</span>
+                        <span class="en">Warning: 18,750 SAR overdue more than 60 days (42%)</span>
+                    </div>
+                    <div class="alert-text">
+                        <span class="ar">يُنصح بمتابعة التحصيل بشكل عاجل لتجنب الديون المعدومة</span>
+                        <span class="en">Urgent collection follow-up recommended to avoid bad debts</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Aging Table -->
+            <table class="aging-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <span class="ar">العميل</span>
+                            <span class="en">Customer</span>
+                        </th>
+                        <th>
+                            <span class="ar">جاري</span>
+                            <span class="en">Current</span>
+                        </th>
+                        <th>
+                            <span class="ar">١-٣٠</span>
+                            <span class="en">1-30</span>
+                        </th>
+                        <th>
+                            <span class="ar">٣١-٦٠</span>
+                            <span class="en">31-60</span>
+                        </th>
+                        <th>
+                            <span class="ar">٦١-٩٠</span>
+                            <span class="en">61-90</span>
+                        </th>
+                        <th>
+                            <span class="ar">+٩٠</span>
+                            <span class="en">90+</span>
+                        </th>
+                        <th>
+                            <span class="ar">الإجمالي</span>
+                            <span class="en">Total</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="customer-name">
+                            <span class="ar">مؤسسة النور</span>
+                            <span class="en">Al Noor Est.</span>
+                        </td>
+                        <td class="amount current">5,750</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount">5,750</td>
+                    </tr>
+                    <tr>
+                        <td class="customer-name">
+                            <span class="ar">شركة الفهد</span>
+                            <span class="en">Al Fahd Co.</span>
+                        </td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount">12,000</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount">12,000</td>
+                    </tr>
+                    <tr>
+                        <td class="customer-name">
+                            <span class="ar">مؤسسة السلام</span>
+                            <span class="en">Al Salam Est.</span>
+                        </td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount warning">8,500</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount">8,500</td>
+                    </tr>
+                    <tr>
+                        <td class="customer-name">
+                            <span class="ar">شركة الأمل</span>
+                            <span class="en">Al Amal Co.</span>
+                        </td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount warning">7,000</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount">7,000</td>
+                    </tr>
+                    <tr>
+                        <td class="customer-name">
+                            <span class="ar">أحمد العتيبي</span>
+                            <span class="en">Ahmed Al Otaibi</span>
+                        </td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount empty-cell">-</td>
+                        <td class="amount danger">11,750</td>
+                        <td class="amount">11,750</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>
+                            <span class="ar">الإجمالي</span>
+                            <span class="en">Total</span>
+                        </td>
+                        <td class="amount">5,750</td>
+                        <td class="amount">12,000</td>
+                        <td class="amount">8,500</td>
+                        <td class="amount">7,000</td>
+                        <td class="amount">11,750</td>
+                        <td class="amount">45,000</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- Action Suggestion -->
+            <div class="action-suggestion">
+                <div class="action-icon">
+                    <i data-lucide="lightbulb" class="icon icon-lg"></i>
+                </div>
+                <div class="action-content">
+                    <div class="action-title">
+                        <span class="ar">إجراء مقترح</span>
+                        <span class="en">Suggested Action</span>
+                    </div>
+                    <div class="action-text">
+                        <span class="ar">تواصل مع أحمد العتيبي - متأخر ٩٠+ يوم - مبلغ ١١,٧٥٠ ر.س</span>
+                        <span class="en">Contact Ahmed Al Otaibi - 90+ days overdue - Amount 11,750 SAR</span>
+                    </div>
+                </div>
+                <button class="action-btn-small">
+                    <span class="ar">إرسال تذكير</span>
+                    <span class="en">Send Reminder</span>
+                </button>
+            </div>
+            
+            <!-- Chart Section -->
+            <div class="chart-section">
+                <div class="chart-header">
+                    <div class="chart-title">
+                        <span class="ar">توزيع المستحقات حسب العمر</span>
+                        <span class="en">Receivables Distribution by Age</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="aging-bar-chart">
+                        <div class="bar-item">
+                            <div class="bar current" style="height: 32%;"></div>
+                            <div class="bar-label">
+                                <span class="ar">جاري</span>
+                                <span class="en">Current</span>
+                            </div>
+                            <div class="bar-value">5,750</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar days30" style="height: 67%;"></div>
+                            <div class="bar-label">
+                                <span class="ar">١-٣٠</span>
+                                <span class="en">1-30</span>
+                            </div>
+                            <div class="bar-value">12,000</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar days60" style="height: 47%;"></div>
+                            <div class="bar-label">
+                                <span class="ar">٣١-٦٠</span>
+                                <span class="en">31-60</span>
+                            </div>
+                            <div class="bar-value">8,500</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar days90" style="height: 39%;"></div>
+                            <div class="bar-label">
+                                <span class="ar">٦١-٩٠</span>
+                                <span class="en">61-90</span>
+                            </div>
+                            <div class="bar-value">7,000</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar days90plus" style="height: 65%;"></div>
+                            <div class="bar-label">
+                                <span class="ar">+٩٠</span>
+                                <span class="en">90+</span>
+                            </div>
+                            <div class="bar-value">11,750</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    lucide.createIcons();
+    
+    function setLang(lang) {
+        const html = document.getElementById('html-root');
+        if (lang === 'en') {
+            html.setAttribute('dir', 'ltr');
+            html.setAttribute('lang', 'en');
+            document.getElementById('btn-en').classList.add('active');
+            document.getElementById('btn-ar').classList.remove('active');
+        } else {
+            html.setAttribute('dir', 'rtl');
+            html.setAttribute('lang', 'ar');
+            document.getElementById('btn-ar').classList.add('active');
+            document.getElementById('btn-en').classList.remove('active');
+        }
+    }
+    
+    function downloadPDF() {
+        const element = document.getElementById('report');
+        const opt = {
+            margin: 10,
+            filename: 'ar-aging-report.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        };
+        html2pdf().set(opt).from(element).save();
+    }
+</script>
+
+</body>
+</html>

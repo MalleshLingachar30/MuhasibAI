@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مُحاسِب - الميزانية مقابل الفعلي | Budget vs Actual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        /* Base Styles */
+        .icon { display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; }
+        .icon svg { width: 1em; height: 1em; stroke-width: 2; }
+        .icon-sm svg { width: 0.875em; height: 0.875em; }
+        .icon-lg svg { width: 1.25em; height: 1.25em; }
+        .icon-xl svg { width: 2em; height: 2em; }
+        .icon-2xl svg { width: 2.5em; height: 2.5em; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: #020617; color: #fff; line-height: 1.6; min-height: 100vh; }
+        [dir="ltr"] body { font-family: 'Inter', sans-serif; }
+        a { text-decoration: none; color: inherit; }
+        
+        /* Header */
+        header { position: fixed; top: 0; width: 100%; background: rgba(2,6,23,0.9); backdrop-filter: blur(8px); z-index: 50; border-bottom: 1px solid #1e293b; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; max-width: 1400px; margin: 0 auto; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #8b5cf6, #a78bfa); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #020617; font-size: 1.25rem; }
+        .logo-text { font-size: 1.25rem; font-weight: bold; }
+        .header-actions { display: flex; align-items: center; gap: 1rem; }
+        .lang-toggle { display: flex; background: #1e293b; border-radius: 8px; padding: 4px; }
+        .lang-btn { padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer; transition: all 0.3s; background: transparent; color: #94a3b8; }
+        .lang-btn.active { background: #8b5cf6; color: #fff; }
+        .back-btn { display: flex; align-items: center; gap: 0.5rem; color: #94a3b8; font-size: 0.875rem; transition: color 0.3s; }
+        .back-btn:hover { color: #fff; }
+        
+        /* Main Container */
+        .demo-container { padding: 7rem 2rem 3rem; max-width: 1400px; margin: 0 auto; }
+        
+        /* Page Header */
+        .page-header { text-align: center; margin-bottom: 2rem; }
+        .page-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.3); border-radius: 50px; padding: 0.5rem 1.25rem; color: #a78bfa; font-size: 0.875rem; margin-bottom: 1rem; }
+        .page-title { font-size: 2rem; font-weight: 800; margin-bottom: 0.75rem; }
+        @media(min-width:768px) { .page-title { font-size: 2.5rem; } }
+        .gradient-text { background: linear-gradient(to left, #8b5cf6, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .page-subtitle { color: #94a3b8; font-size: 1rem; max-width: 700px; margin: 0 auto; }
+        
+        /* Language */
+        .en { display: none; }
+        .ar { display: inline; }
+        [dir="ltr"] .en { display: inline; }
+        [dir="ltr"] .ar { display: none; }
+        
+        /* Report Container */
+        .report-container { background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.9)); border-radius: 20px; border: 1px solid #1e293b; overflow: hidden; margin-bottom: 2rem; }
+        
+        /* Report Header */
+        .report-header { padding: 1.5rem; border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .report-title-section { display: flex; align-items: center; gap: 1rem; }
+        .report-icon { width: 56px; height: 56px; background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(167,139,250,0.2)); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: #a78bfa; }
+        .report-title { font-size: 1.25rem; font-weight: 700; }
+        .report-period { font-size: 0.85rem; color: #64748b; margin-top: 0.25rem; }
+        .report-actions { display: flex; gap: 0.75rem; }
+        .action-btn { padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid #334155; background: transparent; color: #94a3b8; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 0.5rem; }
+        .action-btn:hover { border-color: #a78bfa; color: #a78bfa; }
+        .action-btn.primary { background: linear-gradient(135deg, #8b5cf6, #a78bfa); border: none; color: #fff; font-weight: 600; }
+        .action-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(139,92,246,0.3); }
+        
+        /* Report Content */
+        .report-content { padding: 1.5rem; }
+        
+        /* Summary Cards */
+        .summary-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        @media(max-width: 768px) { .summary-cards { grid-template-columns: 1fr; } }
+        
+        .summary-card { background: rgba(51,65,85,0.3); border-radius: 14px; padding: 1.25rem; text-align: center; border: 1px solid transparent; transition: all 0.3s; }
+        .summary-card:hover { border-color: rgba(139,92,246,0.3); }
+        .summary-card.over { border-color: rgba(239,68,68,0.5); background: rgba(239,68,68,0.1); }
+        .summary-card.under { border-color: rgba(52,211,153,0.5); background: rgba(52,211,153,0.1); }
+        .summary-card.on-track { border-color: rgba(139,92,246,0.5); background: rgba(139,92,246,0.1); }
+        .summary-icon { width: 48px; height: 48px; margin: 0 auto 0.75rem; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+        .summary-icon.budget { background: rgba(139,92,246,0.2); color: #a78bfa; }
+        .summary-icon.actual { background: rgba(59,130,246,0.2); color: #3b82f6; }
+        .summary-icon.variance { background: rgba(52,211,153,0.2); color: #34d399; }
+        .summary-card.over .summary-icon.variance { background: rgba(239,68,68,0.2); color: #ef4444; }
+        .summary-label { font-size: 0.8rem; color: #64748b; margin-bottom: 0.5rem; }
+        .summary-value { font-size: 1.5rem; font-weight: 700; color: #fff; }
+        .summary-card.over .summary-value { color: #ef4444; }
+        .summary-card.under .summary-value { color: #34d399; }
+        .summary-card.on-track .summary-value { color: #a78bfa; }
+        
+        /* Comparison Table */
+        .comparison-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+        .comparison-table th { padding: 1rem; background: rgba(51,65,85,0.5); text-align: right; font-size: 0.85rem; font-weight: 600; color: #94a3b8; border-bottom: 2px solid #334155; }
+        [dir="ltr"] .comparison-table th { text-align: left; }
+        .comparison-table th:nth-child(2), .comparison-table th:nth-child(3), .comparison-table th:nth-child(4), .comparison-table th:last-child { text-align: center; }
+        .comparison-table td { padding: 1rem; border-bottom: 1px solid rgba(51,65,85,0.3); font-size: 0.9rem; }
+        .comparison-table tr:hover { background: rgba(51,65,85,0.2); }
+        .comparison-table .category { font-weight: 600; color: #e2e8f0; }
+        .comparison-table .amount { text-align: center; font-family: 'Inter', monospace; }
+        .comparison-table .variance { text-align: center; font-weight: 600; }
+        .comparison-table .variance.positive { color: #34d399; }
+        .comparison-table .variance.negative { color: #ef4444; }
+        .comparison-table .progress-cell { width: 150px; }
+        .progress-bar { height: 8px; background: rgba(51,65,85,0.5); border-radius: 4px; overflow: hidden; position: relative; }
+        .progress-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+        .progress-fill.under { background: linear-gradient(to right, #059669, #34d399); }
+        .progress-fill.over { background: linear-gradient(to right, #dc2626, #ef4444); }
+        .progress-fill.on-track { background: linear-gradient(to right, #7c3aed, #a78bfa); }
+        .progress-marker { position: absolute; top: -2px; bottom: -2px; width: 2px; background: #fff; border-radius: 1px; }
+        
+        /* Section Header */
+        .section-header { display: flex; align-items: center; gap: 0.75rem; margin: 2rem 0 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid #334155; }
+        .section-title { font-size: 1rem; font-weight: 600; color: #e2e8f0; }
+        
+        /* Total Row */
+        .total-row { background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(167,139,250,0.05)) !important; }
+        .total-row td { font-weight: 700; color: #a78bfa; border-bottom: none; }
+        
+        /* Insights */
+        .insights-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        @media(max-width: 768px) { .insights-grid { grid-template-columns: 1fr; } }
+        
+        .insight-card { padding: 1.25rem; background: rgba(51,65,85,0.2); border-radius: 12px; border: 1px solid rgba(51,65,85,0.3); }
+        .insight-card.alert { border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.05); }
+        .insight-card.success { border-color: rgba(52,211,153,0.3); background: rgba(52,211,153,0.05); }
+        .insight-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .insight-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+        .insight-card.alert .insight-icon { background: rgba(239,68,68,0.2); color: #ef4444; }
+        .insight-card.success .insight-icon { background: rgba(52,211,153,0.2); color: #34d399; }
+        .insight-title { font-size: 0.9rem; font-weight: 600; color: #e2e8f0; }
+        .insight-text { font-size: 0.85rem; color: #94a3b8; }
+        
+        @media print {
+            body { background: #fff; color: #000; }
+            header { display: none; }
+            .demo-container { padding: 1rem; }
+            .report-container { border: 1px solid #ccc; }
+            .action-btn { display: none; }
+        }
+        
+        @media(max-width: 768px) {
+            .demo-container { padding: 6rem 1rem 2rem; }
+            .page-title { font-size: 1.75rem; }
+            .report-header { flex-direction: column; align-items: flex-start; }
+            .report-actions { width: 100%; justify-content: flex-end; }
+            .comparison-table { font-size: 0.8rem; }
+            .comparison-table th, .comparison-table td { padding: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="logo">
+            <div class="logo-icon">م</div>
+            <span class="logo-text">Muhasib</span>
+        </div>
+        <div class="header-actions">
+            <a href="index.html" class="back-btn">
+                <i data-lucide="arrow-right" class="icon"></i>
+                <span class="ar">الرجوع للرئيسية</span>
+                <span class="en">Back to Home</span>
+            </a>
+            <div class="lang-toggle">
+                <button class="lang-btn active" id="btn-ar" onclick="setLang('ar')">عربي</button>
+                <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="demo-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="page-badge">
+            <i data-lucide="git-compare" class="icon icon-sm"></i>
+            <span class="ar">التقارير التحليلية</span>
+            <span class="en">Analytical Reports</span>
+        </div>
+        <h1 class="page-title">
+            <span class="ar">الميزانية مقابل <span class="gradient-text">الفعلي</span></span>
+            <span class="en">Budget vs <span class="gradient-text">Actual</span></span>
+        </h1>
+        <p class="page-subtitle">
+            <span class="ar">مقارنة الأداء الفعلي بالميزانية المخططة وتحديد الانحرافات</span>
+            <span class="en">Compare actual performance to planned budget and identify variances</span>
+        </p>
+    </div>
+    
+    <!-- Report Container -->
+    <div class="report-container" id="report">
+        <!-- Report Header -->
+        <div class="report-header">
+            <div class="report-title-section">
+                <div class="report-icon">
+                    <i data-lucide="target" class="icon icon-2xl"></i>
+                </div>
+                <div>
+                    <div class="report-title">
+                        <span class="ar">تقرير الميزانية مقابل الفعلي</span>
+                        <span class="en">Budget vs Actual Report</span>
+                    </div>
+                    <div class="report-period">
+                        <span class="ar">يناير ٢٠٢٥</span>
+                        <span class="en">January 2025</span>
+                    </div>
+                </div>
+            </div>
+            <div class="report-actions">
+                <button class="action-btn" onclick="window.print()">
+                    <i data-lucide="printer" class="icon icon-sm"></i>
+                    <span class="ar">طباعة</span>
+                    <span class="en">Print</span>
+                </button>
+                <button class="action-btn primary" onclick="downloadPDF()">
+                    <i data-lucide="download" class="icon icon-sm"></i>
+                    <span class="ar">تحميل PDF</span>
+                    <span class="en">Download PDF</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Report Content -->
+        <div class="report-content">
+            <!-- Summary Cards -->
+            <div class="summary-cards">
+                <div class="summary-card on-track">
+                    <div class="summary-icon budget">
+                        <i data-lucide="target" class="icon icon-xl"></i>
+                    </div>
+                    <div class="summary-label">
+                        <span class="ar">إجمالي الميزانية</span>
+                        <span class="en">Total Budget</span>
+                    </div>
+                    <div class="summary-value">100,000 SAR</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon actual">
+                        <i data-lucide="activity" class="icon icon-xl"></i>
+                    </div>
+                    <div class="summary-label">
+                        <span class="ar">الإنفاق الفعلي</span>
+                        <span class="en">Actual Spending</span>
+                    </div>
+                    <div class="summary-value">92,200 SAR</div>
+                </div>
+                <div class="summary-card under">
+                    <div class="summary-icon variance">
+                        <i data-lucide="trending-down" class="icon icon-xl"></i>
+                    </div>
+                    <div class="summary-label">
+                        <span class="ar">الفرق</span>
+                        <span class="en">Variance</span>
+                    </div>
+                    <div class="summary-value">-7,800 SAR</div>
+                </div>
+            </div>
+            
+            <!-- Revenue Section -->
+            <div class="section-header">
+                <i data-lucide="trending-up" class="icon icon-lg" style="color: #34d399;"></i>
+                <span class="section-title">
+                    <span class="ar">الإيرادات</span>
+                    <span class="en">Revenue</span>
+                </span>
+            </div>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <span class="ar">البند</span>
+                            <span class="en">Item</span>
+                        </th>
+                        <th>
+                            <span class="ar">الميزانية</span>
+                            <span class="en">Budget</span>
+                        </th>
+                        <th>
+                            <span class="ar">الفعلي</span>
+                            <span class="en">Actual</span>
+                        </th>
+                        <th>
+                            <span class="ar">الفرق</span>
+                            <span class="en">Variance</span>
+                        </th>
+                        <th class="progress-cell">
+                            <span class="ar">التقدم</span>
+                            <span class="en">Progress</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="category">
+                            <span class="ar">المبيعات</span>
+                            <span class="en">Sales</span>
+                        </td>
+                        <td class="amount">250,000</td>
+                        <td class="amount">285,000</td>
+                        <td class="variance positive">+35,000 (+14%)</td>
+                        <td class="progress-cell">
+                            <div class="progress-bar">
+                                <div class="progress-fill under" style="width: 100%;"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category">
+                            <span class="ar">إيرادات أخرى</span>
+                            <span class="en">Other Revenue</span>
+                        </td>
+                        <td class="amount">5,000</td>
+                        <td class="amount">2,000</td>
+                        <td class="variance negative">-3,000 (-60%)</td>
+                        <td class="progress-cell">
+                            <div class="progress-bar">
+                                <div class="progress-fill over" style="width: 40%;"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="total-row">
+                        <td class="category">
+                            <span class="ar">إجمالي الإيرادات</span>
+                            <span class="en">Total Revenue</span>
+                        </td>
+                        <td class="amount">255,000</td>
+                        <td class="amount">287,000</td>
+                        <td class="variance positive">+32,000 (+12.5%)</td>
+                        <td class="progress-cell">
+                            <div class="progress-bar">
+                                <div class="progress-fill under" style="width: 100%;"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- Expenses Section -->
+            <div class="section-header">
+                <i data-lucide="receipt" class="icon icon-lg" style="color: #ef4444;"></i>
+                <span class="section-title">
+                    <span class="ar">المصروفات</span>
+                    <span class="en">Expenses</span>
+                </span>
+            </div>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <span class="ar">البند</span>
+                            <span class="en">Item</span>
+                        </th>
+                        <th>
+                            <span class="ar">الميزانية</span>
+                            <span class="en">Budget</span>
+                        </th>
+                        <th>
+                            <span class="ar">الفعلي</span>
+                            <span class="en">Actual</span>
+                        </th>
+                        <th>
+                            <span class="ar">الفرق</span>
+                            <span class="en">Variance</span>
+                        </th>
+                        <th class="progress-cell">
+                            <span class="ar">التقدم</span>
+                            <span class="en">Progress</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="category">
+                            <span class="ar">رواتب وأجور</span>
+                            <span class="en">Salaries & Wages</span>
+                        </td>
+                        <td class="amount">42,000</td>
+                        <td class="amount">45,000</td>
+                        <td class="variance negative">+3,000 (+7%)</td>
+                        <td class="progress-cell">
+                            <div class="progress-bar">
+                                <div class="progress-fill over" style="width: 107%;"></div>
+                                <div class="progress-marker" style="right: 0;"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category">
+                            <span class="ar">إيجار</span>
+                            <span class="en">Rent</span>
+                        </td>
+                        <td class="amount">25,000</td>
+                        <td class="amount">25,000</td>
+                        <td class="variance" style="color: #a78bfa;">0 (0%)</td>
+                        <td class="progress-cell">
+                            <div class="progress-bar">
+                                <div class="progress-fill on-track" style="width: 100%;"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category">
+                            <span class="ar">مرافق</span>
+                            <span class="en">Utilities</span>
+                        </td>
+                        <td class="amount">6,000</td>
+                        <td class="amount">6,800</td>
+                        <td class="variance negative">+800 (+13%)</td>
+                        <td class="progress-cell">
+                            <div class="progress-bar">
+                                <div class="progress-fill over" style="width: 113%;"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category">
+                            <span class="ar">صيانة</span>
+                            <span class="en">Maintenance</span>
+                        </td>
+                        <td class="amount">5,000</td>
+                        <td class="amount">3,200</td>
+                        <td class="variance positive">-1,800 (-36%)</td>
+                        <td class="progress-cell">
+                            <div class="progress-bar">
+                                <div class="progress-fill under" style="width: 64%;"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category">
+                            <span class="ar">تسويق</span>
+                            <span class="en">Marketing</span>
+                        </td>
+                        <td class="amount">8,000</td>
+                        <td class="amount">4,000</td>
+                        <td class="variance positive">-4,000 (-50%)</td>
+                        <td class="progress-cell">
+                            <div class="progress-bar">
+                                <div class="progress-fill under" style="width: 50%;"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category">
+                            <span class="ar">أخرى</span>
+                            <span class="en">Other</span>
+                        </td>
+                        <td class="amount">14,000</td>
+                        <td class="amount">8,200</td>
+                        <td class="variance positive">-5,800 (-41%)</td>
+                        <td class="progress-cell">
+                            <div class="progress-bar">
+                                <div class="progress-fill under" style="width: 59%;"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="total-row">
+                        <td class="category">
+                            <span class="ar">إجمالي المصروفات</span>
+                            <span class="en">Total Expenses</span>
+                        </td>
+                        <td class="amount">100,000</td>
+                        <td class="amount">92,200</td>
+                        <td class="variance positive">-7,800 (-7.8%)</td>
+                        <td class="progress-cell">
+                            <div class="progress-bar">
+                                <div class="progress-fill under" style="width: 92.2%;"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- Insights -->
+            <div class="section-header">
+                <i data-lucide="lightbulb" class="icon icon-lg" style="color: #fbbf24;"></i>
+                <span class="section-title">
+                    <span class="ar">الرؤى والتوصيات</span>
+                    <span class="en">Insights & Recommendations</span>
+                </span>
+            </div>
+            
+            <div class="insights-grid">
+                <div class="insight-card alert">
+                    <div class="insight-header">
+                        <div class="insight-icon">
+                            <i data-lucide="alert-triangle" class="icon icon-lg"></i>
+                        </div>
+                        <span class="insight-title">
+                            <span class="ar">تجاوز في الرواتب</span>
+                            <span class="en">Salary Overspend</span>
+                        </span>
+                    </div>
+                    <div class="insight-text">
+                        <span class="ar">تجاوزت الرواتب الميزانية بـ ٣,٠٠٠ ر.س (٧٪). راجع سبب الزيادة - قد يكون بسبب ساعات إضافية أو توظيف جديد.</span>
+                        <span class="en">Salaries exceeded budget by 3,000 SAR (7%). Review the reason - may be due to overtime or new hires.</span>
+                    </div>
+                </div>
+                <div class="insight-card success">
+                    <div class="insight-header">
+                        <div class="insight-icon">
+                            <i data-lucide="check-circle" class="icon icon-lg"></i>
+                        </div>
+                        <span class="insight-title">
+                            <span class="ar">وفورات في التسويق</span>
+                            <span class="en">Marketing Savings</span>
+                        </span>
+                    </div>
+                    <div class="insight-text">
+                        <span class="ar">تم توفير ٤,٠٠٠ ر.س من ميزانية التسويق. تأكد أن هذا لا يؤثر سلباً على نمو المبيعات.</span>
+                        <span class="en">Saved 4,000 SAR from marketing budget. Ensure this doesn't negatively impact sales growth.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    lucide.createIcons();
+    
+    function setLang(lang) {
+        const html = document.getElementById('html-root');
+        if (lang === 'en') {
+            html.setAttribute('dir', 'ltr');
+            html.setAttribute('lang', 'en');
+            document.getElementById('btn-en').classList.add('active');
+            document.getElementById('btn-ar').classList.remove('active');
+        } else {
+            html.setAttribute('dir', 'rtl');
+            html.setAttribute('lang', 'ar');
+            document.getElementById('btn-ar').classList.add('active');
+            document.getElementById('btn-en').classList.remove('active');
+        }
+    }
+    
+    function downloadPDF() {
+        const element = document.getElementById('report');
+        const opt = {
+            margin: 10,
+            filename: 'budget-vs-actual.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save();
+    }
+</script>
+
+</body>
+</html>

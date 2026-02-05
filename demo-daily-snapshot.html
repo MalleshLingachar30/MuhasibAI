@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مُحاسِب - ملخص اليوم | Daily Snapshot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        /* Base Styles */
+        .icon { display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; }
+        .icon svg { width: 1em; height: 1em; stroke-width: 2; }
+        .icon-sm svg { width: 0.875em; height: 0.875em; }
+        .icon-lg svg { width: 1.25em; height: 1.25em; }
+        .icon-xl svg { width: 1.5em; height: 1.5em; }
+        .icon-2xl svg { width: 2em; height: 2em; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: #020617; color: #fff; line-height: 1.6; min-height: 100vh; }
+        [dir="ltr"] body { font-family: 'Inter', sans-serif; }
+        a { text-decoration: none; color: inherit; }
+        
+        /* Header */
+        header { position: fixed; top: 0; width: 100%; background: rgba(2,6,23,0.9); backdrop-filter: blur(8px); z-index: 50; border-bottom: 1px solid #1e293b; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; max-width: 1400px; margin: 0 auto; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #34d399, #22d3d1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #020617; font-size: 1.25rem; }
+        .logo-text { font-size: 1.25rem; font-weight: bold; }
+        .header-actions { display: flex; align-items: center; gap: 1rem; }
+        .lang-toggle { display: flex; background: #1e293b; border-radius: 8px; padding: 4px; }
+        .lang-btn { padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer; transition: all 0.3s; background: transparent; color: #94a3b8; }
+        .lang-btn.active { background: #10b981; color: #fff; }
+        .back-btn { display: flex; align-items: center; gap: 0.5rem; color: #94a3b8; font-size: 0.875rem; transition: color 0.3s; }
+        .back-btn:hover { color: #fff; }
+        
+        /* Main Container */
+        .demo-container { padding: 7rem 2rem 3rem; max-width: 1200px; margin: 0 auto; }
+        
+        /* Language */
+        .en { display: none; }
+        .ar { display: inline; }
+        [dir="ltr"] .en { display: inline; }
+        [dir="ltr"] .ar { display: none; }
+        
+        /* Page Header */
+        .page-header { text-align: center; margin-bottom: 2rem; }
+        .date-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(52,211,153,0.15); border: 1px solid rgba(52,211,153,0.3); border-radius: 50px; padding: 0.5rem 1.25rem; color: #34d399; font-size: 0.875rem; margin-bottom: 1rem; }
+        .page-title { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .gradient-text { background: linear-gradient(to left, #34d399, #22d3d1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .page-subtitle { color: #94a3b8; font-size: 1rem; }
+        
+        /* Live Status */
+        .live-status { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; }
+        .live-dot { width: 8px; height: 8px; background: #34d399; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .live-text { font-size: 0.85rem; color: #64748b; }
+        
+        /* Main Grid */
+        .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        @media(min-width: 1024px) { .dashboard-grid { grid-template-columns: 2fr 1fr; } }
+        
+        /* Cards */
+        .card { background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.9)); border-radius: 20px; border: 1px solid #1e293b; overflow: hidden; }
+        .card-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid #1e293b; display: flex; align-items: center; justify-content: space-between; }
+        .card-title { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 0.75rem; }
+        .card-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .card-icon.profit { background: rgba(52,211,153,0.2); color: #34d399; }
+        .card-icon.activity { background: rgba(59,130,246,0.2); color: #3b82f6; }
+        .card-icon.sources { background: rgba(139,92,246,0.2); color: #a78bfa; }
+        .card-content { padding: 1.5rem; }
+        
+        /* Today's Snapshot */
+        .snapshot-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+        @media(min-width: 768px) { .snapshot-grid { grid-template-columns: repeat(4, 1fr); } }
+        .snapshot-item { background: rgba(51,65,85,0.3); border-radius: 12px; padding: 1rem; text-align: center; transition: all 0.3s; border: 1px solid transparent; }
+        .snapshot-item:hover { border-color: rgba(52,211,153,0.3); }
+        .snapshot-item.highlight { background: linear-gradient(135deg, rgba(52,211,153,0.15), rgba(34,211,209,0.1)); border-color: rgba(52,211,153,0.3); }
+        .snapshot-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; }
+        .snapshot-icon.sales { background: rgba(52,211,153,0.2); color: #34d399; }
+        .snapshot-icon.cogs { background: rgba(251,146,60,0.2); color: #fb923c; }
+        .snapshot-icon.expenses { background: rgba(239,68,68,0.2); color: #ef4444; }
+        .snapshot-icon.profit { background: rgba(52,211,153,0.2); color: #34d399; }
+        .snapshot-value { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .snapshot-value.positive { color: #34d399; }
+        .snapshot-label { font-size: 0.75rem; color: #64748b; }
+        
+        /* Profit Bar */
+        .profit-summary { background: linear-gradient(135deg, rgba(52,211,153,0.1), rgba(34,211,209,0.05)); border: 1px solid rgba(52,211,153,0.3); border-radius: 12px; padding: 1.25rem; display: flex; align-items: center; gap: 1rem; }
+        .profit-icon { width: 48px; height: 48px; background: rgba(52,211,153,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #34d399; }
+        .profit-info { flex: 1; }
+        .profit-label { font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.25rem; }
+        .profit-value { font-size: 1.75rem; font-weight: 800; color: #34d399; }
+        .profit-margin { font-size: 0.85rem; color: #64748b; }
+        .profit-margin span { color: #34d399; font-weight: 600; }
+        
+        /* Activity Feed */
+        .activity-feed { display: flex; flex-direction: column; gap: 0.75rem; }
+        .activity-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.75rem; background: rgba(51,65,85,0.2); border-radius: 10px; transition: all 0.3s; border-right: 3px solid transparent; }
+        [dir="ltr"] .activity-item { border-right: none; border-left: 3px solid transparent; }
+        .activity-item.pos { border-color: #34d399; }
+        .activity-item.whatsapp { border-color: #25D366; }
+        .activity-item.drive { border-color: #4285F4; }
+        .activity-item.processed { border-color: #a78bfa; }
+        .activity-item:hover { background: rgba(51,65,85,0.4); }
+        .activity-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .activity-icon.pos { background: rgba(52,211,153,0.2); color: #34d399; }
+        .activity-icon.whatsapp { background: rgba(37,211,102,0.2); color: #25D366; }
+        .activity-icon.drive { background: rgba(66,133,244,0.2); color: #4285F4; }
+        .activity-icon.processed { background: rgba(167,139,250,0.2); color: #a78bfa; }
+        .activity-content { flex: 1; min-width: 0; }
+        .activity-title { font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-bottom: 0.15rem; }
+        .activity-meta { font-size: 0.75rem; color: #64748b; }
+        .activity-amount { font-size: 0.85rem; font-weight: 600; color: #34d399; }
+        .activity-amount.expense { color: #fb923c; }
+        .activity-time { font-size: 0.7rem; color: #475569; }
+        
+        /* Data Sources */
+        .source-item { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(51,65,85,0.2); border-radius: 12px; margin-bottom: 0.75rem; transition: all 0.3s; }
+        .source-item:hover { background: rgba(51,65,85,0.4); }
+        .source-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+        .source-icon.pos { background: linear-gradient(135deg, #34d399, #22d3d1); color: #020617; }
+        .source-icon.whatsapp { background: #25D366; color: #fff; }
+        .source-icon.drive { background: #4285F4; color: #fff; }
+        .source-info { flex: 1; }
+        .source-name { font-size: 0.9rem; font-weight: 600; }
+        .source-status { font-size: 0.75rem; color: #64748b; display: flex; align-items: center; gap: 0.35rem; }
+        .source-status .dot { width: 6px; height: 6px; border-radius: 50%; background: #34d399; }
+        .source-count { background: rgba(52,211,153,0.15); color: #34d399; padding: 0.35rem 0.75rem; border-radius: 8px; font-size: 0.8rem; font-weight: 600; }
+        
+        /* Month to Date */
+        .mtd-section { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #1e293b; }
+        .mtd-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+        .mtd-title { font-size: 0.9rem; font-weight: 600; color: #94a3b8; }
+        .mtd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+        .mtd-item { text-align: center; padding: 1rem; background: rgba(51,65,85,0.2); border-radius: 10px; }
+        .mtd-value { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .mtd-value.revenue { color: #34d399; }
+        .mtd-value.expenses { color: #fb923c; }
+        .mtd-value.profit { color: #22d3d1; }
+        .mtd-label { font-size: 0.7rem; color: #64748b; }
+        
+        /* Report Links */
+        .report-links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-top: 1.5rem; }
+        @media(min-width: 768px) { .report-links { grid-template-columns: repeat(4, 1fr); } }
+        .report-link { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 1rem; background: rgba(51,65,85,0.2); border-radius: 12px; border: 1px solid transparent; transition: all 0.3s; cursor: pointer; text-decoration: none; color: inherit; }
+        .report-link:hover { background: rgba(51,65,85,0.4); border-color: rgba(52,211,153,0.3); transform: translateY(-2px); }
+        .report-link-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: rgba(52,211,153,0.15); color: #34d399; }
+        .report-link-name { font-size: 0.75rem; color: #94a3b8; text-align: center; }
+        
+        /* Processing Animation */
+        .processing-indicator { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.3); border-radius: 10px; margin-bottom: 1rem; }
+        .processing-spinner { width: 16px; height: 16px; border: 2px solid rgba(167,139,250,0.3); border-top-color: #a78bfa; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .processing-text { font-size: 0.8rem; color: #a78bfa; }
+        
+        /* Auto-categorize Animation */
+        .categorize-animation { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(15,23,42,0.95); border: 1px solid #334155; border-radius: 20px; padding: 2rem; text-align: center; z-index: 100; min-width: 300px; }
+        .categorize-animation.show { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+        .categorize-icon { width: 64px; height: 64px; background: rgba(139,92,246,0.2); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: #a78bfa; margin: 0 auto 1rem; }
+        .categorize-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .categorize-detail { font-size: 0.85rem; color: #64748b; margin-bottom: 1rem; }
+        .categorize-result { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); border-radius: 10px; color: #34d399; font-weight: 600; }
+        
+        /* Responsive */
+        @media(max-width: 768px) {
+            .header-inner { padding: 1rem; }
+            .demo-container { padding: 6rem 1rem 2rem; }
+            .page-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">م</div>
+            <span class="logo-text">Muhasib</span>
+        </a>
+        <a href="index.html" class="back-btn">
+            <span class="ar">الرجوع للرئيسية</span>
+            <span class="en">Back to Home</span>
+        </a>
+        <div class="header-actions">
+            <div class="lang-toggle">
+                <button class="lang-btn active" id="btn-ar" onclick="setLang('ar')">عربي</button>
+                <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="demo-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="date-badge">
+            <i data-lucide="calendar" class="icon icon-sm"></i>
+            <span class="ar">٣١ يناير ٢٠٢٥</span>
+            <span class="en">January 31, 2025</span>
+        </div>
+        <h1 class="page-title">
+            <span class="ar">ملخص <span class="gradient-text">اليوم</span></span>
+            <span class="en">Daily <span class="gradient-text">Snapshot</span></span>
+        </h1>
+        <p class="page-subtitle">
+            <span class="ar">كل شيء يتم تلقائياً - المبيعات والمصروفات والتقارير</span>
+            <span class="en">Everything happens automatically - sales, expenses, and reports</span>
+        </p>
+    </div>
+    
+    <!-- Live Status -->
+    <div class="live-status">
+        <div class="live-dot"></div>
+        <span class="live-text">
+            <span class="ar">التقارير المالية محدثة • آخر تحديث: الآن</span>
+            <span class="en">Financial reports up to date • Last update: Just now</span>
+        </span>
+    </div>
+    
+    <!-- Dashboard Grid -->
+    <div class="dashboard-grid">
+        <!-- Main Column -->
+        <div class="main-column">
+            <!-- Today's Numbers -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon profit">
+                            <i data-lucide="trending-up" class="icon icon-lg"></i>
+                        </div>
+                        <span class="ar">أرقام اليوم</span>
+                        <span class="en">Today's Numbers</span>
+                    </div>
+                    <span style="font-size: 0.75rem; color: #64748b;">
+                        <span class="ar">٥٢ فاتورة</span>
+                        <span class="en">52 invoices</span>
+                    </span>
+                </div>
+                <div class="card-content">
+                    <div class="snapshot-grid">
+                        <div class="snapshot-item">
+                            <div class="snapshot-icon sales">
+                                <i data-lucide="receipt" class="icon"></i>
+                            </div>
+                            <div class="snapshot-value">9,500</div>
+                            <div class="snapshot-label">
+                                <span class="ar">المبيعات</span>
+                                <span class="en">Sales</span>
+                            </div>
+                        </div>
+                        <div class="snapshot-item">
+                            <div class="snapshot-icon cogs">
+                                <i data-lucide="package" class="icon"></i>
+                            </div>
+                            <div class="snapshot-value">2,850</div>
+                            <div class="snapshot-label">
+                                <span class="ar">تكلفة البضاعة</span>
+                                <span class="en">COGS</span>
+                            </div>
+                        </div>
+                        <div class="snapshot-item">
+                            <div class="snapshot-icon expenses">
+                                <i data-lucide="credit-card" class="icon"></i>
+                            </div>
+                            <div class="snapshot-value">450</div>
+                            <div class="snapshot-label">
+                                <span class="ar">مصروفات</span>
+                                <span class="en">Expenses</span>
+                            </div>
+                        </div>
+                        <div class="snapshot-item highlight">
+                            <div class="snapshot-icon profit">
+                                <i data-lucide="wallet" class="icon"></i>
+                            </div>
+                            <div class="snapshot-value positive">6,200</div>
+                            <div class="snapshot-label">
+                                <span class="ar">صافي الربح</span>
+                                <span class="en">Net Profit</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profit-summary">
+                        <div class="profit-icon">
+                            <i data-lucide="trophy" class="icon icon-xl"></i>
+                        </div>
+                        <div class="profit-info">
+                            <div class="profit-label">
+                                <span class="ar">ربح اليوم</span>
+                                <span class="en">Today's Profit</span>
+                            </div>
+                            <div class="profit-value">6,200 <small style="font-size: 0.5em; color: #64748b;">SAR</small></div>
+                            <div class="profit-margin">
+                                <span class="ar">هامش الربح: <span>65.3%</span></span>
+                                <span class="en">Profit Margin: <span>65.3%</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Month to Date -->
+                    <div class="mtd-section">
+                        <div class="mtd-header">
+                            <span class="mtd-title">
+                                <span class="ar">📊 منذ بداية الشهر</span>
+                                <span class="en">📊 Month to Date</span>
+                            </span>
+                        </div>
+                        <div class="mtd-grid">
+                            <div class="mtd-item">
+                                <div class="mtd-value revenue">287,000</div>
+                                <div class="mtd-label">
+                                    <span class="ar">الإيرادات</span>
+                                    <span class="en">Revenue</span>
+                                </div>
+                            </div>
+                            <div class="mtd-item">
+                                <div class="mtd-value expenses">199,130</div>
+                                <div class="mtd-label">
+                                    <span class="ar">المصروفات</span>
+                                    <span class="en">Expenses</span>
+                                </div>
+                            </div>
+                            <div class="mtd-item">
+                                <div class="mtd-value profit">87,870</div>
+                                <div class="mtd-label">
+                                    <span class="ar">صافي الربح</span>
+                                    <span class="en">Net Profit</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Report Links -->
+                    <div class="report-links">
+                        <a href="demo-income-statement.html" class="report-link">
+                            <div class="report-link-icon">
+                                <i data-lucide="file-text" class="icon"></i>
+                            </div>
+                            <span class="report-link-name">
+                                <span class="ar">قائمة الدخل</span>
+                                <span class="en">P&L</span>
+                            </span>
+                        </a>
+                        <a href="demo-balance-sheet.html" class="report-link">
+                            <div class="report-link-icon">
+                                <i data-lucide="scale" class="icon"></i>
+                            </div>
+                            <span class="report-link-name">
+                                <span class="ar">الميزانية</span>
+                                <span class="en">Balance Sheet</span>
+                            </span>
+                        </a>
+                        <a href="demo-cash-flow.html" class="report-link">
+                            <div class="report-link-icon">
+                                <i data-lucide="arrow-right-left" class="icon"></i>
+                            </div>
+                            <span class="report-link-name">
+                                <span class="ar">التدفق النقدي</span>
+                                <span class="en">Cash Flow</span>
+                            </span>
+                        </a>
+                        <a href="demo-expense-analysis.html" class="report-link">
+                            <div class="report-link-icon">
+                                <i data-lucide="pie-chart" class="icon"></i>
+                            </div>
+                            <span class="report-link-name">
+                                <span class="ar">تحليل المصروفات</span>
+                                <span class="en">Expenses</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Side Column -->
+        <div class="side-column">
+            <!-- Data Sources -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon sources">
+                            <i data-lucide="plug-zap" class="icon icon-lg"></i>
+                        </div>
+                        <span class="ar">مصادر البيانات</span>
+                        <span class="en">Data Sources</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="source-item">
+                        <div class="source-icon pos">
+                            <i data-lucide="monitor" class="icon"></i>
+                        </div>
+                        <div class="source-info">
+                            <div class="source-name">Foodics POS</div>
+                            <div class="source-status">
+                                <span class="dot"></span>
+                                <span class="ar">متصل • مزامنة تلقائية</span>
+                                <span class="en">Connected • Auto-sync</span>
+                            </div>
+                        </div>
+                        <div class="source-count">52</div>
+                    </div>
+                    <div class="source-item">
+                        <div class="source-icon whatsapp">
+                            <i data-lucide="message-circle" class="icon"></i>
+                        </div>
+                        <div class="source-info">
+                            <div class="source-name">WhatsApp</div>
+                            <div class="source-status">
+                                <span class="dot"></span>
+                                <span class="ar">٣ مستندات اليوم</span>
+                                <span class="en">3 docs today</span>
+                            </div>
+                        </div>
+                        <div class="source-count">3</div>
+                    </div>
+                    <div class="source-item">
+                        <div class="source-icon drive">
+                            <i data-lucide="hard-drive" class="icon"></i>
+                        </div>
+                        <div class="source-info">
+                            <div class="source-name">Google Drive</div>
+                            <div class="source-status">
+                                <span class="dot"></span>
+                                <span class="ar">مجلد المستندات مراقب</span>
+                                <span class="en">Watching folder</span>
+                            </div>
+                        </div>
+                        <div class="source-count">2</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Activity Feed -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon activity">
+                            <i data-lucide="activity" class="icon icon-lg"></i>
+                        </div>
+                        <span class="ar">النشاط اليوم</span>
+                        <span class="en">Today's Activity</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="processing-indicator" id="processing" style="display: none;">
+                        <div class="processing-spinner"></div>
+                        <span class="processing-text">
+                            <span class="ar">جاري معالجة مستند جديد...</span>
+                            <span class="en">Processing new document...</span>
+                        </span>
+                    </div>
+                    
+                    <div class="activity-feed">
+                        <div class="activity-item processed">
+                            <div class="activity-icon processed">
+                                <i data-lucide="check-circle" class="icon"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">
+                                    <span class="ar">فاتورة المراعي - تم التصنيف تلقائياً</span>
+                                    <span class="en">Almarai Invoice - Auto-categorized</span>
+                                </div>
+                                <div class="activity-meta">
+                                    <span class="ar">موردين ← تكلفة البضاعة</span>
+                                    <span class="en">Suppliers → COGS</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="activity-amount expense">1,850</div>
+                                <div class="activity-time">14:32</div>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item whatsapp">
+                            <div class="activity-icon whatsapp">
+                                <i data-lucide="message-circle" class="icon"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">
+                                    <span class="ar">فاتورة كهرباء من WhatsApp</span>
+                                    <span class="en">Electricity bill from WhatsApp</span>
+                                </div>
+                                <div class="activity-meta">
+                                    <span class="ar">مرافق ← مصروفات تشغيلية</span>
+                                    <span class="en">Utilities → Operating Exp.</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="activity-amount expense">450</div>
+                                <div class="activity-time">13:15</div>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item pos">
+                            <div class="activity-icon pos">
+                                <i data-lucide="monitor" class="icon"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">
+                                    <span class="ar">مزامنة POS - ٥٢ فاتورة</span>
+                                    <span class="en">POS Sync - 52 invoices</span>
+                                </div>
+                                <div class="activity-meta">
+                                    <span class="ar">مبيعات اليوم</span>
+                                    <span class="en">Today's sales</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="activity-amount">9,500</div>
+                                <div class="activity-time">12:00</div>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item drive">
+                            <div class="activity-icon drive">
+                                <i data-lucide="hard-drive" class="icon"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">
+                                    <span class="ar">فاتورة مورد من Drive</span>
+                                    <span class="en">Supplier invoice from Drive</span>
+                                </div>
+                                <div class="activity-meta">
+                                    <span class="ar">موردين ← تكلفة البضاعة</span>
+                                    <span class="en">Suppliers → COGS</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="activity-amount expense">1,000</div>
+                                <div class="activity-time">10:45</div>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item processed">
+                            <div class="activity-icon processed">
+                                <i data-lucide="sparkles" class="icon"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">
+                                    <span class="ar">التقارير المالية محدثة</span>
+                                    <span class="en">Financial reports updated</span>
+                                </div>
+                                <div class="activity-meta">
+                                    <span class="ar">قائمة الدخل • الميزانية • التدفق النقدي</span>
+                                    <span class="en">P&L • Balance Sheet • Cash Flow</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="activity-time">10:46</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Auto-categorize Animation Popup -->
+<div class="categorize-animation" id="categorize-popup">
+    <div class="categorize-icon">
+        <i data-lucide="sparkles" class="icon icon-2xl"></i>
+    </div>
+    <div class="categorize-title">
+        <span class="ar">🤖 تم التصنيف تلقائياً</span>
+        <span class="en">🤖 Auto-Categorized</span>
+    </div>
+    <div class="categorize-detail" id="categorize-detail">
+        <span class="ar">فاتورة المراعي → موردين → تكلفة البضاعة</span>
+        <span class="en">Almarai Invoice → Suppliers → COGS</span>
+    </div>
+    <div class="categorize-result">
+        <i data-lucide="check" class="icon"></i>
+        <span class="ar">تم تحديث قائمة الدخل</span>
+        <span class="en">Income Statement Updated</span>
+    </div>
+</div>
+
+<script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+    
+    // Language toggle
+    function setLang(lang) {
+        const html = document.getElementById('html-root');
+        if (lang === 'en') {
+            html.setAttribute('dir', 'ltr');
+            html.setAttribute('lang', 'en');
+            document.getElementById('btn-en').classList.add('active');
+            document.getElementById('btn-ar').classList.remove('active');
+        } else {
+            html.setAttribute('dir', 'rtl');
+            html.setAttribute('lang', 'ar');
+            document.getElementById('btn-ar').classList.add('active');
+            document.getElementById('btn-en').classList.remove('active');
+        }
+    }
+    
+    // Simulate document processing animation
+    function simulateProcessing() {
+        const processing = document.getElementById('processing');
+        const popup = document.getElementById('categorize-popup');
+        
+        // Show processing indicator
+        processing.style.display = 'flex';
+        
+        // After 2 seconds, show categorization result
+        setTimeout(() => {
+            processing.style.display = 'none';
+            popup.classList.add('show');
+            
+            // Hide popup after 3 seconds
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000);
+        }, 2000);
+    }
+    
+    // Demo: Trigger processing animation on page load (after 5 seconds)
+    setTimeout(() => {
+        simulateProcessing();
+    }, 5000);
+</script>
+
+</body>
+</html>
