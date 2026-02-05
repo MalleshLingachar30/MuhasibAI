@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مُحاسِب - مركز التقارير | Financial Reports Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        /* Base Styles */
+        .icon { display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; }
+        .icon svg { width: 1em; height: 1em; stroke-width: 2; }
+        .icon-sm svg { width: 0.875em; height: 0.875em; }
+        .icon-lg svg { width: 1.25em; height: 1.25em; }
+        .icon-xl svg { width: 2em; height: 2em; }
+        .icon-2xl svg { width: 2.5em; height: 2.5em; }
+        .icon-3xl svg { width: 3rem; height: 3rem; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: #020617; color: #fff; line-height: 1.6; min-height: 100vh; }
+        [dir="ltr"] body { font-family: 'Inter', sans-serif; }
+        a { text-decoration: none; color: inherit; }
+        
+        /* Header */
+        header { position: fixed; top: 0; width: 100%; background: rgba(2,6,23,0.9); backdrop-filter: blur(8px); z-index: 50; border-bottom: 1px solid #1e293b; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; max-width: 1400px; margin: 0 auto; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #a78bfa, #818cf8); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; font-size: 1.25rem; }
+        .logo-text { font-size: 1.25rem; font-weight: bold; }
+        .header-actions { display: flex; align-items: center; gap: 1rem; }
+        .lang-toggle { display: flex; background: #1e293b; border-radius: 8px; padding: 4px; }
+        .lang-btn { padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer; transition: all 0.3s; background: transparent; color: #94a3b8; }
+        .lang-btn.active { background: #a78bfa; color: #fff; }
+        .back-btn { display: flex; align-items: center; gap: 0.5rem; color: #94a3b8; font-size: 0.875rem; transition: color 0.3s; }
+        .back-btn:hover { color: #fff; }
+        
+        /* Main Container */
+        .demo-container { padding: 7rem 2rem 3rem; max-width: 1400px; margin: 0 auto; }
+        
+        /* Page Header */
+        .page-header { text-align: center; margin-bottom: 3rem; }
+        .page-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(167,139,250,0.15); border: 1px solid rgba(167,139,250,0.3); border-radius: 50px; padding: 0.5rem 1.25rem; color: #a78bfa; font-size: 0.875rem; margin-bottom: 1rem; }
+        .page-title { font-size: 2rem; font-weight: 800; margin-bottom: 0.75rem; }
+        @media(min-width:768px) { .page-title { font-size: 2.5rem; } }
+        .gradient-text { background: linear-gradient(to left, #a78bfa, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .page-subtitle { color: #94a3b8; font-size: 1rem; max-width: 700px; margin: 0 auto; }
+        
+        /* Language */
+        .en { display: none; }
+        .ar { display: inline; }
+        [dir="ltr"] .en { display: inline; }
+        [dir="ltr"] .ar { display: none; }
+        
+        /* Category Section */
+        .category-section { margin-bottom: 2.5rem; }
+        .category-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(148,163,184,0.2); }
+        .category-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .category-icon.green { background: rgba(52,211,153,0.15); color: #34d399; }
+        .category-icon.blue { background: rgba(59,130,246,0.15); color: #3b82f6; }
+        .category-icon.orange { background: rgba(251,146,60,0.15); color: #fb923c; }
+        .category-icon.purple { background: rgba(167,139,250,0.15); color: #a78bfa; }
+        .category-icon.cyan { background: rgba(34,211,209,0.15); color: #22d3d1; }
+        .category-icon.pink { background: rgba(244,114,182,0.15); color: #f472b6; }
+        .category-title { font-size: 1.25rem; font-weight: 700; }
+        
+        /* Reports Grid */
+        .reports-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 1rem; }
+        @media(min-width: 640px) { .reports-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media(min-width: 1024px) { .reports-grid { grid-template-columns: repeat(3, 1fr); } }
+        
+        /* Report Card */
+        .report-card { background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.9)); border-radius: 16px; border: 1px solid #1e293b; padding: 1.5rem; transition: all 0.3s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .report-card:hover { transform: translateY(-4px); border-color: rgba(167,139,250,0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .report-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--card-color, #a78bfa), var(--card-color-end, #818cf8)); opacity: 0; transition: opacity 0.3s; }
+        .report-card:hover::before { opacity: 1; }
+        
+        .report-card.green { --card-color: #34d399; --card-color-end: #22d3d1; }
+        .report-card.blue { --card-color: #3b82f6; --card-color-end: #60a5fa; }
+        .report-card.orange { --card-color: #fb923c; --card-color-end: #f97316; }
+        .report-card.purple { --card-color: #a78bfa; --card-color-end: #818cf8; }
+        .report-card.cyan { --card-color: #22d3d1; --card-color-end: #06b6d4; }
+        .report-card.pink { --card-color: #f472b6; --card-color-end: #ec4899; }
+        .report-card.red { --card-color: #f87171; --card-color-end: #ef4444; }
+        .report-card.yellow { --card-color: #fbbf24; --card-color-end: #f59e0b; }
+        
+        .card-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
+        .card-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .card-icon.green { background: linear-gradient(135deg, rgba(52,211,153,0.2), rgba(34,211,209,0.2)); color: #34d399; }
+        .card-icon.blue { background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(96,165,250,0.2)); color: #3b82f6; }
+        .card-icon.orange { background: linear-gradient(135deg, rgba(251,146,60,0.2), rgba(249,115,22,0.2)); color: #fb923c; }
+        .card-icon.purple { background: linear-gradient(135deg, rgba(167,139,250,0.2), rgba(129,140,248,0.2)); color: #a78bfa; }
+        .card-icon.cyan { background: linear-gradient(135deg, rgba(34,211,209,0.2), rgba(6,182,212,0.2)); color: #22d3d1; }
+        .card-icon.pink { background: linear-gradient(135deg, rgba(244,114,182,0.2), rgba(236,72,153,0.2)); color: #f472b6; }
+        .card-icon.red { background: linear-gradient(135deg, rgba(248,113,113,0.2), rgba(239,68,68,0.2)); color: #f87171; }
+        .card-icon.yellow { background: linear-gradient(135deg, rgba(251,191,36,0.2), rgba(245,158,11,0.2)); color: #fbbf24; }
+        
+        .card-info { flex: 1; min-width: 0; }
+        .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; line-height: 1.3; }
+        .card-title-en { font-size: 0.8rem; color: #64748b; font-weight: 500; }
+        .card-desc { font-size: 0.85rem; color: #94a3b8; line-height: 1.5; margin-bottom: 1rem; flex-grow: 1; }
+        
+        .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid rgba(51,65,85,0.5); margin-top: auto; }
+        .card-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .card-tag { font-size: 0.7rem; padding: 0.2rem 0.5rem; background: rgba(51,65,85,0.5); border-radius: 4px; color: #94a3b8; }
+        .card-link { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; font-weight: 600; color: #a78bfa; transition: all 0.3s; }
+        .report-card.green .card-link { color: #34d399; }
+        .report-card.blue .card-link { color: #3b82f6; }
+        .report-card.orange .card-link { color: #fb923c; }
+        .report-card.cyan .card-link { color: #22d3d1; }
+        .report-card.pink .card-link { color: #f472b6; }
+        .report-card.red .card-link { color: #f87171; }
+        .report-card.yellow .card-link { color: #fbbf24; }
+        .card-link:hover { gap: 0.5rem; }
+        
+        /* Stats Bar */
+        .stats-bar { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 3rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(30,41,59,0.7), rgba(15,23,42,0.7)); border-radius: 16px; border: 1px solid #1e293b; }
+        @media(min-width: 768px) { .stats-bar { grid-template-columns: repeat(4, 1fr); } }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 2rem; font-weight: 800; background: linear-gradient(to left, #a78bfa, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .stat-label { font-size: 0.8rem; color: #94a3b8; }
+        
+        /* Quick Actions */
+        .quick-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-bottom: 2.5rem; }
+        .quick-action-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.25rem; background: rgba(51,65,85,0.3); border: 1px solid #334155; border-radius: 50px; font-size: 0.85rem; color: #e2e8f0; transition: all 0.3s; cursor: pointer; }
+        .quick-action-btn:hover { background: rgba(167,139,250,0.15); border-color: rgba(167,139,250,0.4); color: #a78bfa; }
+        .quick-action-btn.active { background: rgba(167,139,250,0.2); border-color: #a78bfa; color: #a78bfa; }
+        
+        /* Search Box */
+        .search-container { max-width: 500px; margin: 0 auto 2rem; }
+        .search-box { display: flex; align-items: center; gap: 0.75rem; background: rgba(30,41,59,0.8); border: 1px solid #334155; border-radius: 12px; padding: 0.75rem 1rem; transition: all 0.3s; }
+        .search-box:focus-within { border-color: #a78bfa; box-shadow: 0 0 0 3px rgba(167,139,250,0.1); }
+        .search-box input { flex: 1; background: transparent; border: none; outline: none; color: #fff; font-size: 0.95rem; font-family: inherit; }
+        .search-box input::placeholder { color: #64748b; }
+        .search-icon { color: #64748b; }
+        
+        /* Footer */
+        footer { padding: 2rem; border-top: 1px solid #1e293b; text-align: center; }
+        .footer-text { color: #64748b; font-size: 0.85rem; }
+        .footer-link { color: #a78bfa; transition: color 0.3s; }
+        .footer-link:hover { color: #c4b5fd; }
+        
+        /* Animations */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .category-section { animation: fadeInUp 0.5s ease-out; }
+        .category-section:nth-child(2) { animation-delay: 0.1s; }
+        .category-section:nth-child(3) { animation-delay: 0.2s; }
+        .category-section:nth-child(4) { animation-delay: 0.3s; }
+        .category-section:nth-child(5) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><span class="icon icon-lg"><i data-lucide="layout-grid"></i></span></div>
+                <span class="logo-text"><span class="ar">مُحاسِب</span><span class="en">Muhasib</span></span>
+            </a>
+            <div class="header-actions">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" onclick="setLang('ar')">العربية</button>
+                    <button class="lang-btn" onclick="setLang('en')">English</button>
+                </div>
+                <a href="index.html" class="back-btn">
+                    <span class="icon"><i data-lucide="arrow-right"></i></span>
+                    <span class="ar">الرئيسية</span>
+                    <span class="en">Home</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="demo-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="page-badge">
+                <span class="icon"><i data-lucide="file-bar-chart-2"></i></span>
+                <span class="ar">معرض التقارير التفاعلية</span>
+                <span class="en">Interactive Reports Gallery</span>
+            </div>
+            <h1 class="page-title">
+                <span class="ar">مركز <span class="gradient-text">التقارير المالية</span></span>
+                <span class="en"><span class="gradient-text">Financial Reports</span> Hub</span>
+            </h1>
+            <p class="page-subtitle">
+                <span class="ar">استعرض جميع التقارير المالية التفاعلية في مكان واحد. تقارير شاملة لإدارة أعمالك بذكاء</span>
+                <span class="en">Explore all interactive financial reports in one place. Comprehensive reports for smart business management</span>
+            </p>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value">11</div>
+                <div class="stat-label"><span class="ar">تقارير متاحة</span><span class="en">Available Reports</span></div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">5</div>
+                <div class="stat-label"><span class="ar">فئات التقارير</span><span class="en">Report Categories</span></div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">AR/EN</div>
+                <div class="stat-label"><span class="ar">دعم اللغات</span><span class="en">Bilingual Support</span></div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">PDF</div>
+                <div class="stat-label"><span class="ar">تصدير التقارير</span><span class="en">Export Ready</span></div>
+            </div>
+        </div>
+
+        <!-- Search Box -->
+        <div class="search-container">
+            <div class="search-box">
+                <span class="icon search-icon"><i data-lucide="search"></i></span>
+                <input type="text" id="searchInput" placeholder="ابحث في التقارير..." oninput="filterReports(this.value)">
+            </div>
+        </div>
+
+        <!-- Quick Filter Actions -->
+        <div class="quick-actions">
+            <button class="quick-action-btn active" onclick="filterByCategory('all')">
+                <span class="icon icon-sm"><i data-lucide="grid-3x3"></i></span>
+                <span class="ar">الكل</span><span class="en">All</span>
+            </button>
+            <button class="quick-action-btn" onclick="filterByCategory('financial')">
+                <span class="icon icon-sm"><i data-lucide="file-text"></i></span>
+                <span class="ar">القوائم المالية</span><span class="en">Statements</span>
+            </button>
+            <button class="quick-action-btn" onclick="filterByCategory('receivables')">
+                <span class="icon icon-sm"><i data-lucide="users"></i></span>
+                <span class="ar">الذمم</span><span class="en">AR/AP</span>
+            </button>
+            <button class="quick-action-btn" onclick="filterByCategory('analytics')">
+                <span class="icon icon-sm"><i data-lucide="bar-chart-3"></i></span>
+                <span class="ar">التحليلات</span><span class="en">Analytics</span>
+            </button>
+            <button class="quick-action-btn" onclick="filterByCategory('operations')">
+                <span class="icon icon-sm"><i data-lucide="activity"></i></span>
+                <span class="ar">العمليات</span><span class="en">Operations</span>
+            </button>
+        </div>
+
+        <!-- Category: Financial Statements -->
+        <section class="category-section" data-category="financial">
+            <div class="category-header">
+                <div class="category-icon green">
+                    <span class="icon icon-lg"><i data-lucide="file-text"></i></span>
+                </div>
+                <h2 class="category-title">
+                    <span class="ar">القوائم المالية الأساسية</span>
+                    <span class="en">Core Financial Statements</span>
+                </h2>
+            </div>
+            <div class="reports-grid">
+                <!-- Income Statement -->
+                <a href="demo-income-statement.html" class="report-card green" data-report="income-statement">
+                    <div class="card-header">
+                        <div class="card-icon green">
+                            <span class="icon icon-xl"><i data-lucide="trending-up"></i></span>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title"><span class="ar">قائمة الدخل</span><span class="en">Income Statement</span></h3>
+                            <div class="card-title-en"><span class="ar">Income Statement (P&L)</span><span class="en">Profit & Loss Report</span></div>
+                        </div>
+                    </div>
+                    <p class="card-desc">
+                        <span class="ar">تقرير شامل للإيرادات والمصروفات وصافي الربح. تحليل الأداء المالي للفترة المحددة</span>
+                        <span class="en">Comprehensive revenue, expenses, and net profit report. Financial performance analysis for the period</span>
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="card-tag"><span class="ar">شهري</span><span class="en">Monthly</span></span>
+                            <span class="card-tag"><span class="ar">ربعي</span><span class="en">Quarterly</span></span>
+                        </div>
+                        <span class="card-link">
+                            <span class="ar">عرض</span><span class="en">View</span>
+                            <span class="icon icon-sm"><i data-lucide="arrow-left"></i></span>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Balance Sheet -->
+                <a href="demo-balance-sheet.html" class="report-card blue" data-report="balance-sheet">
+                    <div class="card-header">
+                        <div class="card-icon blue">
+                            <span class="icon icon-xl"><i data-lucide="scale"></i></span>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title"><span class="ar">الميزانية العمومية</span><span class="en">Balance Sheet</span></h3>
+                            <div class="card-title-en"><span class="ar">Balance Sheet</span><span class="en">Statement of Financial Position</span></div>
+                        </div>
+                    </div>
+                    <p class="card-desc">
+                        <span class="ar">الأصول والخصوم وحقوق الملكية. نظرة شاملة على المركز المالي للمنشأة</span>
+                        <span class="en">Assets, liabilities, and equity overview. Complete snapshot of your financial position</span>
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="card-tag"><span class="ar">شهري</span><span class="en">Monthly</span></span>
+                            <span class="card-tag"><span class="ar">سنوي</span><span class="en">Annual</span></span>
+                        </div>
+                        <span class="card-link">
+                            <span class="ar">عرض</span><span class="en">View</span>
+                            <span class="icon icon-sm"><i data-lucide="arrow-left"></i></span>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Cash Flow Statement -->
+                <a href="demo-cash-flow.html" class="report-card cyan" data-report="cash-flow">
+                    <div class="card-header">
+                        <div class="card-icon cyan">
+                            <span class="icon icon-xl"><i data-lucide="wallet"></i></span>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title"><span class="ar">قائمة التدفقات النقدية</span><span class="en">Cash Flow Statement</span></h3>
+                            <div class="card-title-en"><span class="ar">Cash Flow Statement</span><span class="en">Statement of Cash Flows</span></div>
+                        </div>
+                    </div>
+                    <p class="card-desc">
+                        <span class="ar">تتبع حركة النقد من الأنشطة التشغيلية والاستثمارية والتمويلية</span>
+                        <span class="en">Track cash movements from operating, investing, and financing activities</span>
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="card-tag"><span class="ar">شهري</span><span class="en">Monthly</span></span>
+                            <span class="card-tag"><span class="ar">ربعي</span><span class="en">Quarterly</span></span>
+                        </div>
+                        <span class="card-link">
+                            <span class="ar">عرض</span><span class="en">View</span>
+                            <span class="icon icon-sm"><i data-lucide="arrow-left"></i></span>
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Category: Receivables & Payables -->
+        <section class="category-section" data-category="receivables">
+            <div class="category-header">
+                <div class="category-icon orange">
+                    <span class="icon icon-lg"><i data-lucide="users"></i></span>
+                </div>
+                <h2 class="category-title">
+                    <span class="ar">الذمم المدينة والدائنة</span>
+                    <span class="en">Receivables & Payables</span>
+                </h2>
+            </div>
+            <div class="reports-grid">
+                <!-- AR Aging -->
+                <a href="demo-ar-aging.html" class="report-card orange" data-report="ar-aging">
+                    <div class="card-header">
+                        <div class="card-icon orange">
+                            <span class="icon icon-xl"><i data-lucide="clock"></i></span>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title"><span class="ar">تقادم الذمم المدينة</span><span class="en">AR Aging Report</span></h3>
+                            <div class="card-title-en"><span class="ar">Accounts Receivable Aging</span><span class="en">Customer Balances by Age</span></div>
+                        </div>
+                    </div>
+                    <p class="card-desc">
+                        <span class="ar">تحليل مستحقات العملاء حسب عمر الدين. متابعة التحصيل وإدارة المخاطر</span>
+                        <span class="en">Analyze customer receivables by age. Track collections and manage credit risk</span>
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="card-tag"><span class="ar">تحصيل</span><span class="en">Collections</span></span>
+                            <span class="card-tag"><span class="ar">مخاطر</span><span class="en">Risk</span></span>
+                        </div>
+                        <span class="card-link">
+                            <span class="ar">عرض</span><span class="en">View</span>
+                            <span class="icon icon-sm"><i data-lucide="arrow-left"></i></span>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- AP Report -->
+                <a href="demo-ap-report.html" class="report-card red" data-report="ap-report">
+                    <div class="card-header">
+                        <div class="card-icon red">
+                            <span class="icon icon-xl"><i data-lucide="receipt"></i></span>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title"><span class="ar">تقرير الذمم الدائنة</span><span class="en">AP Report</span></h3>
+                            <div class="card-title-en"><span class="ar">Accounts Payable Report</span><span class="en">Vendor Balances & Payments</span></div>
+                        </div>
+                    </div>
+                    <p class="card-desc">
+                        <span class="ar">إدارة المستحقات للموردين. جدولة المدفوعات وتتبع الالتزامات</span>
+                        <span class="en">Manage vendor payables. Schedule payments and track obligations</span>
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="card-tag"><span class="ar">موردين</span><span class="en">Vendors</span></span>
+                            <span class="card-tag"><span class="ar">مدفوعات</span><span class="en">Payments</span></span>
+                        </div>
+                        <span class="card-link">
+                            <span class="ar">عرض</span><span class="en">View</span>
+                            <span class="icon icon-sm"><i data-lucide="arrow-left"></i></span>
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Category: Sales & Expense Analytics -->
+        <section class="category-section" data-category="analytics">
+            <div class="category-header">
+                <div class="category-icon purple">
+                    <span class="icon icon-lg"><i data-lucide="bar-chart-3"></i></span>
+                </div>
+                <h2 class="category-title">
+                    <span class="ar">تحليلات المبيعات والمصروفات</span>
+                    <span class="en">Sales & Expense Analytics</span>
+                </h2>
+            </div>
+            <div class="reports-grid">
+                <!-- Sales Report -->
+                <a href="demo-sales-report.html" class="report-card green" data-report="sales-report">
+                    <div class="card-header">
+                        <div class="card-icon green">
+                            <span class="icon icon-xl"><i data-lucide="shopping-cart"></i></span>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title"><span class="ar">تقرير المبيعات</span><span class="en">Sales Report</span></h3>
+                            <div class="card-title-en"><span class="ar">Sales Report</span><span class="en">Revenue & Sales Analysis</span></div>
+                        </div>
+                    </div>
+                    <p class="card-desc">
+                        <span class="ar">تحليل شامل للمبيعات حسب المنتج والعميل والفترة. اتجاهات النمو والأداء</span>
+                        <span class="en">Comprehensive sales analysis by product, customer, and period. Growth trends and performance</span>
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="card-tag"><span class="ar">مبيعات</span><span class="en">Sales</span></span>
+                            <span class="card-tag"><span class="ar">اتجاهات</span><span class="en">Trends</span></span>
+                        </div>
+                        <span class="card-link">
+                            <span class="ar">عرض</span><span class="en">View</span>
+                            <span class="icon icon-sm"><i data-lucide="arrow-left"></i></span>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Expense Analysis -->
+                <a href="demo-expense-analysis.html" class="report-card pink" data-report="expense-analysis">
+                    <div class="card-header">
+                        <div class="card-icon pink">
+                            <span class="icon icon-xl"><i data-lucide="pie-chart"></i></span>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title"><span class="ar">تحليل المصروفات</span><span class="en">Expense Analysis</span></h3>
+                            <div class="card-title-en"><span class="ar">Expense Analysis Report</span><span class="en">Cost Breakdown & Trends</span></div>
+                        </div>
+                    </div>
+                    <p class="card-desc">
+                        <span class="ar">تصنيف وتحليل المصروفات. اكتشف فرص التوفير وتحسين الكفاءة</span>
+                        <span class="en">Categorize and analyze expenses. Discover savings opportunities and improve efficiency</span>
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="card-tag"><span class="ar">تكاليف</span><span class="en">Costs</span></span>
+                            <span class="card-tag"><span class="ar">تحليل</span><span class="en">Analysis</span></span>
+                        </div>
+                        <span class="card-link">
+                            <span class="ar">عرض</span><span class="en">View</span>
+                            <span class="icon icon-sm"><i data-lucide="arrow-left"></i></span>
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Category: Budgeting & Forecasting -->
+        <section class="category-section" data-category="analytics">
+            <div class="category-header">
+                <div class="category-icon cyan">
+                    <span class="icon icon-lg"><i data-lucide="target"></i></span>
+                </div>
+                <h2 class="category-title">
+                    <span class="ar">الميزانية والتوقعات</span>
+                    <span class="en">Budgeting & Forecasting</span>
+                </h2>
+            </div>
+            <div class="reports-grid">
+                <!-- Budget vs Actual -->
+                <a href="demo-budget-actual.html" class="report-card purple" data-report="budget-actual">
+                    <div class="card-header">
+                        <div class="card-icon purple">
+                            <span class="icon icon-xl"><i data-lucide="git-compare"></i></span>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title"><span class="ar">الميزانية مقابل الفعلي</span><span class="en">Budget vs Actual</span></h3>
+                            <div class="card-title-en"><span class="ar">Budget vs Actual</span><span class="en">Variance Analysis Report</span></div>
+                        </div>
+                    </div>
+                    <p class="card-desc">
+                        <span class="ar">مقارنة الأداء الفعلي بالميزانية المخططة. تحليل الانحرافات واتخاذ الإجراءات</span>
+                        <span class="en">Compare actual performance to planned budget. Analyze variances and take action</span>
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="card-tag"><span class="ar">ميزانية</span><span class="en">Budget</span></span>
+                            <span class="card-tag"><span class="ar">انحرافات</span><span class="en">Variance</span></span>
+                        </div>
+                        <span class="card-link">
+                            <span class="ar">عرض</span><span class="en">View</span>
+                            <span class="icon icon-sm"><i data-lucide="arrow-left"></i></span>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Cash Forecast -->
+                <a href="demo-cash-forecast.html" class="report-card cyan" data-report="cash-forecast">
+                    <div class="card-header">
+                        <div class="card-icon cyan">
+                            <span class="icon icon-xl"><i data-lucide="trending-up"></i></span>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title"><span class="ar">توقعات التدفق النقدي</span><span class="en">Cash Forecast</span></h3>
+                            <div class="card-title-en"><span class="ar">Cash Flow Forecast</span><span class="en">Future Cash Projections</span></div>
+                        </div>
+                    </div>
+                    <p class="card-desc">
+                        <span class="ar">توقعات التدفقات النقدية المستقبلية. خطط للسيولة وتجنب الأزمات</span>
+                        <span class="en">Project future cash flows. Plan liquidity and avoid cash crunches</span>
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="card-tag"><span class="ar">توقعات</span><span class="en">Forecast</span></span>
+                            <span class="card-tag"><span class="ar">سيولة</span><span class="en">Liquidity</span></span>
+                        </div>
+                        <span class="card-link">
+                            <span class="ar">عرض</span><span class="en">View</span>
+                            <span class="icon icon-sm"><i data-lucide="arrow-left"></i></span>
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Category: Operational Insights -->
+        <section class="category-section" data-category="operations">
+            <div class="category-header">
+                <div class="category-icon pink">
+                    <span class="icon icon-lg"><i data-lucide="activity"></i></span>
+                </div>
+                <h2 class="category-title">
+                    <span class="ar">الرؤى التشغيلية</span>
+                    <span class="en">Operational Insights</span>
+                </h2>
+            </div>
+            <div class="reports-grid">
+                <!-- Daily Snapshot -->
+                <a href="demo-daily-snapshot.html" class="report-card yellow" data-report="daily-snapshot">
+                    <div class="card-header">
+                        <div class="card-icon yellow">
+                            <span class="icon icon-xl"><i data-lucide="sun"></i></span>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title"><span class="ar">ملخص اليوم</span><span class="en">Daily Snapshot</span></h3>
+                            <div class="card-title-en"><span class="ar">Daily Snapshot</span><span class="en">Today's Business Overview</span></div>
+                        </div>
+                    </div>
+                    <p class="card-desc">
+                        <span class="ar">نظرة سريعة على أداء اليوم. المبيعات والمصروفات والتنبيهات الهامة</span>
+                        <span class="en">Quick glance at today's performance. Sales, expenses, and important alerts</span>
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="card-tag"><span class="ar">يومي</span><span class="en">Daily</span></span>
+                            <span class="card-tag"><span class="ar">ملخص</span><span class="en">Summary</span></span>
+                        </div>
+                        <span class="card-link">
+                            <span class="ar">عرض</span><span class="en">View</span>
+                            <span class="icon icon-sm"><i data-lucide="arrow-left"></i></span>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Business Alerts -->
+                <a href="demo-alerts.html" class="report-card red" data-report="alerts">
+                    <div class="card-header">
+                        <div class="card-icon red">
+                            <span class="icon icon-xl"><i data-lucide="bell-ring"></i></span>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title"><span class="ar">تنبيهات الأعمال</span><span class="en">Business Alerts</span></h3>
+                            <div class="card-title-en"><span class="ar">Business Alerts & Reminders</span><span class="en">Smart Notifications</span></div>
+                        </div>
+                    </div>
+                    <p class="card-desc">
+                        <span class="ar">تنبيهات ذكية للمواعيد الهامة. الضرائب والرواتب والفواتير المستحقة</span>
+                        <span class="en">Smart alerts for important deadlines. Taxes, payroll, and due invoices</span>
+                    </p>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="card-tag"><span class="ar">تنبيهات</span><span class="en">Alerts</span></span>
+                            <span class="card-tag"><span class="ar">تذكيرات</span><span class="en">Reminders</span></span>
+                        </div>
+                        <span class="card-link">
+                            <span class="ar">عرض</span><span class="en">View</span>
+                            <span class="icon icon-sm"><i data-lucide="arrow-left"></i></span>
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-text">
+            <span class="ar">جميع التقارير تفاعلية وتدعم التصدير بصيغة PDF. <a href="index.html" class="footer-link">العودة للرئيسية</a></span>
+            <span class="en">All reports are interactive and support PDF export. <a href="index.html" class="footer-link">Back to Home</a></span>
+        </p>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Language Toggle
+        function setLang(lang) {
+            const html = document.getElementById('html-root');
+            const langBtns = document.querySelectorAll('.lang-btn');
+            const searchInput = document.getElementById('searchInput');
+            
+            if (lang === 'en') {
+                html.setAttribute('dir', 'ltr');
+                html.setAttribute('lang', 'en');
+                searchInput.placeholder = 'Search reports...';
+            } else {
+                html.setAttribute('dir', 'rtl');
+                html.setAttribute('lang', 'ar');
+                searchInput.placeholder = 'ابحث في التقارير...';
+            }
+            
+            langBtns.forEach(btn => btn.classList.remove('active'));
+            langBtns.forEach(btn => {
+                if ((lang === 'en' && btn.textContent === 'English') || 
+                    (lang === 'ar' && btn.textContent === 'العربية')) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Re-initialize icons after direction change
+            lucide.createIcons();
+        }
+
+        // Filter Reports by Search
+        function filterReports(searchTerm) {
+            const cards = document.querySelectorAll('.report-card');
+            const searchLower = searchTerm.toLowerCase();
+            
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                const match = text.includes(searchLower);
+                card.style.display = match ? '' : 'none';
+            });
+            
+            // Show/hide empty categories
+            document.querySelectorAll('.category-section').forEach(section => {
+                const visibleCards = section.querySelectorAll('.report-card:not([style*="display: none"])');
+                section.style.display = visibleCards.length > 0 ? '' : 'none';
+            });
+        }
+
+        // Filter by Category
+        function filterByCategory(category) {
+            const sections = document.querySelectorAll('.category-section');
+            const btns = document.querySelectorAll('.quick-action-btn');
+            
+            // Update active button
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.quick-action-btn').classList.add('active');
+            
+            // Show/hide sections
+            if (category === 'all') {
+                sections.forEach(section => {
+                    section.style.display = '';
+                    section.querySelectorAll('.report-card').forEach(card => card.style.display = '');
+                });
+            } else {
+                sections.forEach(section => {
+                    const sectionCategory = section.getAttribute('data-category');
+                    section.style.display = sectionCategory === category ? '' : 'none';
+                });
+            }
+            
+            // Clear search
+            document.getElementById('searchInput').value = '';
+        }
+    </script>
+</body>
+</html>
