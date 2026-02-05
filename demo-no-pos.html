@@ -645,6 +645,145 @@
             .quick-add-buttons { grid-template-columns: repeat(2, 1fr); }
             .breakdown-item { grid-template-columns: 60px 1fr 60px; gap: 0.5rem; }
         }
+        
+        /* ============================================== */
+        /* BUSINESS ALERTS SECTION STYLES */
+        /* ============================================== */
+        
+        .alerts-section { margin-top: 3rem; animation: fadeIn 0.8s ease forwards; }
+        
+        .alerts-header { text-align: center; margin-bottom: 2rem; }
+        .alerts-header .page-subtitle { max-width: 700px; }
+        
+        /* Alert Categories Grid */
+        .alerts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+        @media(max-width: 1024px) { .alerts-grid { grid-template-columns: 1fr; } }
+        
+        /* Alert Panel */
+        .alert-panel { background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.9)); border-radius: 20px; border: 1px solid #1e293b; overflow: hidden; transition: all 0.3s; }
+        .alert-panel:hover { border-color: rgba(167,139,250,0.3); }
+        .alert-panel.financial:hover { border-color: rgba(167,139,250,0.5); }
+        .alert-panel.regulatory:hover { border-color: rgba(251,191,36,0.5); }
+        
+        .alert-panel-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid #1e293b; display: flex; align-items: center; gap: 1rem; }
+        .alert-panel-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .alert-panel-icon.financial { background: linear-gradient(135deg, rgba(167,139,250,0.2), rgba(129,140,248,0.2)); color: #a78bfa; }
+        .alert-panel-icon.regulatory { background: linear-gradient(135deg, rgba(251,191,36,0.2), rgba(245,158,11,0.2)); color: #fbbf24; }
+        .alert-panel-label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+        .alert-panel-title { font-size: 1rem; font-weight: 700; }
+        .alert-panel-count { margin-right: auto; margin-left: 0; display: flex; align-items: center; gap: 0.5rem; }
+        [dir="ltr"] .alert-panel-count { margin-left: auto; margin-right: 0; }
+        .alert-count-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; padding: 0 0.5rem; }
+        .alert-count-badge.urgent { background: rgba(239,68,68,0.2); color: #ef4444; }
+        .alert-count-badge.warning { background: rgba(251,191,36,0.2); color: #fbbf24; }
+        .alert-count-badge.ok { background: rgba(52,211,153,0.2); color: #34d399; }
+        
+        .alert-panel-content { padding: 1rem; max-height: 400px; overflow-y: auto; }
+        
+        /* Alert Item */
+        .alert-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 1rem; background: rgba(51,65,85,0.2); border-radius: 12px; margin-bottom: 0.75rem; transition: all 0.3s; border: 1px solid transparent; cursor: pointer; }
+        .alert-item:last-child { margin-bottom: 0; }
+        .alert-item:hover { background: rgba(51,65,85,0.4); }
+        .alert-item.urgent { border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.1); }
+        .alert-item.warning { border-color: rgba(251,191,36,0.3); background: rgba(251,191,36,0.05); }
+        .alert-item.completed { opacity: 0.6; }
+        .alert-item.completed .alert-item-title { text-decoration: line-through; }
+        
+        .alert-item-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .alert-item-icon.vat { background: rgba(167,139,250,0.2); color: #a78bfa; }
+        .alert-item-icon.electricity { background: rgba(251,191,36,0.2); color: #fbbf24; }
+        .alert-item-icon.rent { background: rgba(52,211,153,0.2); color: #34d399; }
+        .alert-item-icon.salary { background: rgba(59,130,246,0.2); color: #3b82f6; }
+        .alert-item-icon.labor { background: rgba(236,72,153,0.2); color: #ec4899; }
+        .alert-item-icon.internet { background: rgba(6,182,212,0.2); color: #06b6d4; }
+        .alert-item-icon.municipality { background: rgba(251,146,60,0.2); color: #fb923c; }
+        .alert-item-icon.cr { background: rgba(139,92,246,0.2); color: #8b5cf6; }
+        .alert-item-icon.gosi { background: rgba(34,197,94,0.2); color: #22c55e; }
+        .alert-item-icon.other { background: rgba(148,163,184,0.2); color: #94a3b8; }
+        
+        .alert-item-content { flex: 1; min-width: 0; }
+        .alert-item-title { font-size: 0.9rem; font-weight: 600; color: #e2e8f0; margin-bottom: 0.25rem; }
+        .alert-item-desc { font-size: 0.75rem; color: #64748b; margin-bottom: 0.5rem; }
+        .alert-item-meta { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+        
+        .alert-due-date { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 6px; background: rgba(51,65,85,0.5); color: #94a3b8; }
+        .alert-due-date.urgent { background: rgba(239,68,68,0.2); color: #ef4444; }
+        .alert-due-date.warning { background: rgba(251,191,36,0.2); color: #fbbf24; }
+        .alert-due-date.ok { background: rgba(52,211,153,0.2); color: #34d399; }
+        
+        .alert-frequency { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.7rem; color: #64748b; }
+        
+        .alert-item-actions { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end; }
+        .alert-action-btn { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s; }
+        .alert-action-btn.complete { background: rgba(52,211,153,0.2); color: #34d399; }
+        .alert-action-btn.complete:hover { background: rgba(52,211,153,0.4); }
+        .alert-action-btn.remind { background: rgba(59,130,246,0.2); color: #3b82f6; }
+        .alert-action-btn.remind:hover { background: rgba(59,130,246,0.4); }
+        .alert-item.completed .alert-action-btn.complete { background: #34d399; color: #020617; }
+        
+        /* Alert Summary Stats */
+        .alert-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        @media(max-width: 768px) { .alert-summary { grid-template-columns: repeat(2, 1fr); } }
+        
+        .alert-stat { background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.9)); border-radius: 16px; border: 1px solid #1e293b; padding: 1.25rem; text-align: center; transition: all 0.3s; }
+        .alert-stat:hover { border-color: rgba(167,139,250,0.3); }
+        .alert-stat-icon { margin-bottom: 0.75rem; color: #64748b; }
+        .alert-stat.urgent .alert-stat-icon { color: #ef4444; }
+        .alert-stat.warning .alert-stat-icon { color: #fbbf24; }
+        .alert-stat.upcoming .alert-stat-icon { color: #3b82f6; }
+        .alert-stat.completed .alert-stat-icon { color: #34d399; }
+        .alert-stat-value { font-size: 1.75rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
+        .alert-stat.urgent .alert-stat-value { color: #ef4444; }
+        .alert-stat.warning .alert-stat-value { color: #fbbf24; }
+        .alert-stat.upcoming .alert-stat-value { color: #3b82f6; }
+        .alert-stat.completed .alert-stat-value { color: #34d399; }
+        .alert-stat-label { font-size: 0.75rem; color: #64748b; }
+        
+        /* Add Alert Button */
+        .add-alert-section { text-align: center; padding: 1.5rem; background: rgba(51,65,85,0.2); border-radius: 16px; border: 1px dashed #334155; margin-top: 1rem; }
+        .add-alert-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #a78bfa, #818cf8); border: none; border-radius: 10px; color: #020617; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .add-alert-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(167,139,250,0.3); }
+        
+        /* Calendar Preview */
+        .alert-calendar-preview { background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.9)); border-radius: 20px; border: 1px solid #1e293b; padding: 1.5rem; margin-top: 2rem; }
+        .calendar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+        .calendar-title { display: flex; align-items: center; gap: 0.75rem; font-size: 1rem; font-weight: 600; }
+        .calendar-title-icon { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(167,139,250,0.2)); display: flex; align-items: center; justify-content: center; color: #a78bfa; }
+        .calendar-nav { display: flex; gap: 0.5rem; }
+        .calendar-nav-btn { width: 32px; height: 32px; border-radius: 8px; border: 1px solid #334155; background: transparent; color: #94a3b8; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
+        .calendar-nav-btn:hover { border-color: #a78bfa; color: #a78bfa; }
+        
+        .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; }
+        .calendar-day-header { text-align: center; font-size: 0.7rem; color: #64748b; padding: 0.5rem; font-weight: 600; }
+        .calendar-day { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; font-size: 0.85rem; color: #94a3b8; background: rgba(51,65,85,0.2); cursor: pointer; transition: all 0.3s; position: relative; }
+        .calendar-day:hover { background: rgba(51,65,85,0.4); }
+        .calendar-day.today { background: rgba(167,139,250,0.2); color: #a78bfa; border: 1px solid rgba(167,139,250,0.3); }
+        .calendar-day.has-alert { position: relative; }
+        .calendar-day.has-alert::after { content: ''; position: absolute; bottom: 4px; width: 6px; height: 6px; border-radius: 50%; }
+        .calendar-day.has-urgent::after { background: #ef4444; }
+        .calendar-day.has-warning::after { background: #fbbf24; }
+        .calendar-day.has-normal::after { background: #3b82f6; }
+        .calendar-day.other-month { opacity: 0.4; }
+        
+        /* Notification Settings */
+        .notification-settings { background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.9)); border-radius: 20px; border: 1px solid #1e293b; padding: 1.5rem; margin-top: 1.5rem; }
+        .notification-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+        .notification-icon { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(96,165,250,0.2)); display: flex; align-items: center; justify-content: center; color: #3b82f6; }
+        .notification-title { font-size: 1rem; font-weight: 600; }
+        .notification-options { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .notification-option { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; background: rgba(51,65,85,0.3); border-radius: 10px; cursor: pointer; transition: all 0.3s; border: 1px solid transparent; }
+        .notification-option:hover { background: rgba(51,65,85,0.5); }
+        .notification-option.active { border-color: rgba(167,139,250,0.5); background: rgba(167,139,250,0.1); }
+        .notification-option i { color: #64748b; }
+        .notification-option.active i { color: #a78bfa; }
+        .notification-option span { font-size: 0.85rem; color: #94a3b8; }
+        .notification-option.active span { color: #e2e8f0; }
+        
+        @media(max-width: 768px) {
+            .alert-summary { grid-template-columns: 1fr 1fr; }
+            .calendar-days { gap: 0.25rem; }
+            .calendar-day { font-size: 0.75rem; }
+        }
     </style>
 </head>
 <body>
@@ -1605,6 +1744,578 @@
                     <span class="en">VAT Report</span>
                 </button>
             </div>
+        </div>
+    </div>
+    
+    <!-- ============================================== -->
+    <!-- BUSINESS ALERTS & REMINDERS SECTION -->
+    <!-- ============================================== -->
+    <div class="alerts-section" id="alerts-section">
+        <div class="section-divider">
+            <div class="divider-line"></div>
+            <div class="divider-badge">
+                <i data-lucide="bell-ring" class="icon"></i>
+                <span class="ar">التنبيهات والتذكيرات</span>
+                <span class="en">Alerts & Reminders</span>
+            </div>
+            <div class="divider-line"></div>
+        </div>
+        
+        <div class="alerts-header">
+            <h2 class="page-title">
+                <span class="ar">لا تفوّت أي موعد <span class="gradient-text">مهم</span></span>
+                <span class="en">Never Miss an <span class="gradient-text">Important</span> Deadline</span>
+            </h2>
+            <p class="page-subtitle">
+                <span class="ar">تنبيهات ذكية لمواعيد الدفع والتراخيص والالتزامات التنظيمية - ركّز على نمو أعمالك</span>
+                <span class="en">Smart alerts for payment deadlines, licenses & regulatory obligations - focus on growing your business</span>
+            </p>
+        </div>
+        
+        <!-- Alert Summary Stats -->
+        <div class="alert-summary">
+            <div class="alert-stat urgent">
+                <div class="alert-stat-icon"><i data-lucide="alert-triangle" class="icon icon-xl"></i></div>
+                <div class="alert-stat-value" id="urgent-count">2</div>
+                <div class="alert-stat-label"><span class="ar">عاجل</span><span class="en">Urgent</span></div>
+            </div>
+            <div class="alert-stat warning">
+                <div class="alert-stat-icon"><i data-lucide="clock" class="icon icon-xl"></i></div>
+                <div class="alert-stat-value" id="warning-count">3</div>
+                <div class="alert-stat-label"><span class="ar">هذا الأسبوع</span><span class="en">This Week</span></div>
+            </div>
+            <div class="alert-stat upcoming">
+                <div class="alert-stat-icon"><i data-lucide="calendar" class="icon icon-xl"></i></div>
+                <div class="alert-stat-value" id="upcoming-count">5</div>
+                <div class="alert-stat-label"><span class="ar">قادم</span><span class="en">Upcoming</span></div>
+            </div>
+            <div class="alert-stat completed">
+                <div class="alert-stat-icon"><i data-lucide="check-circle" class="icon icon-xl"></i></div>
+                <div class="alert-stat-value" id="completed-count">8</div>
+                <div class="alert-stat-label"><span class="ar">مكتمل</span><span class="en">Completed</span></div>
+            </div>
+        </div>
+        
+        <!-- Alert Panels Grid -->
+        <div class="alerts-grid">
+            <!-- Financial Payments Panel -->
+            <div class="alert-panel financial">
+                <div class="alert-panel-header">
+                    <div class="alert-panel-icon financial">
+                        <i data-lucide="wallet" class="icon icon-xl"></i>
+                    </div>
+                    <div>
+                        <div class="alert-panel-label"><span class="ar">المدفوعات</span><span class="en">Payments</span></div>
+                        <div class="alert-panel-title"><span class="ar">الالتزامات المالية</span><span class="en">Financial Obligations</span></div>
+                    </div>
+                    <div class="alert-panel-count">
+                        <span class="alert-count-badge urgent" id="financial-urgent">2</span>
+                        <span class="alert-count-badge warning" id="financial-warning">2</span>
+                    </div>
+                </div>
+                
+                <div class="alert-panel-content" id="financial-alerts">
+                    <!-- VAT Filing -->
+                    <div class="alert-item urgent" data-alert-id="vat-filing" onclick="toggleAlertDetails('vat-filing')">
+                        <div class="alert-item-icon vat">
+                            <i data-lucide="percent" class="icon"></i>
+                        </div>
+                        <div class="alert-item-content">
+                            <div class="alert-item-title">
+                                <span class="ar">تقديم إقرار ضريبة القيمة المضافة</span>
+                                <span class="en">VAT Filing Deadline</span>
+                            </div>
+                            <div class="alert-item-desc">
+                                <span class="ar">Q4 2025 - هيئة الزكاة والضريبة والجمارك</span>
+                                <span class="en">Q4 2025 - ZATCA Submission</span>
+                            </div>
+                            <div class="alert-item-meta">
+                                <span class="alert-due-date urgent">
+                                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                                    <span class="ar">٣١ يناير ٢٠٢٦</span>
+                                    <span class="en">Jan 31, 2026</span>
+                                </span>
+                                <span class="alert-frequency">
+                                    <i data-lucide="repeat" class="icon icon-sm"></i>
+                                    <span class="ar">ربع سنوي</span>
+                                    <span class="en">Quarterly</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="alert-item-actions">
+                            <button class="alert-action-btn complete" onclick="event.stopPropagation(); markAlertComplete('vat-filing')" title="Mark as done">
+                                <i data-lucide="check" class="icon icon-sm"></i>
+                            </button>
+                            <button class="alert-action-btn remind" onclick="event.stopPropagation(); setReminder('vat-filing')" title="Set reminder">
+                                <i data-lucide="bell" class="icon icon-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Electricity -->
+                    <div class="alert-item urgent" data-alert-id="electricity" onclick="toggleAlertDetails('electricity')">
+                        <div class="alert-item-icon electricity">
+                            <i data-lucide="zap" class="icon"></i>
+                        </div>
+                        <div class="alert-item-content">
+                            <div class="alert-item-title">
+                                <span class="ar">فاتورة الكهرباء</span>
+                                <span class="en">Electricity Bill</span>
+                            </div>
+                            <div class="alert-item-desc">
+                                <span class="ar">الشركة السعودية للكهرباء - حساب #12345678</span>
+                                <span class="en">Saudi Electricity Co. - Account #12345678</span>
+                            </div>
+                            <div class="alert-item-meta">
+                                <span class="alert-due-date urgent">
+                                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                                    <span class="ar">٥ فبراير ٢٠٢٦</span>
+                                    <span class="en">Feb 5, 2026</span>
+                                </span>
+                                <span class="alert-frequency">
+                                    <i data-lucide="repeat" class="icon icon-sm"></i>
+                                    <span class="ar">شهري</span>
+                                    <span class="en">Monthly</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="alert-item-actions">
+                            <button class="alert-action-btn complete" onclick="event.stopPropagation(); markAlertComplete('electricity')" title="Mark as done">
+                                <i data-lucide="check" class="icon icon-sm"></i>
+                            </button>
+                            <button class="alert-action-btn remind" onclick="event.stopPropagation(); setReminder('electricity')" title="Set reminder">
+                                <i data-lucide="bell" class="icon icon-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Rent Payment -->
+                    <div class="alert-item warning" data-alert-id="rent" onclick="toggleAlertDetails('rent')">
+                        <div class="alert-item-icon rent">
+                            <i data-lucide="home" class="icon"></i>
+                        </div>
+                        <div class="alert-item-content">
+                            <div class="alert-item-title">
+                                <span class="ar">إيجار المحل/المكتب</span>
+                                <span class="en">Shop/Office Rent</span>
+                            </div>
+                            <div class="alert-item-desc">
+                                <span class="ar">إيجار شهري - عقد إيجار</span>
+                                <span class="en">Monthly rent - Lease agreement</span>
+                            </div>
+                            <div class="alert-item-meta">
+                                <span class="alert-due-date warning">
+                                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                                    <span class="ar">١٠ فبراير ٢٠٢٦</span>
+                                    <span class="en">Feb 10, 2026</span>
+                                </span>
+                                <span class="alert-frequency">
+                                    <i data-lucide="repeat" class="icon icon-sm"></i>
+                                    <span class="ar">شهري</span>
+                                    <span class="en">Monthly</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="alert-item-actions">
+                            <button class="alert-action-btn complete" onclick="event.stopPropagation(); markAlertComplete('rent')" title="Mark as done">
+                                <i data-lucide="check" class="icon icon-sm"></i>
+                            </button>
+                            <button class="alert-action-btn remind" onclick="event.stopPropagation(); setReminder('rent')" title="Set reminder">
+                                <i data-lucide="bell" class="icon icon-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Salary Payment -->
+                    <div class="alert-item warning" data-alert-id="salary" onclick="toggleAlertDetails('salary')">
+                        <div class="alert-item-icon salary">
+                            <i data-lucide="users" class="icon"></i>
+                        </div>
+                        <div class="alert-item-content">
+                            <div class="alert-item-title">
+                                <span class="ar">رواتب الموظفين</span>
+                                <span class="en">Employee Salaries</span>
+                            </div>
+                            <div class="alert-item-desc">
+                                <span class="ar">رواتب شهر فبراير - ٥ موظفين</span>
+                                <span class="en">February salaries - 5 employees</span>
+                            </div>
+                            <div class="alert-item-meta">
+                                <span class="alert-due-date warning">
+                                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                                    <span class="ar">٢٨ فبراير ٢٠٢٦</span>
+                                    <span class="en">Feb 28, 2026</span>
+                                </span>
+                                <span class="alert-frequency">
+                                    <i data-lucide="repeat" class="icon icon-sm"></i>
+                                    <span class="ar">شهري</span>
+                                    <span class="en">Monthly</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="alert-item-actions">
+                            <button class="alert-action-btn complete" onclick="event.stopPropagation(); markAlertComplete('salary')" title="Mark as done">
+                                <i data-lucide="check" class="icon icon-sm"></i>
+                            </button>
+                            <button class="alert-action-btn remind" onclick="event.stopPropagation(); setReminder('salary')" title="Set reminder">
+                                <i data-lucide="bell" class="icon icon-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Labor Payment (Weekly) -->
+                    <div class="alert-item" data-alert-id="labor" onclick="toggleAlertDetails('labor')">
+                        <div class="alert-item-icon labor">
+                            <i data-lucide="hard-hat" class="icon"></i>
+                        </div>
+                        <div class="alert-item-content">
+                            <div class="alert-item-title">
+                                <span class="ar">أجور العمالة</span>
+                                <span class="en">Labor Wages</span>
+                            </div>
+                            <div class="alert-item-desc">
+                                <span class="ar">دفعة أسبوعية - ٣ عمال</span>
+                                <span class="en">Weekly payment - 3 workers</span>
+                            </div>
+                            <div class="alert-item-meta">
+                                <span class="alert-due-date ok">
+                                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                                    <span class="ar">١٢ فبراير ٢٠٢٦</span>
+                                    <span class="en">Feb 12, 2026</span>
+                                </span>
+                                <span class="alert-frequency">
+                                    <i data-lucide="repeat" class="icon icon-sm"></i>
+                                    <span class="ar">أسبوعي</span>
+                                    <span class="en">Weekly</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="alert-item-actions">
+                            <button class="alert-action-btn complete" onclick="event.stopPropagation(); markAlertComplete('labor')" title="Mark as done">
+                                <i data-lucide="check" class="icon icon-sm"></i>
+                            </button>
+                            <button class="alert-action-btn remind" onclick="event.stopPropagation(); setReminder('labor')" title="Set reminder">
+                                <i data-lucide="bell" class="icon icon-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Internet/Utilities -->
+                    <div class="alert-item" data-alert-id="internet" onclick="toggleAlertDetails('internet')">
+                        <div class="alert-item-icon internet">
+                            <i data-lucide="wifi" class="icon"></i>
+                        </div>
+                        <div class="alert-item-content">
+                            <div class="alert-item-title">
+                                <span class="ar">فاتورة الإنترنت</span>
+                                <span class="en">Internet Bill</span>
+                            </div>
+                            <div class="alert-item-desc">
+                                <span class="ar">STC - باقة الأعمال</span>
+                                <span class="en">STC - Business Package</span>
+                            </div>
+                            <div class="alert-item-meta">
+                                <span class="alert-due-date ok">
+                                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                                    <span class="ar">١٥ فبراير ٢٠٢٦</span>
+                                    <span class="en">Feb 15, 2026</span>
+                                </span>
+                                <span class="alert-frequency">
+                                    <i data-lucide="repeat" class="icon icon-sm"></i>
+                                    <span class="ar">شهري</span>
+                                    <span class="en">Monthly</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="alert-item-actions">
+                            <button class="alert-action-btn complete" onclick="event.stopPropagation(); markAlertComplete('internet')" title="Mark as done">
+                                <i data-lucide="check" class="icon icon-sm"></i>
+                            </button>
+                            <button class="alert-action-btn remind" onclick="event.stopPropagation(); setReminder('internet')" title="Set reminder">
+                                <i data-lucide="bell" class="icon icon-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Regulatory Compliance Panel -->
+            <div class="alert-panel regulatory">
+                <div class="alert-panel-header">
+                    <div class="alert-panel-icon regulatory">
+                        <i data-lucide="shield-check" class="icon icon-xl"></i>
+                    </div>
+                    <div>
+                        <div class="alert-panel-label"><span class="ar">التراخيص</span><span class="en">Licenses</span></div>
+                        <div class="alert-panel-title"><span class="ar">الالتزامات التنظيمية</span><span class="en">Regulatory Compliance</span></div>
+                    </div>
+                    <div class="alert-panel-count">
+                        <span class="alert-count-badge warning" id="regulatory-warning">1</span>
+                        <span class="alert-count-badge ok" id="regulatory-ok">3</span>
+                    </div>
+                </div>
+                
+                <div class="alert-panel-content" id="regulatory-alerts">
+                    <!-- Municipality License -->
+                    <div class="alert-item warning" data-alert-id="municipality" onclick="toggleAlertDetails('municipality')">
+                        <div class="alert-item-icon municipality">
+                            <i data-lucide="landmark" class="icon"></i>
+                        </div>
+                        <div class="alert-item-content">
+                            <div class="alert-item-title">
+                                <span class="ar">رخصة البلدية</span>
+                                <span class="en">Municipality License</span>
+                            </div>
+                            <div class="alert-item-desc">
+                                <span class="ar">تجديد رخصة النشاط التجاري - أمانة الرياض</span>
+                                <span class="en">Commercial activity license renewal - Riyadh Municipality</span>
+                            </div>
+                            <div class="alert-item-meta">
+                                <span class="alert-due-date warning">
+                                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                                    <span class="ar">١٥ مارس ٢٠٢٦</span>
+                                    <span class="en">Mar 15, 2026</span>
+                                </span>
+                                <span class="alert-frequency">
+                                    <i data-lucide="repeat" class="icon icon-sm"></i>
+                                    <span class="ar">سنوي</span>
+                                    <span class="en">Yearly</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="alert-item-actions">
+                            <button class="alert-action-btn complete" onclick="event.stopPropagation(); markAlertComplete('municipality')" title="Mark as done">
+                                <i data-lucide="check" class="icon icon-sm"></i>
+                            </button>
+                            <button class="alert-action-btn remind" onclick="event.stopPropagation(); setReminder('municipality')" title="Set reminder">
+                                <i data-lucide="bell" class="icon icon-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Commercial Registration (CR) -->
+                    <div class="alert-item" data-alert-id="cr" onclick="toggleAlertDetails('cr')">
+                        <div class="alert-item-icon cr">
+                            <i data-lucide="file-badge" class="icon"></i>
+                        </div>
+                        <div class="alert-item-content">
+                            <div class="alert-item-title">
+                                <span class="ar">السجل التجاري (CR)</span>
+                                <span class="en">Commercial Registration (CR)</span>
+                            </div>
+                            <div class="alert-item-desc">
+                                <span class="ar">تجديد السجل التجاري - وزارة التجارة</span>
+                                <span class="en">CR Renewal - Ministry of Commerce</span>
+                            </div>
+                            <div class="alert-item-meta">
+                                <span class="alert-due-date ok">
+                                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                                    <span class="ar">٢٠ يونيو ٢٠٢٦</span>
+                                    <span class="en">Jun 20, 2026</span>
+                                </span>
+                                <span class="alert-frequency">
+                                    <i data-lucide="repeat" class="icon icon-sm"></i>
+                                    <span class="ar">سنوي</span>
+                                    <span class="en">Yearly</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="alert-item-actions">
+                            <button class="alert-action-btn complete" onclick="event.stopPropagation(); markAlertComplete('cr')" title="Mark as done">
+                                <i data-lucide="check" class="icon icon-sm"></i>
+                            </button>
+                            <button class="alert-action-btn remind" onclick="event.stopPropagation(); setReminder('cr')" title="Set reminder">
+                                <i data-lucide="bell" class="icon icon-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- GOSI -->
+                    <div class="alert-item" data-alert-id="gosi" onclick="toggleAlertDetails('gosi')">
+                        <div class="alert-item-icon gosi">
+                            <i data-lucide="heart-handshake" class="icon"></i>
+                        </div>
+                        <div class="alert-item-content">
+                            <div class="alert-item-title">
+                                <span class="ar">التأمينات الاجتماعية (GOSI)</span>
+                                <span class="en">Social Insurance (GOSI)</span>
+                            </div>
+                            <div class="alert-item-desc">
+                                <span class="ar">اشتراكات فبراير - المؤسسة العامة للتأمينات</span>
+                                <span class="en">February contributions - GOSI</span>
+                            </div>
+                            <div class="alert-item-meta">
+                                <span class="alert-due-date ok">
+                                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                                    <span class="ar">١٥ مارس ٢٠٢٦</span>
+                                    <span class="en">Mar 15, 2026</span>
+                                </span>
+                                <span class="alert-frequency">
+                                    <i data-lucide="repeat" class="icon icon-sm"></i>
+                                    <span class="ar">شهري</span>
+                                    <span class="en">Monthly</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="alert-item-actions">
+                            <button class="alert-action-btn complete" onclick="event.stopPropagation(); markAlertComplete('gosi')" title="Mark as done">
+                                <i data-lucide="check" class="icon icon-sm"></i>
+                            </button>
+                            <button class="alert-action-btn remind" onclick="event.stopPropagation(); setReminder('gosi')" title="Set reminder">
+                                <i data-lucide="bell" class="icon icon-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Chamber of Commerce -->
+                    <div class="alert-item" data-alert-id="chamber" onclick="toggleAlertDetails('chamber')">
+                        <div class="alert-item-icon other">
+                            <i data-lucide="building-2" class="icon"></i>
+                        </div>
+                        <div class="alert-item-content">
+                            <div class="alert-item-title">
+                                <span class="ar">اشتراك الغرفة التجارية</span>
+                                <span class="en">Chamber of Commerce</span>
+                            </div>
+                            <div class="alert-item-desc">
+                                <span class="ar">تجديد العضوية السنوية - غرفة الرياض</span>
+                                <span class="en">Annual membership renewal - Riyadh Chamber</span>
+                            </div>
+                            <div class="alert-item-meta">
+                                <span class="alert-due-date ok">
+                                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                                    <span class="ar">١ أبريل ٢٠٢٦</span>
+                                    <span class="en">Apr 1, 2026</span>
+                                </span>
+                                <span class="alert-frequency">
+                                    <i data-lucide="repeat" class="icon icon-sm"></i>
+                                    <span class="ar">سنوي</span>
+                                    <span class="en">Yearly</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="alert-item-actions">
+                            <button class="alert-action-btn complete" onclick="event.stopPropagation(); markAlertComplete('chamber')" title="Mark as done">
+                                <i data-lucide="check" class="icon icon-sm"></i>
+                            </button>
+                            <button class="alert-action-btn remind" onclick="event.stopPropagation(); setReminder('chamber')" title="Set reminder">
+                                <i data-lucide="bell" class="icon icon-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Saudization / Nitaqat -->
+                    <div class="alert-item" data-alert-id="nitaqat" onclick="toggleAlertDetails('nitaqat')">
+                        <div class="alert-item-icon other">
+                            <i data-lucide="pie-chart" class="icon"></i>
+                        </div>
+                        <div class="alert-item-content">
+                            <div class="alert-item-title">
+                                <span class="ar">نطاقات (السعودة)</span>
+                                <span class="en">Nitaqat (Saudization)</span>
+                            </div>
+                            <div class="alert-item-desc">
+                                <span class="ar">مراجعة نسبة التوطين - وزارة الموارد البشرية</span>
+                                <span class="en">Saudization ratio review - HRSD</span>
+                            </div>
+                            <div class="alert-item-meta">
+                                <span class="alert-due-date ok">
+                                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                                    <span class="ar">١ يوليو ٢٠٢٦</span>
+                                    <span class="en">Jul 1, 2026</span>
+                                </span>
+                                <span class="alert-frequency">
+                                    <i data-lucide="repeat" class="icon icon-sm"></i>
+                                    <span class="ar">ربع سنوي</span>
+                                    <span class="en">Quarterly</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="alert-item-actions">
+                            <button class="alert-action-btn complete" onclick="event.stopPropagation(); markAlertComplete('nitaqat')" title="Mark as done">
+                                <i data-lucide="check" class="icon icon-sm"></i>
+                            </button>
+                            <button class="alert-action-btn remind" onclick="event.stopPropagation(); setReminder('nitaqat')" title="Set reminder">
+                                <i data-lucide="bell" class="icon icon-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Calendar Preview -->
+        <div class="alert-calendar-preview">
+            <div class="calendar-header">
+                <div class="calendar-title">
+                    <div class="calendar-title-icon">
+                        <i data-lucide="calendar-days" class="icon"></i>
+                    </div>
+                    <span>
+                        <span class="ar">تقويم المواعيد - فبراير ٢٠٢٦</span>
+                        <span class="en">Deadline Calendar - February 2026</span>
+                    </span>
+                </div>
+                <div class="calendar-nav">
+                    <button class="calendar-nav-btn" onclick="navigateCalendar(-1)">
+                        <i data-lucide="chevron-right" class="icon"></i>
+                    </button>
+                    <button class="calendar-nav-btn" onclick="navigateCalendar(1)">
+                        <i data-lucide="chevron-left" class="icon"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="calendar-days" id="calendar-grid">
+                <!-- Day headers -->
+                <div class="calendar-day-header"><span class="ar">أحد</span><span class="en">Sun</span></div>
+                <div class="calendar-day-header"><span class="ar">إثن</span><span class="en">Mon</span></div>
+                <div class="calendar-day-header"><span class="ar">ثلا</span><span class="en">Tue</span></div>
+                <div class="calendar-day-header"><span class="ar">أرب</span><span class="en">Wed</span></div>
+                <div class="calendar-day-header"><span class="ar">خمي</span><span class="en">Thu</span></div>
+                <div class="calendar-day-header"><span class="ar">جمع</span><span class="en">Fri</span></div>
+                <div class="calendar-day-header"><span class="ar">سبت</span><span class="en">Sat</span></div>
+                <!-- Calendar days will be populated by JS -->
+            </div>
+        </div>
+        
+        <!-- Notification Settings -->
+        <div class="notification-settings">
+            <div class="notification-header">
+                <div class="notification-icon">
+                    <i data-lucide="bell" class="icon"></i>
+                </div>
+                <div class="notification-title">
+                    <span class="ar">إعدادات التنبيهات</span>
+                    <span class="en">Notification Settings</span>
+                </div>
+            </div>
+            <div class="notification-options">
+                <div class="notification-option active" onclick="toggleNotification(this, 'email')">
+                    <i data-lucide="mail" class="icon"></i>
+                    <span><span class="ar">بريد إلكتروني</span><span class="en">Email</span></span>
+                </div>
+                <div class="notification-option active" onclick="toggleNotification(this, 'sms')">
+                    <i data-lucide="smartphone" class="icon"></i>
+                    <span>SMS</span>
+                </div>
+                <div class="notification-option" onclick="toggleNotification(this, 'whatsapp')">
+                    <i data-lucide="message-circle" class="icon"></i>
+                    <span>WhatsApp</span>
+                </div>
+                <div class="notification-option active" onclick="toggleNotification(this, 'push')">
+                    <i data-lucide="bell-ring" class="icon"></i>
+                    <span><span class="ar">إشعارات فورية</span><span class="en">Push</span></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Add Custom Alert -->
+        <div class="add-alert-section">
+            <button class="add-alert-btn" onclick="showAddAlertModal()">
+                <i data-lucide="plus-circle" class="icon"></i>
+                <span class="ar">إضافة تنبيه جديد</span>
+                <span class="en">Add New Alert</span>
+            </button>
         </div>
     </div>
 </main>
@@ -3507,6 +4218,325 @@ async function processBulkSalesInvoices() {
     // Clear after delay
     await sleep(2000);
     clearSalesBulkUpload();
+}
+
+// ============================================== //
+// BUSINESS ALERTS FUNCTIONALITY
+// ============================================== //
+
+// Alert data structure
+const businessAlerts = {
+    financial: [
+        { id: 'vat-filing', type: 'vat', dueDate: new Date('2026-01-31'), status: 'urgent', completed: false },
+        { id: 'electricity', type: 'electricity', dueDate: new Date('2026-02-05'), status: 'urgent', completed: false },
+        { id: 'rent', type: 'rent', dueDate: new Date('2026-02-10'), status: 'warning', completed: false },
+        { id: 'salary', type: 'salary', dueDate: new Date('2026-02-28'), status: 'warning', completed: false },
+        { id: 'labor', type: 'labor', dueDate: new Date('2026-02-12'), status: 'ok', completed: false },
+        { id: 'internet', type: 'internet', dueDate: new Date('2026-02-15'), status: 'ok', completed: false }
+    ],
+    regulatory: [
+        { id: 'municipality', type: 'municipality', dueDate: new Date('2026-03-15'), status: 'warning', completed: false },
+        { id: 'cr', type: 'cr', dueDate: new Date('2026-06-20'), status: 'ok', completed: false },
+        { id: 'gosi', type: 'gosi', dueDate: new Date('2026-03-15'), status: 'ok', completed: false },
+        { id: 'chamber', type: 'chamber', dueDate: new Date('2026-04-01'), status: 'ok', completed: false },
+        { id: 'nitaqat', type: 'nitaqat', dueDate: new Date('2026-07-01'), status: 'ok', completed: false }
+    ]
+};
+
+// Notification settings
+const notificationSettings = {
+    email: true,
+    sms: true,
+    whatsapp: false,
+    push: true
+};
+
+// Initialize alerts on page load
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        initializeAlerts();
+        populateCalendar();
+    }, 1000);
+});
+
+function initializeAlerts() {
+    updateAlertCounts();
+    lucide.createIcons();
+}
+
+// Mark alert as complete
+function markAlertComplete(alertId) {
+    const alertEl = document.querySelector(`[data-alert-id="${alertId}"]`);
+    if (!alertEl) return;
+    
+    const isCompleted = alertEl.classList.toggle('completed');
+    
+    // Update alert data
+    for (const category of ['financial', 'regulatory']) {
+        const alert = businessAlerts[category].find(a => a.id === alertId);
+        if (alert) {
+            alert.completed = isCompleted;
+            break;
+        }
+    }
+    
+    // Show feedback
+    const btn = alertEl.querySelector('.alert-action-btn.complete');
+    if (isCompleted) {
+        btn.innerHTML = '<i data-lucide="check-circle" class="icon icon-sm"></i>';
+        showAlertToast(isArabic() ? 'تم إكمال المهمة!' : 'Task completed!', 'success');
+    } else {
+        btn.innerHTML = '<i data-lucide="check" class="icon icon-sm"></i>';
+        showAlertToast(isArabic() ? 'تم إلغاء الإكمال' : 'Marked as incomplete', 'info');
+    }
+    
+    lucide.createIcons();
+    updateAlertCounts();
+}
+
+// Set reminder for alert
+function setReminder(alertId) {
+    const alert = [...businessAlerts.financial, ...businessAlerts.regulatory].find(a => a.id === alertId);
+    if (!alert) return;
+    
+    showAlertToast(
+        isArabic() 
+            ? 'تم تفعيل التذكير! ستصلك إشعارات قبل الموعد' 
+            : 'Reminder set! You\'ll receive notifications before the deadline',
+        'success'
+    );
+    
+    // Visual feedback
+    const alertEl = document.querySelector(`[data-alert-id="${alertId}"]`);
+    const btn = alertEl?.querySelector('.alert-action-btn.remind');
+    if (btn) {
+        btn.style.background = 'rgba(52,211,153,0.3)';
+        btn.style.color = '#34d399';
+        setTimeout(() => {
+            btn.style.background = '';
+            btn.style.color = '';
+        }, 2000);
+    }
+}
+
+// Toggle alert details
+function toggleAlertDetails(alertId) {
+    console.log('Toggle details for:', alertId);
+}
+
+// Update alert counts
+function updateAlertCounts() {
+    let urgentCount = 0;
+    let warningCount = 0;
+    let upcomingCount = 0;
+    let completedCount = 0;
+    
+    const allAlerts = [...businessAlerts.financial, ...businessAlerts.regulatory];
+    
+    allAlerts.forEach(alert => {
+        if (alert.completed) {
+            completedCount++;
+        } else if (alert.status === 'urgent') {
+            urgentCount++;
+        } else if (alert.status === 'warning') {
+            warningCount++;
+        } else {
+            upcomingCount++;
+        }
+    });
+    
+    // Update summary stats
+    document.getElementById('urgent-count').textContent = urgentCount;
+    document.getElementById('warning-count').textContent = warningCount;
+    document.getElementById('upcoming-count').textContent = upcomingCount;
+    document.getElementById('completed-count').textContent = completedCount;
+    
+    // Update panel badges
+    const financialUrgent = businessAlerts.financial.filter(a => !a.completed && a.status === 'urgent').length;
+    const financialWarning = businessAlerts.financial.filter(a => !a.completed && a.status === 'warning').length;
+    const regulatoryWarning = businessAlerts.regulatory.filter(a => !a.completed && a.status === 'warning').length;
+    const regulatoryOk = businessAlerts.regulatory.filter(a => !a.completed && a.status === 'ok').length;
+    
+    document.getElementById('financial-urgent').textContent = financialUrgent;
+    document.getElementById('financial-warning').textContent = financialWarning;
+    document.getElementById('regulatory-warning').textContent = regulatoryWarning;
+    document.getElementById('regulatory-ok').textContent = regulatoryOk;
+}
+
+// Toggle notification option
+function toggleNotification(element, type) {
+    element.classList.toggle('active');
+    notificationSettings[type] = element.classList.contains('active');
+    
+    showAlertToast(
+        notificationSettings[type]
+            ? (isArabic() ? `تم تفعيل إشعارات ${getNotificationLabel(type)}` : `${getNotificationLabel(type)} notifications enabled`)
+            : (isArabic() ? `تم إيقاف إشعارات ${getNotificationLabel(type)}` : `${getNotificationLabel(type)} notifications disabled`),
+        'info'
+    );
+}
+
+function getNotificationLabel(type) {
+    const labels = {
+        email: isArabic() ? 'البريد الإلكتروني' : 'Email',
+        sms: 'SMS',
+        whatsapp: 'WhatsApp',
+        push: isArabic() ? 'الإشعارات الفورية' : 'Push'
+    };
+    return labels[type] || type;
+}
+
+// Show add alert modal (placeholder)
+function showAddAlertModal() {
+    showAlertToast(
+        isArabic() 
+            ? 'قريباً! إضافة تنبيهات مخصصة' 
+            : 'Coming soon! Add custom alerts',
+        'info'
+    );
+}
+
+// Navigate calendar
+let currentCalendarMonth = 1; // February (0-indexed)
+let currentCalendarYear = 2026;
+
+function navigateCalendar(direction) {
+    currentCalendarMonth += direction;
+    if (currentCalendarMonth > 11) {
+        currentCalendarMonth = 0;
+        currentCalendarYear++;
+    } else if (currentCalendarMonth < 0) {
+        currentCalendarMonth = 11;
+        currentCalendarYear--;
+    }
+    populateCalendar();
+}
+
+// Populate calendar with alerts
+function populateCalendar() {
+    const grid = document.getElementById('calendar-grid');
+    if (!grid) return;
+    
+    // Keep day headers
+    const headers = grid.querySelectorAll('.calendar-day-header');
+    grid.innerHTML = '';
+    headers.forEach(h => grid.appendChild(h));
+    
+    const year = currentCalendarYear;
+    const month = currentCalendarMonth;
+    
+    // Get first day of month and total days
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrevMonth = new Date(year, month, 0).getDate();
+    
+    // Get all alert dates for this month
+    const allAlerts = [...businessAlerts.financial, ...businessAlerts.regulatory];
+    const alertDates = {};
+    allAlerts.forEach(alert => {
+        if (!alert.completed && alert.dueDate.getMonth() === month && alert.dueDate.getFullYear() === year) {
+            const day = alert.dueDate.getDate();
+            if (!alertDates[day]) alertDates[day] = [];
+            alertDates[day].push(alert.status);
+        }
+    });
+    
+    const today = new Date();
+    const isCurrentMonth = today.getMonth() === month && today.getFullYear() === year;
+    
+    // Previous month days
+    for (let i = firstDay - 1; i >= 0; i--) {
+        const dayEl = document.createElement('div');
+        dayEl.className = 'calendar-day other-month';
+        dayEl.textContent = daysInPrevMonth - i;
+        grid.appendChild(dayEl);
+    }
+    
+    // Current month days
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayEl = document.createElement('div');
+        dayEl.className = 'calendar-day';
+        dayEl.textContent = day;
+        
+        if (isCurrentMonth && day === today.getDate()) {
+            dayEl.classList.add('today');
+        }
+        
+        if (alertDates[day]) {
+            dayEl.classList.add('has-alert');
+            if (alertDates[day].includes('urgent')) {
+                dayEl.classList.add('has-urgent');
+            } else if (alertDates[day].includes('warning')) {
+                dayEl.classList.add('has-warning');
+            } else {
+                dayEl.classList.add('has-normal');
+            }
+        }
+        
+        grid.appendChild(dayEl);
+    }
+    
+    // Next month days to fill the grid
+    const totalCells = grid.children.length;
+    const remainingCells = 42 - (totalCells - 7);
+    for (let day = 1; day <= remainingCells && totalCells + day - 7 < 42; day++) {
+        const dayEl = document.createElement('div');
+        dayEl.className = 'calendar-day other-month';
+        dayEl.textContent = day;
+        grid.appendChild(dayEl);
+    }
+    
+    // Update calendar title
+    const monthNames = isArabic() 
+        ? ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر']
+        : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    const calendarTitle = document.querySelector('.calendar-title span');
+    if (calendarTitle) {
+        calendarTitle.innerHTML = `
+            <span class="ar">تقويم المواعيد - ${monthNames[month]} ${year}</span>
+            <span class="en">Deadline Calendar - ${monthNames[month]} ${year}</span>
+        `;
+    }
+}
+
+// Show toast notification
+function showAlertToast(message, type = 'info') {
+    const existingToast = document.querySelector('.alert-toast');
+    if (existingToast) existingToast.remove();
+    
+    const toast = document.createElement('div');
+    toast.className = 'alert-toast';
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        z-index: 1000;
+        animation: fadeIn 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        ${type === 'success' 
+            ? 'background: rgba(52,211,153,0.9); color: #020617;' 
+            : 'background: rgba(167,139,250,0.9); color: #fff;'}
+    `;
+    
+    const icon = type === 'success' ? 'check-circle' : 'info';
+    toast.innerHTML = `<i data-lucide="${icon}" class="icon" style="width:18px;height:18px;"></i> ${message}`;
+    
+    document.body.appendChild(toast);
+    lucide.createIcons();
+    
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
 }
 </script>
 
