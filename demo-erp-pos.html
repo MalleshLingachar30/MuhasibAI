@@ -994,6 +994,20 @@
         .calendar-day.has-normal::after { background: #3b82f6; }
         .calendar-day.other-month { opacity: 0.4; }
         
+        /* Calendar Tooltip */
+        .calendar-tooltip { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, rgba(30,41,59,0.98), rgba(15,23,42,0.98)); border: 1px solid rgba(52,211,153,0.3); border-radius: 12px; padding: 0.75rem; min-width: 180px; max-width: 220px; z-index: 100; opacity: 0; visibility: hidden; transition: all 0.3s ease; pointer-events: none; box-shadow: 0 10px 40px rgba(0,0,0,0.4); margin-bottom: 8px; }
+        .calendar-tooltip::before { content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 12px; height: 12px; background: rgba(15,23,42,0.98); border-right: 1px solid rgba(52,211,153,0.3); border-bottom: 1px solid rgba(52,211,153,0.3); }
+        .calendar-day:hover .calendar-tooltip { opacity: 1; visibility: visible; }
+        .tooltip-title { font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; text-align: center; }
+        .tooltip-alert { display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0; border-bottom: 1px solid rgba(51,65,85,0.5); }
+        .tooltip-alert:last-child { border-bottom: none; }
+        .tooltip-alert-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .tooltip-alert-dot.urgent { background: #ef4444; }
+        .tooltip-alert-dot.warning { background: #fbbf24; }
+        .tooltip-alert-dot.ok { background: #3b82f6; }
+        .tooltip-alert-text { font-size: 0.75rem; color: #e2e8f0; line-height: 1.3; }
+        .tooltip-alert-type { font-size: 0.65rem; color: #64748b; }
+        
         /* Notification Settings */
         .notification-settings { background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.9)); border-radius: 20px; border: 1px solid #1e293b; padding: 1.5rem; margin-top: 1.5rem; }
         .notification-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
@@ -4126,6 +4140,29 @@ function navigateCalendar(direction) {
     populateCalendar();
 }
 
+// Get alert display name by type
+function getAlertName(type, arabic = false) {
+    const names = {
+        'vat': { ar: 'ضريبة القيمة المضافة', en: 'VAT Filing' },
+        'electricity': { ar: 'فاتورة الكهرباء', en: 'Electricity Bill' },
+        'rent': { ar: 'دفع الإيجار', en: 'Rent Payment' },
+        'salary': { ar: 'رواتب الموظفين', en: 'Employee Salaries' },
+        'labor': { ar: 'أجور العمالة', en: 'Labor Wages' },
+        'internet': { ar: 'فاتورة الإنترنت', en: 'Internet Bill' },
+        'municipality': { ar: 'رخصة البلدية', en: 'Municipality License' },
+        'cr': { ar: 'السجل التجاري', en: 'Commercial Registration' },
+        'gosi': { ar: 'التأمينات الاجتماعية', en: 'GOSI Payment' },
+        'chamber': { ar: 'الغرفة التجارية', en: 'Chamber of Commerce' },
+        'nitaqat': { ar: 'نطاقات', en: 'Nitaqat Review' }
+    };
+    
+    const alertName = names[type];
+    if (alertName) {
+        return arabic ? alertName.ar : alertName.en;
+    }
+    return type; // Fallback to type if not found
+}
+
 // Populate calendar with alerts
 function populateCalendar() {
     const grid = document.getElementById('calendar-grid');
@@ -4144,14 +4181,14 @@ function populateCalendar() {
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const daysInPrevMonth = new Date(year, month, 0).getDate();
     
-    // Get all alert dates for this month
+    // Get all alert dates for this month - store full alert data for tooltips
     const allAlerts = [...businessAlerts.financial, ...businessAlerts.regulatory];
     const alertDates = {};
     allAlerts.forEach(alert => {
         if (!alert.completed && alert.dueDate.getMonth() === month && alert.dueDate.getFullYear() === year) {
             const day = alert.dueDate.getDate();
             if (!alertDates[day]) alertDates[day] = [];
-            alertDates[day].push(alert.status);
+            alertDates[day].push(alert); // Store full alert object for tooltip
         }
     });
     
@@ -4178,14 +4215,39 @@ function populateCalendar() {
         
         if (alertDates[day]) {
             dayEl.classList.add('has-alert');
-            // Prioritize urgent > warning > normal
-            if (alertDates[day].includes('urgent')) {
+            const alerts = alertDates[day];
+            const statuses = alerts.map(a => a.status);
+            
+            // Prioritize urgent > warning > normal for the dot color
+            if (statuses.includes('urgent')) {
                 dayEl.classList.add('has-urgent');
-            } else if (alertDates[day].includes('warning')) {
+            } else if (statuses.includes('warning')) {
                 dayEl.classList.add('has-warning');
             } else {
                 dayEl.classList.add('has-normal');
             }
+            
+            // Create tooltip with alert details
+            const tooltip = document.createElement('div');
+            tooltip.className = 'calendar-tooltip';
+            
+            const titleText = isArabic() ? 'المهام المستحقة' : 'Due Tasks';
+            let tooltipHTML = `<div class="tooltip-title">${titleText}</div>`;
+            
+            alerts.forEach(alert => {
+                const alertName = getAlertName(alert.type, isArabic());
+                tooltipHTML += `
+                    <div class="tooltip-alert">
+                        <div class="tooltip-alert-dot ${alert.status}"></div>
+                        <div>
+                            <div class="tooltip-alert-text">${alertName}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            tooltip.innerHTML = tooltipHTML;
+            dayEl.appendChild(tooltip);
         }
         
         grid.appendChild(dayEl);
