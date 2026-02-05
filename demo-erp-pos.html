@@ -2442,7 +2442,7 @@
                     <i data-lucide="smartphone" class="icon"></i>
                     <span>SMS</span>
                 </div>
-                <div class="notification-option" onclick="toggleNotification(this, 'whatsapp')">
+                <div class="notification-option active" onclick="toggleNotification(this, 'whatsapp')">
                     <i data-lucide="message-circle" class="icon"></i>
                     <span>WhatsApp</span>
                 </div>
@@ -3920,7 +3920,7 @@ initializeAlertStatuses();
 const notificationSettings = {
     email: true,
     sms: true,
-    whatsapp: false,
+    whatsapp: true,
     push: true
 };
 
