@@ -4225,23 +4225,79 @@ async function processBulkSalesInvoices() {
 // ============================================== //
 
 // Alert data structure
+// Dynamic date calculation based on today's date
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+// Helper function to add days to today
+function addDays(days) {
+    const date = new Date(today);
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
+// Helper function to subtract days from today
+function subtractDays(days) {
+    const date = new Date(today);
+    date.setDate(date.getDate() - days);
+    return date;
+}
+
+// Calculate alert status based on days until due
+// Urgent: overdue or due within 3 days
+// Warning/This Week: due within 4-7 days
+// OK/Upcoming: due in more than 7 days
+function calculateAlertStatus(dueDate) {
+    const due = new Date(dueDate);
+    due.setHours(0, 0, 0, 0);
+    const diffTime = due - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays <= 3) return 'urgent';      // Overdue or due within 3 days
+    if (diffDays <= 7) return 'warning';     // Due within 4-7 days (This Week)
+    return 'ok';                              // Due in more than 7 days (Upcoming)
+}
+
 const businessAlerts = {
     financial: [
-        { id: 'vat-filing', type: 'vat', dueDate: new Date('2026-01-31'), status: 'urgent', completed: false },
-        { id: 'electricity', type: 'electricity', dueDate: new Date('2026-02-05'), status: 'urgent', completed: false },
-        { id: 'rent', type: 'rent', dueDate: new Date('2026-02-10'), status: 'warning', completed: false },
-        { id: 'salary', type: 'salary', dueDate: new Date('2026-02-28'), status: 'warning', completed: false },
-        { id: 'labor', type: 'labor', dueDate: new Date('2026-02-12'), status: 'ok', completed: false },
-        { id: 'internet', type: 'internet', dueDate: new Date('2026-02-15'), status: 'ok', completed: false }
+        // Overdue: VAT filing was due 5 days ago
+        { id: 'vat-filing', type: 'vat', dueDate: subtractDays(5), completed: false },
+        // Urgent: Electricity due today
+        { id: 'electricity', type: 'electricity', dueDate: addDays(0), completed: false },
+        // Urgent: Rent due in 2 days
+        { id: 'rent', type: 'rent', dueDate: addDays(2), completed: false },
+        // This Week: Labor wages due in 5 days
+        { id: 'labor', type: 'labor', dueDate: addDays(5), completed: false },
+        // This Week: Internet due in 7 days
+        { id: 'internet', type: 'internet', dueDate: addDays(7), completed: false },
+        // Upcoming: Salary due in 23 days
+        { id: 'salary', type: 'salary', dueDate: addDays(23), completed: false }
     ],
     regulatory: [
-        { id: 'municipality', type: 'municipality', dueDate: new Date('2026-03-15'), status: 'warning', completed: false },
-        { id: 'cr', type: 'cr', dueDate: new Date('2026-06-20'), status: 'ok', completed: false },
-        { id: 'gosi', type: 'gosi', dueDate: new Date('2026-03-15'), status: 'ok', completed: false },
-        { id: 'chamber', type: 'chamber', dueDate: new Date('2026-04-01'), status: 'ok', completed: false },
-        { id: 'nitaqat', type: 'nitaqat', dueDate: new Date('2026-07-01'), status: 'ok', completed: false }
+        // Upcoming: GOSI due in 10 days
+        { id: 'gosi', type: 'gosi', dueDate: addDays(10), completed: false },
+        // Upcoming: Municipality license due in 38 days
+        { id: 'municipality', type: 'municipality', dueDate: addDays(38), completed: false },
+        // Upcoming: Chamber membership due in 55 days
+        { id: 'chamber', type: 'chamber', dueDate: addDays(55), completed: false },
+        // Upcoming: CR renewal due in 135 days
+        { id: 'cr', type: 'cr', dueDate: addDays(135), completed: false },
+        // Upcoming: Nitaqat review due in 146 days
+        { id: 'nitaqat', type: 'nitaqat', dueDate: addDays(146), completed: false }
     ]
 };
+
+// Calculate status for each alert based on due date
+function initializeAlertStatuses() {
+    for (const category of ['financial', 'regulatory']) {
+        businessAlerts[category].forEach(alert => {
+            alert.status = calculateAlertStatus(alert.dueDate);
+        });
+    }
+}
+
+// Initialize statuses on load
+initializeAlertStatuses();
 
 // Notification settings
 const notificationSettings = {
@@ -4260,8 +4316,54 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeAlerts() {
+    updateAlertElements();
     updateAlertCounts();
     lucide.createIcons();
+}
+
+// Format date for display
+function formatAlertDate(date, arabic = false) {
+    const months = arabic 
+        ? ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر']
+        : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    
+    if (arabic) {
+        const arabicNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+        const toArabicNum = (num) => num.toString().split('').map(d => arabicNumerals[parseInt(d)]).join('');
+        return `${toArabicNum(day)} ${month} ${toArabicNum(year)}`;
+    }
+    return `${month} ${day}, ${year}`;
+}
+
+// Update alert DOM elements with dynamic dates and statuses
+function updateAlertElements() {
+    const allAlerts = [...businessAlerts.financial, ...businessAlerts.regulatory];
+    
+    allAlerts.forEach(alert => {
+        const alertEl = document.querySelector(`[data-alert-id="${alert.id}"]`);
+        if (!alertEl) return;
+        
+        // Update status class
+        alertEl.classList.remove('urgent', 'warning', 'ok');
+        alertEl.classList.add(alert.status);
+        
+        // Update due date display
+        const dueDateEl = alertEl.querySelector('.alert-due-date');
+        if (dueDateEl) {
+            dueDateEl.classList.remove('urgent', 'warning', 'ok');
+            dueDateEl.classList.add(alert.status);
+            
+            const arSpan = dueDateEl.querySelector('.ar');
+            const enSpan = dueDateEl.querySelector('.en');
+            
+            if (arSpan) arSpan.textContent = formatAlertDate(alert.dueDate, true);
+            if (enSpan) enSpan.textContent = formatAlertDate(alert.dueDate, false);
+        }
+    });
 }
 
 // Mark alert as complete
@@ -4326,8 +4428,11 @@ function toggleAlertDetails(alertId) {
 
 // Update alert counts
 function updateAlertCounts() {
+    // Recalculate statuses based on current date
+    initializeAlertStatuses();
+    
     let urgentCount = 0;
-    let warningCount = 0;
+    let thisWeekCount = 0;  // "This Week" = warning status (4-7 days)
     let upcomingCount = 0;
     let completedCount = 0;
     
@@ -4339,7 +4444,7 @@ function updateAlertCounts() {
         } else if (alert.status === 'urgent') {
             urgentCount++;
         } else if (alert.status === 'warning') {
-            warningCount++;
+            thisWeekCount++;  // Warning = This Week (4-7 days)
         } else {
             upcomingCount++;
         }
@@ -4347,19 +4452,19 @@ function updateAlertCounts() {
     
     // Update summary stats
     document.getElementById('urgent-count').textContent = urgentCount;
-    document.getElementById('warning-count').textContent = warningCount;
+    document.getElementById('warning-count').textContent = thisWeekCount;  // "This Week" count
     document.getElementById('upcoming-count').textContent = upcomingCount;
     document.getElementById('completed-count').textContent = completedCount;
     
-    // Update panel badges
+    // Update panel badges - count by status within each category
     const financialUrgent = businessAlerts.financial.filter(a => !a.completed && a.status === 'urgent').length;
-    const financialWarning = businessAlerts.financial.filter(a => !a.completed && a.status === 'warning').length;
-    const regulatoryWarning = businessAlerts.regulatory.filter(a => !a.completed && a.status === 'warning').length;
-    const regulatoryOk = businessAlerts.regulatory.filter(a => !a.completed && a.status === 'ok').length;
+    const financialOther = businessAlerts.financial.filter(a => !a.completed && a.status !== 'urgent').length;
+    const regulatoryUrgent = businessAlerts.regulatory.filter(a => !a.completed && a.status === 'urgent').length;
+    const regulatoryOk = businessAlerts.regulatory.filter(a => !a.completed && a.status !== 'urgent').length;
     
     document.getElementById('financial-urgent').textContent = financialUrgent;
-    document.getElementById('financial-warning').textContent = financialWarning;
-    document.getElementById('regulatory-warning').textContent = regulatoryWarning;
+    document.getElementById('financial-warning').textContent = financialOther;
+    document.getElementById('regulatory-warning').textContent = regulatoryUrgent;
     document.getElementById('regulatory-ok').textContent = regulatoryOk;
 }
 
